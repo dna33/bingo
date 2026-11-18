@@ -48,12 +48,13 @@ userSchema.methods.generateJwt = function() {
 
 	return jwt.sign({
 		_id: this._id,
+    kind: 'player',
 		email: this.email,
 		name: this.name,
 		balance: this.balance,
 		wins: this.wins,
 		exp: parseInt(expiry.getTime() / 1000)
-	},  process.env.DB_SECRET);
+	}, process.env.DB_SECRET, { issuer: 'bingo', audience: 'bingo-player' });
 };
 
 mongoose.model('Users', userSchema);

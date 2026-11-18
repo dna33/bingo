@@ -1,0 +1,33 @@
+{
+  "recordedAt": "2026-11-17T20:25:46.278407+00:00",
+  "node": "22.16.0",
+  "api": {
+    "passed": 112,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 194458.744167
+  },
+  "interface": {
+    "passed": 153,
+    "suites": 34
+  },
+  "build": "passed",
+  "lint": {
+    "errors": 0,
+    "warnings": 6,
+    "scope": "pre-existing line length warnings"
+  },
+  "logsSha256": {
+    "api": "7d704b42ebaca81ef57e19e71c60549cff167501500a67ec595388c4cfe9836b",
+    "interface": "4c9f09de7d0294a7b34a520206756c9da675aa92aba538d8f3c196ec2f4aea42",
+    "build": "0d86172c9cac977e12e522dae438fa2f919cd629e6f886ef342bed501f2b3502",
+    "lint": "a3cff6c7e60445dc3b34fabbe08c68f3fbfd080d87db79a0f44ef67d43e19b68"
+  },
+  "directedBackupVerification": {
+    "passed": 4,
+    "failed": 0,
+    "includesPartialUniqueIndexes": true,
+    "logSha256": "c01470b5ed5322a32ea2aebf7f459b247eb4818c1cffea55819367bfb31fd8bd"
+  },
+  "syntaxAndDiffCheck": "passed"
+}

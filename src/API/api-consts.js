@@ -1,15 +1,19 @@
+import { publicNetwork } from '../../config/public-network';
+
+const { consoleUrl, apiBaseUrl } = publicNetwork(window.BINGO_CONFIG);
 const ApiConsts = {
-  CONF: 'http://localhost:8000/config.json',
-  REGISTER: 'http://localhost:8888/bingo-api/register',
-  LOGIN: 'http://localhost:8888/bingo-api/login',
-  PROFILE: 'http://localhost:8888/bingo-api/profile',
-  SET_BALANCE: 'http://localhost:8888/bingo-api/setNewBalance',
-  GET_PLAYERS_DATA: 'http://localhost:8888/bingo-api/getPlayersData',
-  CREATE_PLAYER: 'http://localhost:8888/bingo-api/createPlayer',
-  UPDATE_PLAYER_DATA: 'http://localhost:8888/bingo-api/updatePlayerData',
-  DELETE_PLAYER: 'http://localhost:8888/bingo-api/deletePlayer',
-  LOGIN_ADMIN: 'http://localhost:8888/bingo-api/loginAdmin',
-  SET_WINS: 'http://localhost:8888/bingo-api/setWins'
+  PILOT: `${apiBaseUrl}/pilot`,
+  CONF: `${consoleUrl}/config.json`,
+  REGISTER: `${apiBaseUrl}/register`,
+  LOGIN: `${apiBaseUrl}/login`,
+  PROFILE: `${apiBaseUrl}/profile`,
+  SET_BALANCE: `${apiBaseUrl}/setNewBalance`,
+  GET_PLAYERS_DATA: `${apiBaseUrl}/getPlayersData`,
+  CREATE_PLAYER: `${apiBaseUrl}/createPlayer`,
+  UPDATE_PLAYER_DATA: `${apiBaseUrl}/updatePlayerData`,
+  DELETE_PLAYER: `${apiBaseUrl}/deletePlayer`,
+  LOGIN_ADMIN: `${apiBaseUrl}/loginAdmin`,
+  SET_WINS: `${apiBaseUrl}/setWins`
 };
 
 export default ApiConsts;

@@ -1,0 +1,41 @@
+{
+  "recordedAt": "2026-11-17T20:50:46.866185+00:00",
+  "api": {
+    "passed": 113,
+    "failed": 0,
+    "durationMs": 193671.625708
+  },
+  "interface": {
+    "passed": 160,
+    "suites": 34
+  },
+  "build": "passed",
+  "lint": {
+    "errors": 0,
+    "warnings": 6
+  },
+  "nativeAudio": {
+    "browser": "Chrome headless",
+    "audioContext": "running",
+    "realOscillators": 2,
+    "repeatBeforeAcknowledgement": true,
+    "silenceAfterAcknowledgement": true,
+    "countdownRendered": true,
+    "scope": "synthetic components; no real provider; physical audibility not verified"
+  },
+  "logsSha256": {
+    "api": "ee01258ce53fb8a96f49b3545cacf30e1bf9a3e64fc7a8c4c61bf892155da3fc",
+    "interface": "3f3b97716fcd4bb1dcbac11b451eb36f969632ee1250ae41eb036dfb44001125",
+    "build": "2368a8f31c637d9fba3c9acff7e50699ec6ffb66a1c9abf47d298c9b4a4fd5df",
+    "lint": "6f98c6c5f34c29140282398401622b73b7d451ce909465e1a3a7f67be227af0a",
+    "audio": "dc074060f545ada14f68132821ada79614c6d19cdd7b3b4b0dc5ced493d98352"
+  },
+  "comparison": {
+    "baselineSha256": "c34c16e72b683132bd81fa30504e41bf72dd41016c3f385a79134fa779ad121d",
+    "optimizedSha256": "62380e562a01b08f2aaf64ed63d530adbc026da4dd2ad955caf94b8e628c8a9f",
+    "sameEnvironmentCsvLayoutsBallsAndFirstTies": true,
+    "measuredSourceHashesMatchCurrentCode": true,
+    "drawSamplesPerVolume": 60
+  },
+  "syntaxAndDiffCheck": "passed"
+}

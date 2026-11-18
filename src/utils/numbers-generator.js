@@ -15,20 +15,16 @@ const NumbersGenerator = {
 	 * @returns {Array}
 	 */
 	getColumnNumbers(arrNumbers, countNums = 5) {
-		let objAdded = {}, arrOutput = [], i, l;
-
-		for(i = 0, l = arrNumbers.length; i < l; ++i) {
-			let randomNum = this.getRandomNumber(arrNumbers[1] , arrNumbers[14]);
-
-			if(objAdded.hasOwnProperty(randomNum) || arrOutput.length === countNums) {
-				continue;
-			}
-
-			arrOutput.push(randomNum);
-			objAdded[randomNum] = 1;
+		if (!Number.isInteger(countNums) || countNums < 0 || countNums > arrNumbers.length ||
+			new Set(arrNumbers).size !== arrNumbers.length) {
+			throw new RangeError('Expected distinct numbers and a valid sample size');
 		}
-
-		return arrOutput;
+		const available = arrNumbers.slice();
+		for (let i = 0; i < countNums; i++) {
+			const j = this.getRandomNumber(i, available.length - 1);
+			[available[i], available[j]] = [available[j], available[i]];
+		}
+		return available.slice(0, countNums);
 	}
 
 };

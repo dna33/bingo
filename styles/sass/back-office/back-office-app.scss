@@ -54,3 +54,59 @@ footer {
   text-align: center;
   color: red;
 }
+.pilot-console {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #202b38;
+  header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 26px; }
+  h2 { font-size: 21px; }
+  h3 { font-size: 18px; }
+  section, > form { padding: 20px; background: white; border: 1px solid #ccd2da; border-radius: 6px; margin: 20px 0; }
+  label { display: block; font-weight: 600; margin: 12px 0; }
+  input, select { display: block; box-sizing: border-box; max-width: 100%; min-height: 44px; width: 460px; padding: 8px; font: inherit; color: inherit; background: white; border: 1px solid #798797; }
+  button { min-height: 44px; padding: 8px 16px; margin: 8px 8px 8px 0; font: inherit; cursor: pointer; background: #552a78; color: white; border: 1px solid #552a78; border-radius: 4px; }
+  button:disabled { background: #e4e7eb; color: #526071; border-color: #bdc5cf; cursor: default; }
+  a { color: #552a78; text-decoration: underline; }
+  :focus-visible { outline: 3px solid #005ea8; outline-offset: 3px; }
+  [role="alert"] { padding: 16px; border: 2px solid #a21a23; background: #fff5f4; }
+  .pilot-table { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; border-bottom: 1px solid #ccd2da; padding: 12px; overflow-wrap: anywhere; }
+  td form { min-width: 230px; }
+  td input, td select { width: 100%; }
+  small { overflow-wrap: anywhere; }
+  details { margin-top: 20px; }
+  summary { cursor: pointer; padding: 8px 0; }
+}
+@media (max-width: 600px) { .pilot-console { padding: 12px; section { padding: 12px; } } }
+
+.pilot-console {
+  textarea { display: block; box-sizing: border-box; padding: 8px; font: inherit; max-width: 100%; width: 460px; }
+  input[type="checkbox"] { display: inline-block; width: 24px; min-height: 24px; vertical-align: middle; margin-right: 8px; }
+  .game-figures { display: flex; flex-wrap: wrap; gap: 16px; }
+  .game-figures fieldset, .game-figures article { border: 1px solid #ccd2da; padding: 12px; max-width: 100%; flex: 1 1 240px; min-width: 200px; }
+  .game-mask { display: grid; grid-template-columns: repeat(5, 38px); margin: 12px 0; width: max-content; }
+  .game-mask-cell { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1px solid #798797; box-sizing: border-box; background: white; font-size: 14px; }
+  .game-mask-cell.required { background: #e4def2; font-weight: bold; }
+  .game-mask-cell.matched { background: #c9e9d2; border: 2px solid #236337; }
+  .game-mask-cell.pending { border: 2px dashed #773e08; }
+  .game-current { font-weight: bold; font-size: 24px; }
+}
+
+.candidate-alerts {
+  border: 2px solid #2e5169;
+  padding: 1rem;
+  margin: 1rem 0;
+  .unacknowledged {
+    border-left: 5px solid #9a4d00;
+    background: #fff4de;
+    color: #302619;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+  }
+}

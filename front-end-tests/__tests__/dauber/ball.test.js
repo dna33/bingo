@@ -33,8 +33,10 @@ describe('Ball module', () => {
     expect(ball.draw).toBeTruthy();
     const el = document.createElement('div');
     el.setAttribute('id', '#tube');
+		const timeoutSpy = jest.spyOn(global, 'setTimeout');
 		ball.draw(el, 4, true);
-		expect(setTimeout).toHaveBeenCalledTimes(1);
+		expect(timeoutSpy).toHaveBeenCalledTimes(1);
+		timeoutSpy.mockRestore();
 	});
 
   test('Should have methods moveVerticalHorizontal and animate', (done) => {

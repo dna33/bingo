@@ -7,12 +7,7 @@ import Logout from './components/Logout';
 import BackOffice from './components/BackOffice';
 import ApiCtrl from '../API/api-controller';
 
-ApiCtrl.getPlayersDataPromise().then((data) => {
-	CRUDStore.init(data);
-
-	// Start the app when the data is fetched from the database
-	startApp();
-});
+import PilotConsole from './components/PilotConsole';
 
 const startApp = () => {
 	ReactDOM.render(
@@ -31,3 +26,11 @@ const startApp = () => {
 		document.getElementById('backOfficeApp')
 	);
 };
+
+if (window.location.search.includes('legacy=1')) {
+  ApiCtrl.getPlayersDataPromise().then(data => {
+    CRUDStore.init(Array.isArray(data) ? data : []); startApp();
+  }).catch(() => { CRUDStore.init([]); startApp(); });
+} else {
+  ReactDOM.render(<PilotConsole />, document.getElementById('backOfficeApp'));
+}

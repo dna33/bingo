@@ -1,0 +1,1936 @@
+{
+  "version": 1,
+  "syntheticOnly": true,
+  "realMessagesSent": 0,
+  "realCreditsExecuted": 0,
+  "startedAt": "2026-11-17T20:48:49.993Z",
+  "parameters": {
+    "volumes": [
+      3000,
+      10000
+    ],
+    "draws": 60,
+    "trials": 3,
+    "mode": "load"
+  },
+  "loads": [
+    {
+      "cards": 3000,
+      "seed": "bingo-etapa8-3000-draws-v1",
+      "numbers": [
+        58,
+        57,
+        53,
+        72,
+        71,
+        14,
+        15,
+        62,
+        7,
+        64,
+        6,
+        19,
+        42,
+        35,
+        22,
+        40,
+        73,
+        34,
+        63,
+        59,
+        61,
+        36,
+        1,
+        12,
+        28,
+        31,
+        47,
+        41,
+        48,
+        52,
+        2,
+        32,
+        21,
+        46,
+        65,
+        68,
+        16,
+        13,
+        17,
+        4,
+        51,
+        24,
+        43,
+        67,
+        5,
+        11,
+        45,
+        3,
+        69,
+        10,
+        50,
+        37,
+        20,
+        54,
+        75,
+        25,
+        44,
+        33,
+        56,
+        55
+      ],
+      "maskProfile": "brief reference masks, seven simultaneous figures; rules confirmed only for this synthetic edition",
+      "consoles": 2,
+      "playerSessions": 0,
+      "extractionMode": "manual real React review/confirm control; HTTP and MongoDB are real",
+      "primaryConsole": {
+        "samples": 60,
+        "p50Ms": 125.09999996423721,
+        "p95Ms": 149.19999998807907,
+        "maxMs": 159.0999999642372
+      },
+      "peerConsole": {
+        "samples": 60,
+        "p50Ms": 975.89990234375,
+        "p95Ms": 989.699951171875,
+        "maxMs": 1000.89990234375
+      },
+      "persistentAlerts": {
+        "samples": 26,
+        "p50Ms": 90.199951171875,
+        "p95Ms": 107.60009765625,
+        "maxMs": 108.199951171875
+      },
+      "peerPersistentAlerts": {
+        "samples": 26,
+        "p50Ms": 972.89990234375,
+        "p95Ms": 996.300048828125,
+        "maxMs": 1001.5
+      },
+      "underTwoSeconds": {
+        "primary": true,
+        "peer": true,
+        "alerts": true,
+        "peerAlerts": true
+      },
+      "firstCandidates": [
+        {
+          "figure": "F",
+          "firstSequence": 40,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "A",
+          "firstSequence": 39,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "B",
+          "firstSequence": 49,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "U",
+          "firstSequence": 42,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "L",
+          "firstSequence": 34,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "S",
+          "firstSequence": 50,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "O",
+          "firstSequence": 50,
+          "primaryCandidates": 1
+        }
+      ],
+      "samples": [
+        {
+          "number": 58,
+          "sequence": 1,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 114.69999998807907,
+          "startEpochMs": 1794948659934.3,
+          "peerConsoleMs": 920.89990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 57,
+          "sequence": 2,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 112.30000001192093,
+          "startEpochMs": 1794948660869.9001,
+          "peerConsoleMs": 991.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 53,
+          "sequence": 3,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 120.19999998807907,
+          "startEpochMs": 1794948661878.8,
+          "peerConsoleMs": 974.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 72,
+          "sequence": 4,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 123,
+          "startEpochMs": 1794948662875.9001,
+          "peerConsoleMs": 984.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 71,
+          "sequence": 5,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 118.5,
+          "startEpochMs": 1794948663880.4001,
+          "peerConsoleMs": 964.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 14,
+          "sequence": 6,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 127.10000002384186,
+          "startEpochMs": 1794948664871.1,
+          "peerConsoleMs": 975.999755859375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 15,
+          "sequence": 7,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 122.39999997615814,
+          "startEpochMs": 1794948665859,
+          "peerConsoleMs": 991.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 62,
+          "sequence": 8,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 122,
+          "startEpochMs": 1794948666876.2,
+          "peerConsoleMs": 980.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 7,
+          "sequence": 9,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 127.10000002384186,
+          "startEpochMs": 1794948667871.6,
+          "peerConsoleMs": 984.2998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 64,
+          "sequence": 10,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 126.60000002384186,
+          "startEpochMs": 1794948668871.6,
+          "peerConsoleMs": 986.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 6,
+          "sequence": 11,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 126.5,
+          "startEpochMs": 1794948669871.6,
+          "peerConsoleMs": 989.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 19,
+          "sequence": 12,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 123.19999998807907,
+          "startEpochMs": 1794948670875,
+          "peerConsoleMs": 983.300048828125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 42,
+          "sequence": 13,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 149.19999998807907,
+          "startEpochMs": 1794948671882.8,
+          "peerConsoleMs": 975.89990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 35,
+          "sequence": 14,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 125.39999997615814,
+          "startEpochMs": 1794948672872.7,
+          "peerConsoleMs": 985.10009765625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 22,
+          "sequence": 15,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 126.69999998807907,
+          "startEpochMs": 1794948673871.5,
+          "peerConsoleMs": 988,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 40,
+          "sequence": 16,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 125.5,
+          "startEpochMs": 1794948674872.7,
+          "peerConsoleMs": 986.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 73,
+          "sequence": 17,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 123.60000002384186,
+          "startEpochMs": 1794948675874.6,
+          "peerConsoleMs": 985.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 34,
+          "sequence": 18,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 125.39999997615814,
+          "startEpochMs": 1794948676872.8,
+          "peerConsoleMs": 984.699951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 63,
+          "sequence": 19,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 115,
+          "startEpochMs": 1794948677883.1,
+          "peerConsoleMs": 976.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 59,
+          "sequence": 20,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 122.40000003576279,
+          "startEpochMs": 1794948678875.9001,
+          "peerConsoleMs": 983.2998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 61,
+          "sequence": 21,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 119.80000001192093,
+          "startEpochMs": 1794948679878.4001,
+          "peerConsoleMs": 966.19970703125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 36,
+          "sequence": 22,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 125.79999995231628,
+          "startEpochMs": 1794948680855.8,
+          "peerConsoleMs": 1000.89990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 1,
+          "sequence": 23,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 128.4000000357628,
+          "startEpochMs": 1794948681869.9001,
+          "peerConsoleMs": 987.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 12,
+          "sequence": 24,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 124.60000002384186,
+          "startEpochMs": 1794948682873.6,
+          "peerConsoleMs": 980.7998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 28,
+          "sequence": 25,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 115.80000001192093,
+          "startEpochMs": 1794948683882.4001,
+          "peerConsoleMs": 974.69970703125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 31,
+          "sequence": 26,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 127.5,
+          "startEpochMs": 1794948684870.7,
+          "peerConsoleMs": 988.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 47,
+          "sequence": 27,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 118.30000001192093,
+          "startEpochMs": 1794948685879.9001,
+          "peerConsoleMs": 972.999755859375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 41,
+          "sequence": 28,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 114.89999997615814,
+          "startEpochMs": 1794948686866.5,
+          "peerConsoleMs": 989.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 48,
+          "sequence": 29,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 109.80000001192093,
+          "startEpochMs": 1794948687871.4001,
+          "peerConsoleMs": 983.89990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 52,
+          "sequence": 30,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 113.60000002384186,
+          "startEpochMs": 1794948688867.7,
+          "peerConsoleMs": 989.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 2,
+          "sequence": 31,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 112.70000004768372,
+          "startEpochMs": 1794948689885.1,
+          "peerConsoleMs": 974.699951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 32,
+          "sequence": 32,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 125.09999996423721,
+          "startEpochMs": 1794948690872.8,
+          "peerConsoleMs": 983.7998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 21,
+          "sequence": 33,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 126.70000004768372,
+          "startEpochMs": 1794948691871.1,
+          "peerConsoleMs": 989.699951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 46,
+          "sequence": 34,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 122.20000004768372,
+          "startEpochMs": 1794948692875.6,
+          "peerConsoleMs": 979.699951171875,
+          "alertMs": 86.199951171875,
+          "peerAlertMs": 992.699951171875
+        },
+        {
+          "number": 65,
+          "sequence": 35,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 117,
+          "startEpochMs": 1794948693897.3,
+          "peerConsoleMs": 962.699951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 68,
+          "sequence": 36,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 123.69999998807907,
+          "startEpochMs": 1794948694874,
+          "peerConsoleMs": 983.39990234375,
+          "alertMs": 86.900146484375,
+          "peerAlertMs": 996.300048828125
+        },
+        {
+          "number": 16,
+          "sequence": 37,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 148.19999998807907,
+          "startEpochMs": 1794948695899.5,
+          "peerConsoleMs": 960.099853515625,
+          "alertMs": 103,
+          "peerAlertMs": 972.800048828125
+        },
+        {
+          "number": 13,
+          "sequence": 38,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 126.80000001192093,
+          "startEpochMs": 1794948696904.2,
+          "peerConsoleMs": 948.5,
+          "alertMs": 82.5,
+          "peerAlertMs": 960.699951171875
+        },
+        {
+          "number": 17,
+          "sequence": 39,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 148.30000001192093,
+          "startEpochMs": 1794948697882.6,
+          "peerConsoleMs": 976.699951171875,
+          "alertMs": 100.099853515625,
+          "peerAlertMs": 988.999755859375
+        },
+        {
+          "number": 4,
+          "sequence": 40,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 128,
+          "startEpochMs": 1794948698886.2,
+          "peerConsoleMs": 974.699951171875,
+          "alertMs": 85.2001953125,
+          "peerAlertMs": 995.39990234375
+        },
+        {
+          "number": 51,
+          "sequence": 41,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 126.10000002384186,
+          "startEpochMs": 1794948699904.7,
+          "peerConsoleMs": 953.199951171875,
+          "alertMs": 102.800048828125,
+          "peerAlertMs": 965.5
+        },
+        {
+          "number": 24,
+          "sequence": 42,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 117.69999998807907,
+          "startEpochMs": 1794948700879.2,
+          "peerConsoleMs": 980.60009765625,
+          "alertMs": 89.10009765625,
+          "peerAlertMs": 1001.5
+        },
+        {
+          "number": 43,
+          "sequence": 43,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 124.29999995231628,
+          "startEpochMs": 1794948701889.8,
+          "peerConsoleMs": 969.699951171875,
+          "alertMs": 84.199951171875,
+          "peerAlertMs": 981.699951171875
+        },
+        {
+          "number": 67,
+          "sequence": 44,
+          "candidateCount": 3,
+          "domAndPaintOpportunityMs": 127.29999995231628,
+          "startEpochMs": 1794948702903.3,
+          "peerConsoleMs": 957.099853515625,
+          "alertMs": 86.5,
+          "peerAlertMs": 976.39990234375
+        },
+        {
+          "number": 5,
+          "sequence": 45,
+          "candidateCount": 4,
+          "domAndPaintOpportunityMs": 156.10000002384186,
+          "startEpochMs": 1794948703890.2,
+          "peerConsoleMs": 966.699951171875,
+          "alertMs": 103.7001953125,
+          "peerAlertMs": 981.699951171875
+        },
+        {
+          "number": 11,
+          "sequence": 46,
+          "candidateCount": 9,
+          "domAndPaintOpportunityMs": 113,
+          "startEpochMs": 1794948704900.9001,
+          "peerConsoleMs": 956.599853515625,
+          "alertMs": 79.199951171875,
+          "peerAlertMs": 967.999755859375
+        },
+        {
+          "number": 45,
+          "sequence": 47,
+          "candidateCount": 9,
+          "domAndPaintOpportunityMs": 144.0999999642372,
+          "startEpochMs": 1794948705886.5,
+          "peerConsoleMs": 971.39990234375,
+          "alertMs": 99.60009765625,
+          "peerAlertMs": 982.39990234375
+        },
+        {
+          "number": 3,
+          "sequence": 48,
+          "candidateCount": 11,
+          "domAndPaintOpportunityMs": 113.89999997615814,
+          "startEpochMs": 1794948706883.3,
+          "peerConsoleMs": 976.599853515625,
+          "alertMs": 88.89990234375,
+          "peerAlertMs": 989.699951171875
+        },
+        {
+          "number": 69,
+          "sequence": 49,
+          "candidateCount": 18,
+          "domAndPaintOpportunityMs": 125.90000003576279,
+          "startEpochMs": 1794948707904.6,
+          "peerConsoleMs": 954.099853515625,
+          "alertMs": 90,
+          "peerAlertMs": 966.199951171875
+        },
+        {
+          "number": 10,
+          "sequence": 50,
+          "candidateCount": 25,
+          "domAndPaintOpportunityMs": 125.40000003576279,
+          "startEpochMs": 1794948708888.4001,
+          "peerConsoleMs": 970.599853515625,
+          "alertMs": 90.199951171875,
+          "peerAlertMs": 983.7998046875
+        },
+        {
+          "number": 50,
+          "sequence": 51,
+          "candidateCount": 28,
+          "domAndPaintOpportunityMs": 145,
+          "startEpochMs": 1794948709902.1,
+          "peerConsoleMs": 958.599853515625,
+          "alertMs": 96.199951171875,
+          "peerAlertMs": 972.39990234375
+        },
+        {
+          "number": 37,
+          "sequence": 52,
+          "candidateCount": 33,
+          "domAndPaintOpportunityMs": 111.59999996423721,
+          "startEpochMs": 1794948710885.5,
+          "peerConsoleMs": 971.800048828125,
+          "alertMs": 88.400146484375,
+          "peerAlertMs": 984.89990234375
+        },
+        {
+          "number": 20,
+          "sequence": 53,
+          "candidateCount": 29,
+          "domAndPaintOpportunityMs": 146.10000002384186,
+          "startEpochMs": 1794948711901.9001,
+          "peerConsoleMs": 957.69970703125,
+          "alertMs": 99.7998046875,
+          "peerAlertMs": 969.099853515625
+        },
+        {
+          "number": 54,
+          "sequence": 54,
+          "candidateCount": 72,
+          "domAndPaintOpportunityMs": 144.4000000357628,
+          "startEpochMs": 1794948712902.6,
+          "peerConsoleMs": 952.2998046875,
+          "alertMs": 95.099853515625,
+          "peerAlertMs": 963.2998046875
+        },
+        {
+          "number": 75,
+          "sequence": 55,
+          "candidateCount": 52,
+          "domAndPaintOpportunityMs": 147.89999997615814,
+          "startEpochMs": 1794948713899,
+          "peerConsoleMs": 959.199951171875,
+          "alertMs": 107.60009765625,
+          "peerAlertMs": 971.89990234375
+        },
+        {
+          "number": 25,
+          "sequence": 56,
+          "candidateCount": 81,
+          "domAndPaintOpportunityMs": 125,
+          "startEpochMs": 1794948714905.2,
+          "peerConsoleMs": 952.89990234375,
+          "alertMs": 86.400146484375,
+          "peerAlertMs": 966.10009765625
+        },
+        {
+          "number": 44,
+          "sequence": 57,
+          "candidateCount": 71,
+          "domAndPaintOpportunityMs": 159.0999999642372,
+          "startEpochMs": 1794948715904,
+          "peerConsoleMs": 957.099853515625,
+          "alertMs": 108.199951171875,
+          "peerAlertMs": 967.89990234375
+        },
+        {
+          "number": 33,
+          "sequence": 58,
+          "candidateCount": 131,
+          "domAndPaintOpportunityMs": 158.10000002384186,
+          "startEpochMs": 1794948716905.4001,
+          "peerConsoleMs": 950.7998046875,
+          "alertMs": 107.5,
+          "peerAlertMs": 963.999755859375
+        },
+        {
+          "number": 56,
+          "sequence": 59,
+          "candidateCount": 135,
+          "domAndPaintOpportunityMs": 144.5,
+          "startEpochMs": 1794948717885.6,
+          "peerConsoleMs": 975.39990234375,
+          "alertMs": 94.800048828125,
+          "peerAlertMs": 988.599853515625
+        },
+        {
+          "number": 55,
+          "sequence": 60,
+          "candidateCount": 203,
+          "domAndPaintOpportunityMs": 123.69999998807907,
+          "startEpochMs": 1794948718906.3,
+          "peerConsoleMs": 954.199951171875,
+          "alertMs": 93.60009765625,
+          "peerAlertMs": 972.89990234375
+        }
+      ],
+      "preparation": {
+        "importMs": 1926.7285420000003,
+        "generationMs": 10586.733874999998,
+        "pdfBytes": 12546225,
+        "readyMs": 314.96145799999795,
+        "seed": "bingo-etapa8-3000-cards-v1",
+        "csvSha256": "5173fd4cf384daa8185b5f96245122d1dbf0edcd930a9b05cc32602bf1d5c654",
+        "layoutSha256": "e7bdf77103ebe7e621bb767a2ed35c9312c44ecd734e7eb2e9566bd01e6920fb"
+      },
+      "delivery": {
+        "count": 3000,
+        "queuedMs": 4166.720584000002,
+        "workerMs": 108683.98762500001,
+        "totalMs": 112997.70679200001,
+        "processed": 3000,
+        "counts": {
+          "delivered": 3000
+        },
+        "initialJobs": 3000,
+        "clock": "worker-only virtual clock advances 110ms per clock read; no pacing sleeps",
+        "configuredSpacingMs": 100,
+        "minimumConfiguredPacingMs": 299900,
+        "limitation": "Mock provider receipt only; not email/WhatsApp throughput or proof of real delivery"
+      }
+    },
+    {
+      "cards": 10000,
+      "seed": "bingo-etapa8-10000-draws-v1",
+      "numbers": [
+        20,
+        24,
+        38,
+        48,
+        47,
+        26,
+        43,
+        19,
+        1,
+        37,
+        61,
+        31,
+        49,
+        12,
+        6,
+        50,
+        35,
+        2,
+        11,
+        41,
+        34,
+        71,
+        57,
+        10,
+        44,
+        40,
+        67,
+        17,
+        16,
+        65,
+        70,
+        33,
+        59,
+        32,
+        72,
+        39,
+        46,
+        54,
+        69,
+        7,
+        55,
+        60,
+        36,
+        45,
+        74,
+        14,
+        21,
+        27,
+        15,
+        29,
+        5,
+        56,
+        58,
+        75,
+        13,
+        30,
+        42,
+        68,
+        9,
+        52
+      ],
+      "maskProfile": "brief reference masks, seven simultaneous figures; rules confirmed only for this synthetic edition",
+      "consoles": 2,
+      "playerSessions": 0,
+      "extractionMode": "manual real React review/confirm control; HTTP and MongoDB are real",
+      "primaryConsole": {
+        "samples": 60,
+        "p50Ms": 187.20000004768372,
+        "p95Ms": 219.4000000357628,
+        "maxMs": 253
+      },
+      "peerConsole": {
+        "samples": 60,
+        "p50Ms": 974.39990234375,
+        "p95Ms": 990,
+        "maxMs": 997.099853515625
+      },
+      "persistentAlerts": {
+        "samples": 30,
+        "p50Ms": 161.900146484375,
+        "p95Ms": 195.099853515625,
+        "maxMs": 218.89990234375
+      },
+      "peerPersistentAlerts": {
+        "samples": 30,
+        "p50Ms": 973.5,
+        "p95Ms": 996.5,
+        "maxMs": 999
+      },
+      "underTwoSeconds": {
+        "primary": true,
+        "peer": true,
+        "alerts": true,
+        "peerAlerts": true
+      },
+      "firstCandidates": [
+        {
+          "figure": "F",
+          "firstSequence": 36,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "A",
+          "firstSequence": 40,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "B",
+          "firstSequence": 43,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "U",
+          "firstSequence": 38,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "L",
+          "firstSequence": 26,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "S",
+          "firstSequence": 49,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "O",
+          "firstSequence": 45,
+          "primaryCandidates": 2
+        }
+      ],
+      "samples": [
+        {
+          "number": 20,
+          "sequence": 1,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.5999999642372,
+          "startEpochMs": 1794949240348.5999,
+          "peerConsoleMs": 952.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 24,
+          "sequence": 2,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 174,
+          "startEpochMs": 1794949241322.7998,
+          "peerConsoleMs": 983.60009765625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 38,
+          "sequence": 3,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.19999998807907,
+          "startEpochMs": 1794949242332.2998,
+          "peerConsoleMs": 967.400146484375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 48,
+          "sequence": 4,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 194.89999997615814,
+          "startEpochMs": 1794949243319.4,
+          "peerConsoleMs": 984.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 47,
+          "sequence": 5,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 181.5,
+          "startEpochMs": 1794949244315.2998,
+          "peerConsoleMs": 986.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 26,
+          "sequence": 6,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 184.5,
+          "startEpochMs": 1794949245329.7,
+          "peerConsoleMs": 971,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 43,
+          "sequence": 7,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.60000002384186,
+          "startEpochMs": 1794949246314,
+          "peerConsoleMs": 989.2998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 19,
+          "sequence": 8,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 187.10000002384186,
+          "startEpochMs": 1794949247326.2,
+          "peerConsoleMs": 974.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 1,
+          "sequence": 9,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 180.5999999642372,
+          "startEpochMs": 1794949248316.9,
+          "peerConsoleMs": 984.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 37,
+          "sequence": 10,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.60000002384186,
+          "startEpochMs": 1794949249314.2,
+          "peerConsoleMs": 987.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 61,
+          "sequence": 11,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 199.60000002384186,
+          "startEpochMs": 1794949250331.2,
+          "peerConsoleMs": 969.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 31,
+          "sequence": 12,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 187.5,
+          "startEpochMs": 1794949251326.5999,
+          "peerConsoleMs": 969.300048828125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 49,
+          "sequence": 13,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 183.30000001192093,
+          "startEpochMs": 1794949252313.5,
+          "peerConsoleMs": 992,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 12,
+          "sequence": 14,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 173.60000002384186,
+          "startEpochMs": 1794949253323.2,
+          "peerConsoleMs": 976.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 6,
+          "sequence": 15,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 199.0999999642372,
+          "startEpochMs": 1794949254313.9,
+          "peerConsoleMs": 975.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 50,
+          "sequence": 16,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 193.30000001192093,
+          "startEpochMs": 1794949255303.5,
+          "peerConsoleMs": 994.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 35,
+          "sequence": 17,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 194,
+          "startEpochMs": 1794949256319.7998,
+          "peerConsoleMs": 985.300048828125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 2,
+          "sequence": 18,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 212.30000001192093,
+          "startEpochMs": 1794949257317.7,
+          "peerConsoleMs": 981.800048828125,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 11,
+          "sequence": 19,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 197,
+          "startEpochMs": 1794949258315.9,
+          "peerConsoleMs": 990,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 41,
+          "sequence": 20,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 178.60000002384186,
+          "startEpochMs": 1794949259318.2,
+          "peerConsoleMs": 985.699951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 34,
+          "sequence": 21,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.30000001192093,
+          "startEpochMs": 1794949260331.2,
+          "peerConsoleMs": 960.39990234375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 71,
+          "sequence": 22,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.39999997615814,
+          "startEpochMs": 1794949261314.2998,
+          "peerConsoleMs": 988.900146484375,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 57,
+          "sequence": 23,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 182.4000000357628,
+          "startEpochMs": 1794949262330.5,
+          "peerConsoleMs": 970.2998046875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 10,
+          "sequence": 24,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 194.5,
+          "startEpochMs": 1794949263318.4,
+          "peerConsoleMs": 985.60009765625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 44,
+          "sequence": 25,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 183.30000001192093,
+          "startEpochMs": 1794949264329.7,
+          "peerConsoleMs": 972.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 40,
+          "sequence": 26,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 187.20000004768372,
+          "startEpochMs": 1794949265325.7,
+          "peerConsoleMs": 974.39990234375,
+          "alertMs": 157.89990234375,
+          "peerAlertMs": 989.89990234375
+        },
+        {
+          "number": 67,
+          "sequence": 27,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 185.9000000357628,
+          "startEpochMs": 1794949266327.5,
+          "peerConsoleMs": 976.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 17,
+          "sequence": 28,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 193.5,
+          "startEpochMs": 1794949267319.2998,
+          "peerConsoleMs": 978.900146484375,
+          "alertMs": 156,
+          "peerAlertMs": 993.300048828125
+        },
+        {
+          "number": 16,
+          "sequence": 29,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 219.4000000357628,
+          "startEpochMs": 1794949268343,
+          "peerConsoleMs": 961.199951171875,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 65,
+          "sequence": 30,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 178.19999998807907,
+          "startEpochMs": 1794949269318,
+          "peerConsoleMs": 984.599853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 70,
+          "sequence": 31,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 191.30000001192093,
+          "startEpochMs": 1794949270321.0999,
+          "peerConsoleMs": 982.199951171875,
+          "alertMs": 154.199951171875,
+          "peerAlertMs": 993.699951171875
+        },
+        {
+          "number": 33,
+          "sequence": 32,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 183.89999997615814,
+          "startEpochMs": 1794949271345.0999,
+          "peerConsoleMs": 951.5,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 59,
+          "sequence": 33,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 189.10000002384186,
+          "startEpochMs": 1794949272306.5,
+          "peerConsoleMs": 997.099853515625,
+          "alertMs": null,
+          "peerAlertMs": null
+        },
+        {
+          "number": 32,
+          "sequence": 34,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 186.69999998807907,
+          "startEpochMs": 1794949273325.5999,
+          "peerConsoleMs": 978.800048828125,
+          "alertMs": 153.10009765625,
+          "peerAlertMs": 990.60009765625
+        },
+        {
+          "number": 72,
+          "sequence": 35,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 182.69999998807907,
+          "startEpochMs": 1794949274346.7998,
+          "peerConsoleMs": 951.900146484375,
+          "alertMs": 145.2001953125,
+          "peerAlertMs": 964
+        },
+        {
+          "number": 39,
+          "sequence": 36,
+          "candidateCount": 5,
+          "domAndPaintOpportunityMs": 188.70000004768372,
+          "startEpochMs": 1794949275324.2,
+          "peerConsoleMs": 979.300048828125,
+          "alertMs": 154.89990234375,
+          "peerAlertMs": 991.89990234375
+        },
+        {
+          "number": 46,
+          "sequence": 37,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 183.0999999642372,
+          "startEpochMs": 1794949276345.9,
+          "peerConsoleMs": 959.10009765625,
+          "alertMs": 149.5,
+          "peerAlertMs": 970.300048828125
+        },
+        {
+          "number": 54,
+          "sequence": 38,
+          "candidateCount": 5,
+          "domAndPaintOpportunityMs": 199.5,
+          "startEpochMs": 1794949277346.5999,
+          "peerConsoleMs": 957.10009765625,
+          "alertMs": 161.900146484375,
+          "peerAlertMs": 972.60009765625
+        },
+        {
+          "number": 69,
+          "sequence": 39,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 181.30000001192093,
+          "startEpochMs": 1794949278348.2,
+          "peerConsoleMs": 948.199951171875,
+          "alertMs": 158.5,
+          "peerAlertMs": 959
+        },
+        {
+          "number": 7,
+          "sequence": 40,
+          "candidateCount": 8,
+          "domAndPaintOpportunityMs": 210.69999998807907,
+          "startEpochMs": 1794949279318.9,
+          "peerConsoleMs": 983.800048828125,
+          "alertMs": 169.5,
+          "peerAlertMs": 999
+        },
+        {
+          "number": 55,
+          "sequence": 41,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 182.5999999642372,
+          "startEpochMs": 1794949280346.4,
+          "peerConsoleMs": 957.300048828125,
+          "alertMs": 156.10009765625,
+          "peerAlertMs": 970
+        },
+        {
+          "number": 60,
+          "sequence": 42,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 182.19999998807907,
+          "startEpochMs": 1794949281347.2998,
+          "peerConsoleMs": 957.400146484375,
+          "alertMs": 143.300048828125,
+          "peerAlertMs": 970.300048828125
+        },
+        {
+          "number": 36,
+          "sequence": 43,
+          "candidateCount": 19,
+          "domAndPaintOpportunityMs": 178.30000001192093,
+          "startEpochMs": 1794949282334.5,
+          "peerConsoleMs": 961,
+          "alertMs": 147.2998046875,
+          "peerAlertMs": 973.5
+        },
+        {
+          "number": 45,
+          "sequence": 44,
+          "candidateCount": 21,
+          "domAndPaintOpportunityMs": 192.80000001192093,
+          "startEpochMs": 1794949283319.5,
+          "peerConsoleMs": 982.599853515625,
+          "alertMs": 165.2998046875,
+          "peerAlertMs": 996.5
+        },
+        {
+          "number": 74,
+          "sequence": 45,
+          "candidateCount": 23,
+          "domAndPaintOpportunityMs": 186.10000002384186,
+          "startEpochMs": 1794949284343.2998,
+          "peerConsoleMs": 958.10009765625,
+          "alertMs": 159.800048828125,
+          "peerAlertMs": 969.900146484375
+        },
+        {
+          "number": 14,
+          "sequence": 46,
+          "candidateCount": 29,
+          "domAndPaintOpportunityMs": 182.80000001192093,
+          "startEpochMs": 1794949285346.2,
+          "peerConsoleMs": 958.300048828125,
+          "alertMs": 161.699951171875,
+          "peerAlertMs": 972.099853515625
+        },
+        {
+          "number": 21,
+          "sequence": 47,
+          "candidateCount": 27,
+          "domAndPaintOpportunityMs": 181.10000002384186,
+          "startEpochMs": 1794949286347.7998,
+          "peerConsoleMs": 958.300048828125,
+          "alertMs": 150.10009765625,
+          "peerAlertMs": 969.300048828125
+        },
+        {
+          "number": 27,
+          "sequence": 48,
+          "candidateCount": 43,
+          "domAndPaintOpportunityMs": 194.69999998807907,
+          "startEpochMs": 1794949287351.0999,
+          "peerConsoleMs": 949.699951171875,
+          "alertMs": 165.60009765625,
+          "peerAlertMs": 966.800048828125
+        },
+        {
+          "number": 15,
+          "sequence": 49,
+          "candidateCount": 47,
+          "domAndPaintOpportunityMs": 214.80000001192093,
+          "startEpochMs": 1794949288330.7998,
+          "peerConsoleMs": 972.400146484375,
+          "alertMs": 183.400146484375,
+          "peerAlertMs": 986.800048828125
+        },
+        {
+          "number": 29,
+          "sequence": 50,
+          "candidateCount": 76,
+          "domAndPaintOpportunityMs": 196.5999999642372,
+          "startEpochMs": 1794949289349.0999,
+          "peerConsoleMs": 954.300048828125,
+          "alertMs": 169.900146484375,
+          "peerAlertMs": 969.800048828125
+        },
+        {
+          "number": 5,
+          "sequence": 51,
+          "candidateCount": 114,
+          "domAndPaintOpportunityMs": 199.69999998807907,
+          "startEpochMs": 1794949290329.2998,
+          "peerConsoleMs": 978.400146484375,
+          "alertMs": 164.2001953125,
+          "peerAlertMs": 992.7001953125
+        },
+        {
+          "number": 56,
+          "sequence": 52,
+          "candidateCount": 115,
+          "domAndPaintOpportunityMs": 192.29999995231628,
+          "startEpochMs": 1794949291353.4,
+          "peerConsoleMs": 952.39990234375,
+          "alertMs": 165.699951171875,
+          "peerAlertMs": 962.89990234375
+        },
+        {
+          "number": 58,
+          "sequence": 53,
+          "candidateCount": 164,
+          "domAndPaintOpportunityMs": 195.5,
+          "startEpochMs": 1794949292350.2,
+          "peerConsoleMs": 956.699951171875,
+          "alertMs": 174,
+          "peerAlertMs": 969.39990234375
+        },
+        {
+          "number": 75,
+          "sequence": 54,
+          "candidateCount": 184,
+          "domAndPaintOpportunityMs": 199.4000000357628,
+          "startEpochMs": 1794949293329.7,
+          "peerConsoleMs": 975.5,
+          "alertMs": 162.5,
+          "peerAlertMs": 987
+        },
+        {
+          "number": 13,
+          "sequence": 55,
+          "candidateCount": 213,
+          "domAndPaintOpportunityMs": 199.19999998807907,
+          "startEpochMs": 1794949294329.7998,
+          "peerConsoleMs": 975.2001953125,
+          "alertMs": 174.5,
+          "peerAlertMs": 990.60009765625
+        },
+        {
+          "number": 30,
+          "sequence": 56,
+          "candidateCount": 270,
+          "domAndPaintOpportunityMs": 214.30000001192093,
+          "startEpochMs": 1794949295331.2998,
+          "peerConsoleMs": 972.10009765625,
+          "alertMs": 189.10009765625,
+          "peerAlertMs": 983.900146484375
+        },
+        {
+          "number": 42,
+          "sequence": 57,
+          "candidateCount": 309,
+          "domAndPaintOpportunityMs": 203.4000000357628,
+          "startEpochMs": 1794949296325.5,
+          "peerConsoleMs": 971.7998046875,
+          "alertMs": 179.599853515625,
+          "peerAlertMs": 985.099853515625
+        },
+        {
+          "number": 68,
+          "sequence": 58,
+          "candidateCount": 410,
+          "domAndPaintOpportunityMs": 221,
+          "startEpochMs": 1794949297341.2,
+          "peerConsoleMs": 965.300048828125,
+          "alertMs": 192.800048828125,
+          "peerAlertMs": 975.199951171875
+        },
+        {
+          "number": 9,
+          "sequence": 59,
+          "candidateCount": 502,
+          "domAndPaintOpportunityMs": 253,
+          "startEpochMs": 1794949298325.9,
+          "peerConsoleMs": 978,
+          "alertMs": 218.89990234375,
+          "peerAlertMs": 990.5
+        },
+        {
+          "number": 52,
+          "sequence": 60,
+          "candidateCount": 548,
+          "domAndPaintOpportunityMs": 229.10000002384186,
+          "startEpochMs": 1794949299349.7,
+          "peerConsoleMs": 954.89990234375,
+          "alertMs": 195.099853515625,
+          "peerAlertMs": 968.099853515625
+        }
+      ],
+      "preparation": {
+        "importMs": 16770.404249999992,
+        "generationMs": 54647.50237500001,
+        "pdfBytes": 41828548,
+        "readyMs": 882.960000000021,
+        "seed": "bingo-etapa8-10000-cards-v1",
+        "csvSha256": "0e8562ac98ce84586111ab29dee47a69d8ef34b140dbe05961f2e42c22158d6f",
+        "layoutSha256": "e4f114481ee46f3895c4f6d19dc1e31be8c8bfdebfa45facb5bc790d6a2c0b43"
+      },
+      "delivery": {
+        "count": 10000,
+        "queuedMs": 33170.00150000001,
+        "workerMs": 413594.838583,
+        "totalMs": 447235.48475,
+        "processed": 10000,
+        "counts": {
+          "delivered": 10000
+        },
+        "initialJobs": 10000,
+        "clock": "worker-only virtual clock advances 110ms per clock read; no pacing sleeps",
+        "configuredSpacingMs": 100,
+        "minimumConfiguredPacingMs": 999900,
+        "limitation": "Mock provider receipt only; not email/WhatsApp throughput or proof of real delivery"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "PA-01",
+      "status": "passed",
+      "participants": 3000
+    },
+    {
+      "id": "PA-02",
+      "status": "passed",
+      "participants": 3000,
+      "reimportWithoutDuplicates": true
+    },
+    {
+      "id": "PA-04",
+      "status": "passed",
+      "cards": 3000,
+      "allLayoutsUnique": true,
+      "allPdfHashesVerified": true
+    },
+    {
+      "id": "PA-15",
+      "status": "passed",
+      "participants": 3000,
+      "reconciliationCanClose": true
+    },
+    {
+      "id": "PA-17",
+      "status": "passed",
+      "missingCardsBlockedStart": true
+    },
+    {
+      "id": "PA-18",
+      "status": "passed",
+      "participants": 3000,
+      "simulatedProviderOnly": true
+    },
+    {
+      "id": "PA-01",
+      "status": "passed",
+      "participants": 10000
+    },
+    {
+      "id": "PA-02",
+      "status": "passed",
+      "participants": 10000,
+      "reimportWithoutDuplicates": true
+    },
+    {
+      "id": "PA-04",
+      "status": "passed",
+      "cards": 10000,
+      "allLayoutsUnique": true,
+      "allPdfHashesVerified": true
+    },
+    {
+      "id": "PA-15",
+      "status": "passed",
+      "participants": 10000,
+      "reconciliationCanClose": true
+    },
+    {
+      "id": "PA-17",
+      "status": "passed",
+      "missingCardsBlockedStart": true
+    },
+    {
+      "id": "PA-18",
+      "status": "passed",
+      "participants": 10000,
+      "simulatedProviderOnly": true
+    },
+    {
+      "id": "PA-14",
+      "status": "passed",
+      "volumes": [
+        3000,
+        10000
+      ],
+      "rnf02": [
+        {
+          "cards": 3000,
+          "primary": true,
+          "peer": true,
+          "alerts": true,
+          "peerAlerts": true
+        },
+        {
+          "cards": 10000,
+          "primary": true,
+          "peer": true,
+          "alerts": true,
+          "peerAlerts": true
+        }
+      ]
+    }
+  ],
+  "status": "passed-functional-checks",
+  "labDirectory": "/var/folders/fg/x5c7t5fs6ldgczbfrznkt9f00000gn/T/bingo-etapa8-Fmo3LT",
+  "environment": {
+    "node": "v22.16.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "25.6.0",
+    "cpu": "Apple M4 Pro",
+    "logicalCpus": 14,
+    "totalMemoryBytes": 51539607552,
+    "mongodb": "7.0.14",
+    "transport": "loopback HTTP; one-node local replica set; Chrome headless",
+    "chrome": "Chrome/157.0.8103.51"
+  },
+  "sourceFiles": {
+    "package-lock.json": "ffb23a09489ad2f9e3508bd066ce293b0fd3d5b42dc9914f7d1b045de98289d7",
+    "server.js": "71dfdac66e097894e917d88e175d93e11096e7e3df0654c33feacbcb920862a6",
+    "bingo-api/pilot/game.js": "9735357d496d31e3da96a94989a3631a08fa24ec2e55fd92eadfe35ee54860c4",
+    "bingo-api/pilot/game-engine.js": "ffe67088caa393ffbdf4f07066e52cb3f12b508a2038f097f0c9a3012c73e753",
+    "bingo-api/pilot/game-routes.js": "45c3e2ffe6e351f5f183b0ca9e021727a0cd500e3d2b175df41ce2f605d92956",
+    "bingo-api/pilot/contacts.js": "cff06f79495fab06ab0796c6a2757963ce4e38e7a5817cbb220495fccfd46e78",
+    "bingo-api/pilot/card-generator.js": "ffcd17989a4b511610cec78993d66da5607580d0508d94c7f7d144d1898bd358",
+    "bingo-api/pilot/cards.js": "b79d2b9b5590d5d6991e232a29ceb4cbb5e3f6a49d0089ae63419df07627a510",
+    "bingo-api/pilot/deliveries.js": "5791dc330a8c4c8ed73c09d6efb7a3fe5b546dc8ceaa5e03d891882e9e86a1bb",
+    "bingo-api/pilot/prizes.js": "85e9c6e2f5d763069634650ec233c7ddf40deee84e6b0f792eec9700f8cae3dc",
+    "src/back-office/components/GamePanel.js": "1595428bed7c73c769c562ef11401c07ee6e00e501438ae5f1a37431cd517cdc",
+    "src/back-office/components/CandidateAlerts.js": "c4db20874d7f479f6e05ab3d30ba85d4af18a0f632235db802406d00c4283504",
+    "scripts/rehearse-pilot.cjs": "f69439adbdb894e8406b0f306ede1d287fc1e129199bcf519410f3222c8f5fcb",
+    "scripts/rehearsal/browser.cjs": "172a770ac2a4886d96b00ea53e3985dbc6e79ff9f5b901b9670c5a73132c5f5c",
+    "scripts/rehearsal/backup.cjs": "933ae45f472d4e77e0e78edb870ceb4713db03075113ca48183286190e02bef2",
+    "scripts/rehearsal/annex.cjs": "55a18bf3a4e1b100256fb0d029dc6d8dd0aee82cfd312ab0c1f8a6db0ed57abe"
+  },
+  "annex": {
+    "seed": "bingo-etapa8-annex-v1",
+    "cards": 3000,
+    "trials": 3,
+    "model": "uniform unrestricted 1..75; unique complete layouts; fixed draw order by symmetry; no response/payment model",
+    "masks": {
+      "F": [
+        "11111",
+        "10000",
+        "11110",
+        "10000",
+        "10000"
+      ],
+      "A": [
+        "01110",
+        "10001",
+        "11111",
+        "10001",
+        "10001"
+      ],
+      "B": [
+        "11110",
+        "10001",
+        "11110",
+        "10001",
+        "11110"
+      ],
+      "U": [
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "11111"
+      ],
+      "L": [
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "11111"
+      ],
+      "S": [
+        "11111",
+        "10000",
+        "11111",
+        "00001",
+        "11111"
+      ],
+      "O": [
+        "11111",
+        "10001",
+        "10001",
+        "10001",
+        "11111"
+      ]
+    },
+    "checks": {
+      "engineProgressComparisons": 420,
+      "duplicateLayoutsRejected": 0
+    },
+    "rows": {
+      "F": {
+        "theory": {
+          "required": 11,
+          "at30": 0.032904048916178895,
+          "at40": 0.7573741031736078,
+          "at50": 0.9999999998937878,
+          "p10Draws": 33,
+          "medianDraws": 38,
+          "p90Draws": 42,
+          "tieProbability": 0.1435822584471338,
+          "expectedWinners": 1.174007507636443,
+          "individualShareProbability": 0.0003913358358788143,
+          "expectedDraws": 37.91144438861349
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 1,
+          "at50": 1,
+          "tieProbability": 0,
+          "meanFirstDraw": 37.666666666666664,
+          "meanWinners": 1,
+          "at40StandardError": 0.24749314537011666
+        }
+      },
+      "A": {
+        "theory": {
+          "required": 13,
+          "at30": 0.002833880758778946,
+          "at40": 0.2481061650296582,
+          "at50": 0.9997797612937063,
+          "p10Draws": 38,
+          "medianDraws": 43,
+          "p90Draws": 46,
+          "tieProbability": 0.15355946565231116,
+          "expectedWinners": 1.1894739509836423,
+          "individualShareProbability": 0.00039649131699454743,
+          "expectedDraws": 42.46532898072756
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 0.3333333333333333,
+          "at50": 1,
+          "tieProbability": 0.3333333333333333,
+          "meanFirstDraw": 42.333333333333336,
+          "meanWinners": 1.3333333333333333,
+          "at40StandardError": 0.24936552548680702
+        }
+      },
+      "B": {
+        "theory": {
+          "required": 15,
+          "at30": 0.0002040800440885366,
+          "at40": 0.05155194638738551,
+          "at50": 0.9483396229441649,
+          "p10Draws": 42,
+          "medianDraws": 47,
+          "p90Draws": 50,
+          "tieProbability": 0.16491610030651782,
+          "expectedWinners": 1.2075965151068306,
+          "individualShareProbability": 0.0004025321717022769,
+          "expectedDraws": 46.17261974932918
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 0,
+          "at50": 0.6666666666666666,
+          "tieProbability": 0,
+          "meanFirstDraw": 49.666666666666664,
+          "meanWinners": 1,
+          "at40StandardError": 0.1276640685693742
+        }
+      },
+      "U": {
+        "theory": {
+          "required": 13,
+          "at30": 0.002833880758778946,
+          "at40": 0.2481061650296582,
+          "at50": 0.9997797612937063,
+          "p10Draws": 38,
+          "medianDraws": 43,
+          "p90Draws": 46,
+          "tieProbability": 0.15355946565231116,
+          "expectedWinners": 1.1894739509836423,
+          "individualShareProbability": 0.00039649131699454743,
+          "expectedDraws": 42.46532898072756
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 0,
+          "at50": 1,
+          "tieProbability": 0,
+          "meanFirstDraw": 44.333333333333336,
+          "meanWinners": 1,
+          "at40StandardError": 0.24936552548680702
+        }
+      },
+      "L": {
+        "theory": {
+          "required": 9,
+          "at30": 0.28948318662723904,
+          "at40": 0.9985533884488899,
+          "at50": 1,
+          "p10Draws": 27,
+          "medianDraws": 33,
+          "p90Draws": 37,
+          "tieProbability": 0.13603034657419988,
+          "expectedWinners": 1.1624145935150658,
+          "individualShareProbability": 0.00038747153117168863,
+          "expectedDraws": 32.22596237565301
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 1,
+          "at50": 1,
+          "tieProbability": 0,
+          "meanFirstDraw": 35.333333333333336,
+          "meanWinners": 1,
+          "at40StandardError": 0.021943251552814888
+        }
+      },
+      "S": {
+        "theory": {
+          "required": 16,
+          "at30": 0.00005102391474759166,
+          "at40": 0.021811930513383513,
+          "at50": 0.8223781508806203,
+          "p10Draws": 44,
+          "medianDraws": 48,
+          "p90Draws": 51,
+          "tieProbability": 0.17094950691179633,
+          "expectedWinners": 1.217485007409415,
+          "individualShareProbability": 0.00040582833580313834,
+          "expectedDraws": 47.775951030429404
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 0,
+          "at50": 1,
+          "tieProbability": 0.3333333333333333,
+          "meanFirstDraw": 48.333333333333336,
+          "meanWinners": 1.3333333333333333,
+          "at40StandardError": 0.08433301093613509
+        }
+      },
+      "O": {
+        "theory": {
+          "required": 16,
+          "at30": 0.00005102391474759166,
+          "at40": 0.021811930513383513,
+          "at50": 0.8223781508806203,
+          "p10Draws": 44,
+          "medianDraws": 48,
+          "p90Draws": 51,
+          "tieProbability": 0.17094950691179633,
+          "expectedWinners": 1.217485007409415,
+          "individualShareProbability": 0.00040582833580313834,
+          "expectedDraws": 47.775951030429404
+        },
+        "simulation": {
+          "trials": 3,
+          "at30": 0,
+          "at40": 0,
+          "at50": 0.3333333333333333,
+          "tieProbability": 0.6666666666666666,
+          "meanFirstDraw": 50,
+          "meanWinners": 2,
+          "at40StandardError": 0.08433301093613509
+        }
+      }
+    },
+    "independentRoundsExpectedDraws": 296.7925865359096,
+    "meanSimultaneousLastDraw": 51.333333333333336,
+    "OLastIncludingTies": 0.6666666666666666,
+    "orderCounts": {
+      "LFUASBO": 1,
+      "LFAUOSB": 1,
+      "LAFUBSO": 1
+    },
+    "elapsedMs": 264.9484999999404
+  },
+  "finishedAt": "2026-11-17T21:01:40.704Z",
+  "pilotAuthorized": false,
+  "pending": [
+    "Final Fabuloso rule approval, including exhaustion/reserve policy",
+    "Live provider enablement and measured limits",
+    "Production infrastructure/network and backup RPO/RTO agreement",
+    "Human rehearsal of roles, contact workload, physical sound and actual Polla receipt references"
+  ],
+  "processMemory": {
+    "rss": 1320255488,
+    "heapTotal": 273432576,
+    "heapUsed": 199224400,
+    "external": 35632434,
+    "arrayBuffers": 32077844,
+    "maxRssKiB": 1306784,
+    "scope": "Node rehearsal/API process only; excludes MongoDB and Chrome"
+  }
+}

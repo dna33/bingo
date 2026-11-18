@@ -108,3 +108,21 @@ describe('Numbers generation util', () => {
     }
   );
 });
+
+describe('Column generation regressions', () => {
+  afterEach(() => jest.restoreAllMocks());
+  test.each([0, 0.999999])('always completes a column with random=%s', value => {
+    jest.spyOn(Math, 'random').mockReturnValue(value);
+    const input = Array.from({ length: 15 }, (_, i) => i + 1);
+    const result = NumbersGenerator.getColumnNumbers(input);
+    expect(result).toHaveLength(5);
+    expect(new Set(result).size).toBe(5);
+    expect(result.every(number => input.includes(number))).toBe(true);
+    expect(input).toEqual(Array.from({ length: 15 }, (_, i) => i + 1));
+    if (value === 0) expect(result).toContain(1);
+    else expect(result).toContain(15);
+  });
+  test('rejects an impossible sample', () => {
+    expect(() => NumbersGenerator.getColumnNumbers([1, 2], 3)).toThrow(RangeError);
+  });
+});

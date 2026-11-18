@@ -1,3 +1,4 @@
+import { EventsConsts } from '../../../src/events/events-consts';
 import ViewManipulator from '../../../src/utils/view-manipulator';
 import PubSubService from '../../../src/events/pubsub-service';
 
@@ -17,20 +18,18 @@ describe('ViewManipulator module', () => {
 
 	test('Should attach the necessary dom events listeners', () => {
 		const pubsub = new PubSubService();
-		const viewMan = new ViewManipulator(pubsub);
-		const spy = spyOn(viewMan, 'attachViewListeners');
-		setTimeout(() => {
-			expect(spy).toHaveBeenCalled();
-		});
+		const spy = jest.spyOn(ViewManipulator.prototype, 'attachViewListeners');
+		new ViewManipulator(pubsub);
+		expect(spy).toHaveBeenCalledTimes(1);
+		spy.mockRestore();
 	});
 
 	test('Should be subscribed to the LOGOUT pubsub event', () => {
 		const pubsub = new PubSubService();
-		let viewManipulator = new ViewManipulator(pubsub);
-		const spy = spyOn(pubsub, 'subscribe');
-		setTimeout(() => {
-			expect(spy).toHaveBeenCalled();
-		});
+		const spy = jest.spyOn(pubsub, 'subscribe');
+		new ViewManipulator(pubsub);
+		expect(spy).toHaveBeenCalledWith(EventsConsts.LOGOUT, expect.any(Function));
+		spy.mockRestore();
 	});
 
 	test('Should provide a method for manipulating alert messages', (done) => {

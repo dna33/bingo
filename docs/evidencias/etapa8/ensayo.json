@@ -1,0 +1,3191 @@
+{
+  "version": 1,
+  "syntheticOnly": true,
+  "realMessagesSent": 0,
+  "realCreditsExecuted": 0,
+  "startedAt": "2026-11-17T20:15:51.797Z",
+  "parameters": {
+    "volumes": [
+      3000,
+      10000
+    ],
+    "draws": 60,
+    "trials": 300,
+    "mode": "all"
+  },
+  "loads": [
+    {
+      "cards": 3000,
+      "seed": "bingo-etapa8-3000-draws-v1",
+      "numbers": [
+        58,
+        57,
+        53,
+        72,
+        71,
+        14,
+        15,
+        62,
+        7,
+        64,
+        6,
+        19,
+        42,
+        35,
+        22,
+        40,
+        73,
+        34,
+        63,
+        59,
+        61,
+        36,
+        1,
+        12,
+        28,
+        31,
+        47,
+        41,
+        48,
+        52,
+        2,
+        32,
+        21,
+        46,
+        65,
+        68,
+        16,
+        13,
+        17,
+        4,
+        51,
+        24,
+        43,
+        67,
+        5,
+        11,
+        45,
+        3,
+        69,
+        10,
+        50,
+        37,
+        20,
+        54,
+        75,
+        25,
+        44,
+        33,
+        56,
+        55
+      ],
+      "maskProfile": "brief reference masks, seven simultaneous figures; rules confirmed only for this synthetic edition",
+      "consoles": 2,
+      "playerSessions": 0,
+      "extractionMode": "manual real React review/confirm control; HTTP and MongoDB are real",
+      "primaryConsole": {
+        "samples": 60,
+        "p50Ms": 103.10000002384186,
+        "p95Ms": 122,
+        "maxMs": 124.39999997615814
+      },
+      "peerConsole": {
+        "samples": 60,
+        "p50Ms": 973.699951171875,
+        "p95Ms": 992.10009765625,
+        "maxMs": 995.5
+      },
+      "persistentAlerts": {
+        "samples": 26,
+        "p50Ms": 1974.199951171875,
+        "p95Ms": 1992.199951171875,
+        "maxMs": 1995
+      },
+      "underTwoSeconds": {
+        "primary": true,
+        "peer": true,
+        "alerts": true
+      },
+      "firstCandidates": [
+        {
+          "figure": "F",
+          "firstSequence": 40,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "A",
+          "firstSequence": 39,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "B",
+          "firstSequence": 49,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "U",
+          "firstSequence": 42,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "L",
+          "firstSequence": 34,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "S",
+          "firstSequence": 50,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "O",
+          "firstSequence": 50,
+          "primaryCandidates": 1
+        }
+      ],
+      "samples": [
+        {
+          "number": 58,
+          "sequence": 1,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 97.09999996423721,
+          "startEpochMs": 1794946689454.6,
+          "peerConsoleMs": 940.39990234375,
+          "alertMs": null
+        },
+        {
+          "number": 57,
+          "sequence": 2,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 111,
+          "startEpochMs": 1794946690407.1,
+          "peerConsoleMs": 986.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 53,
+          "sequence": 3,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 98.19999998807907,
+          "startEpochMs": 1794946691405.3,
+          "peerConsoleMs": 993.5,
+          "alertMs": null
+        },
+        {
+          "number": 72,
+          "sequence": 4,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 105.19999998807907,
+          "startEpochMs": 1794946692413.2,
+          "peerConsoleMs": 981.60009765625,
+          "alertMs": null
+        },
+        {
+          "number": 71,
+          "sequence": 5,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 97.09999996423721,
+          "startEpochMs": 1794946693421.3,
+          "peerConsoleMs": 967.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 14,
+          "sequence": 6,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 114.10000002384186,
+          "startEpochMs": 1794946694404.4,
+          "peerConsoleMs": 988.7001953125,
+          "alertMs": null
+        },
+        {
+          "number": 15,
+          "sequence": 7,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 101.19999998807907,
+          "startEpochMs": 1794946695417.5,
+          "peerConsoleMs": 981.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 62,
+          "sequence": 8,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 99.69999998807907,
+          "startEpochMs": 1794946696419.1,
+          "peerConsoleMs": 972.5,
+          "alertMs": null
+        },
+        {
+          "number": 7,
+          "sequence": 9,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 99.09999996423721,
+          "startEpochMs": 1794946697402.1,
+          "peerConsoleMs": 995.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 64,
+          "sequence": 10,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 109.59999996423721,
+          "startEpochMs": 1794946698409.1,
+          "peerConsoleMs": 970.599853515625,
+          "alertMs": null
+        },
+        {
+          "number": 6,
+          "sequence": 11,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 102,
+          "startEpochMs": 1794946699400,
+          "peerConsoleMs": 995.5,
+          "alertMs": null
+        },
+        {
+          "number": 19,
+          "sequence": 12,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 100.40000003576279,
+          "startEpochMs": 1794946700418.2,
+          "peerConsoleMs": 974.400146484375,
+          "alertMs": null
+        },
+        {
+          "number": 42,
+          "sequence": 13,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 98.60000002384186,
+          "startEpochMs": 1794946701420,
+          "peerConsoleMs": 974.400146484375,
+          "alertMs": null
+        },
+        {
+          "number": 35,
+          "sequence": 14,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 96.40000003576279,
+          "startEpochMs": 1794946702422.4,
+          "peerConsoleMs": 973.7001953125,
+          "alertMs": null
+        },
+        {
+          "number": 22,
+          "sequence": 15,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 94.59999996423721,
+          "startEpochMs": 1794946703423.8,
+          "peerConsoleMs": 969,
+          "alertMs": null
+        },
+        {
+          "number": 40,
+          "sequence": 16,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 97.39999997615814,
+          "startEpochMs": 1794946704404.3,
+          "peerConsoleMs": 992.10009765625,
+          "alertMs": null
+        },
+        {
+          "number": 73,
+          "sequence": 17,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 123.39999997615814,
+          "startEpochMs": 1794946705411,
+          "peerConsoleMs": 982.400146484375,
+          "alertMs": null
+        },
+        {
+          "number": 34,
+          "sequence": 18,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 94.30000001192093,
+          "startEpochMs": 1794946706407.3,
+          "peerConsoleMs": 988.5,
+          "alertMs": null
+        },
+        {
+          "number": 63,
+          "sequence": 19,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 90.30000001192093,
+          "startEpochMs": 1794946707410.8,
+          "peerConsoleMs": 987.10009765625,
+          "alertMs": null
+        },
+        {
+          "number": 59,
+          "sequence": 20,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 106.69999998807907,
+          "startEpochMs": 1794946708411.5,
+          "peerConsoleMs": 981,
+          "alertMs": null
+        },
+        {
+          "number": 61,
+          "sequence": 21,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 96.5,
+          "startEpochMs": 1794946709405.3,
+          "peerConsoleMs": 991.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 36,
+          "sequence": 22,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 90.39999997615814,
+          "startEpochMs": 1794946710411,
+          "peerConsoleMs": 983.10009765625,
+          "alertMs": null
+        },
+        {
+          "number": 1,
+          "sequence": 23,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 103.20000004768372,
+          "startEpochMs": 1794946711414.9,
+          "peerConsoleMs": 980.400146484375,
+          "alertMs": null
+        },
+        {
+          "number": 12,
+          "sequence": 24,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 104.5,
+          "startEpochMs": 1794946712413.7,
+          "peerConsoleMs": 981.10009765625,
+          "alertMs": null
+        },
+        {
+          "number": 28,
+          "sequence": 25,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 105.59999996423721,
+          "startEpochMs": 1794946713411.6,
+          "peerConsoleMs": 983,
+          "alertMs": null
+        },
+        {
+          "number": 31,
+          "sequence": 26,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 100.59999996423721,
+          "startEpochMs": 1794946714417.3,
+          "peerConsoleMs": 976.5,
+          "alertMs": null
+        },
+        {
+          "number": 47,
+          "sequence": 27,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 100.80000001192093,
+          "startEpochMs": 1794946715417.2,
+          "peerConsoleMs": 974.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 41,
+          "sequence": 28,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 98.70000004768372,
+          "startEpochMs": 1794946716418.9,
+          "peerConsoleMs": 975.500244140625,
+          "alertMs": null
+        },
+        {
+          "number": 48,
+          "sequence": 29,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 115.10000002384186,
+          "startEpochMs": 1794946717419.4,
+          "peerConsoleMs": 972.2001953125,
+          "alertMs": null
+        },
+        {
+          "number": 52,
+          "sequence": 30,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 95.89999997615814,
+          "startEpochMs": 1794946718405.3,
+          "peerConsoleMs": 990,
+          "alertMs": null
+        },
+        {
+          "number": 2,
+          "sequence": 31,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 109.40000003576279,
+          "startEpochMs": 1794946719408.4,
+          "peerConsoleMs": 987.800048828125,
+          "alertMs": null
+        },
+        {
+          "number": 32,
+          "sequence": 32,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 122,
+          "startEpochMs": 1794946720412.4,
+          "peerConsoleMs": 981.7001953125,
+          "alertMs": null
+        },
+        {
+          "number": 21,
+          "sequence": 33,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 92.10000002384186,
+          "startEpochMs": 1794946721408.9,
+          "peerConsoleMs": 988.400146484375,
+          "alertMs": null
+        },
+        {
+          "number": 46,
+          "sequence": 34,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 106.39999997615814,
+          "startEpochMs": 1794946722411.3,
+          "peerConsoleMs": 983.39990234375,
+          "alertMs": 1001.199951171875
+        },
+        {
+          "number": 65,
+          "sequence": 35,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 114,
+          "startEpochMs": 1794946723436.9,
+          "peerConsoleMs": 961.2001953125,
+          "alertMs": null
+        },
+        {
+          "number": 68,
+          "sequence": 36,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 109.20000004768372,
+          "startEpochMs": 1794946724408.9,
+          "peerConsoleMs": 982.300048828125,
+          "alertMs": 1007.5
+        },
+        {
+          "number": 16,
+          "sequence": 37,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 94.19999998807907,
+          "startEpochMs": 1794946725440.1,
+          "peerConsoleMs": 957,
+          "alertMs": 1974.2998046875
+        },
+        {
+          "number": 13,
+          "sequence": 38,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 95.19999998807907,
+          "startEpochMs": 1794946727422.2,
+          "peerConsoleMs": 973.300048828125,
+          "alertMs": 1991.199951171875
+        },
+        {
+          "number": 17,
+          "sequence": 39,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 97.5,
+          "startEpochMs": 1794946729436.5,
+          "peerConsoleMs": 958.300048828125,
+          "alertMs": 1976.300048828125
+        },
+        {
+          "number": 4,
+          "sequence": 40,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 96.89999997615814,
+          "startEpochMs": 1794946731419.6,
+          "peerConsoleMs": 974.699951171875,
+          "alertMs": 1995
+        },
+        {
+          "number": 51,
+          "sequence": 41,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 114.80000001192093,
+          "startEpochMs": 1794946733435.7,
+          "peerConsoleMs": 959.400146484375,
+          "alertMs": 1978.300048828125
+        },
+        {
+          "number": 24,
+          "sequence": 42,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 98,
+          "startEpochMs": 1794946735436.2,
+          "peerConsoleMs": 951.60009765625,
+          "alertMs": 1977.800048828125
+        },
+        {
+          "number": 43,
+          "sequence": 43,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 108.19999998807907,
+          "startEpochMs": 1794946737442.2,
+          "peerConsoleMs": 953.400146484375,
+          "alertMs": 1971.199951171875
+        },
+        {
+          "number": 67,
+          "sequence": 44,
+          "candidateCount": 3,
+          "domAndPaintOpportunityMs": 108.40000003576279,
+          "startEpochMs": 1794946739441.9,
+          "peerConsoleMs": 953.900146484375,
+          "alertMs": 1972.300048828125
+        },
+        {
+          "number": 5,
+          "sequence": 45,
+          "candidateCount": 4,
+          "domAndPaintOpportunityMs": 96.69999998807907,
+          "startEpochMs": 1794946741422,
+          "peerConsoleMs": 973.699951171875,
+          "alertMs": 1992.199951171875
+        },
+        {
+          "number": 11,
+          "sequence": 46,
+          "candidateCount": 9,
+          "domAndPaintOpportunityMs": 103.10000002384186,
+          "startEpochMs": 1794946743429.5,
+          "peerConsoleMs": 963.800048828125,
+          "alertMs": 1984.39990234375
+        },
+        {
+          "number": 45,
+          "sequence": 47,
+          "candidateCount": 9,
+          "domAndPaintOpportunityMs": 96.40000003576279,
+          "startEpochMs": 1794946745437.7,
+          "peerConsoleMs": 955.2001953125,
+          "alertMs": 1976.400146484375
+        },
+        {
+          "number": 3,
+          "sequence": 48,
+          "candidateCount": 11,
+          "domAndPaintOpportunityMs": 122.19999998807907,
+          "startEpochMs": 1794946747445.7,
+          "peerConsoleMs": 949.5,
+          "alertMs": 1968.900146484375
+        },
+        {
+          "number": 69,
+          "sequence": 49,
+          "candidateCount": 18,
+          "domAndPaintOpportunityMs": 110.5,
+          "startEpochMs": 1794946749439.6,
+          "peerConsoleMs": 956.89990234375,
+          "alertMs": 1974.099853515625
+        },
+        {
+          "number": 10,
+          "sequence": 50,
+          "candidateCount": 25,
+          "domAndPaintOpportunityMs": 110.19999998807907,
+          "startEpochMs": 1794946751439.7,
+          "peerConsoleMs": 960.400146484375,
+          "alertMs": 1974.199951171875
+        },
+        {
+          "number": 50,
+          "sequence": 51,
+          "candidateCount": 28,
+          "domAndPaintOpportunityMs": 124.39999997615814,
+          "startEpochMs": 1794946753442,
+          "peerConsoleMs": 955.400146484375,
+          "alertMs": 1971.800048828125
+        },
+        {
+          "number": 37,
+          "sequence": 52,
+          "candidateCount": 33,
+          "domAndPaintOpportunityMs": 96.69999998807907,
+          "startEpochMs": 1794946755435.8,
+          "peerConsoleMs": 961.5,
+          "alertMs": 1978.300048828125
+        },
+        {
+          "number": 20,
+          "sequence": 53,
+          "candidateCount": 29,
+          "domAndPaintOpportunityMs": 107.19999998807907,
+          "startEpochMs": 1794946757442,
+          "peerConsoleMs": 955.5,
+          "alertMs": 1973.199951171875
+        },
+        {
+          "number": 54,
+          "sequence": 54,
+          "candidateCount": 72,
+          "domAndPaintOpportunityMs": 103.60000002384186,
+          "startEpochMs": 1794946759446.5,
+          "peerConsoleMs": 947,
+          "alertMs": 1967.199951171875
+        },
+        {
+          "number": 75,
+          "sequence": 55,
+          "candidateCount": 52,
+          "domAndPaintOpportunityMs": 110,
+          "startEpochMs": 1794946761440.2,
+          "peerConsoleMs": 957.2001953125,
+          "alertMs": 1974.699951171875
+        },
+        {
+          "number": 25,
+          "sequence": 56,
+          "candidateCount": 81,
+          "domAndPaintOpportunityMs": 119.89999997615814,
+          "startEpochMs": 1794946763446,
+          "peerConsoleMs": 950.60009765625,
+          "alertMs": 1968.5
+        },
+        {
+          "number": 44,
+          "sequence": 57,
+          "candidateCount": 71,
+          "domAndPaintOpportunityMs": 114.90000003576279,
+          "startEpochMs": 1794946765433.7,
+          "peerConsoleMs": 960.7001953125,
+          "alertMs": 1979.60009765625
+        },
+        {
+          "number": 33,
+          "sequence": 58,
+          "candidateCount": 131,
+          "domAndPaintOpportunityMs": 109.59999996423721,
+          "startEpochMs": 1794946767439.3,
+          "peerConsoleMs": 958.60009765625,
+          "alertMs": 1975.800048828125
+        },
+        {
+          "number": 56,
+          "sequence": 59,
+          "candidateCount": 135,
+          "domAndPaintOpportunityMs": 120,
+          "startEpochMs": 1794946769445.3,
+          "peerConsoleMs": 951.89990234375,
+          "alertMs": 1968.89990234375
+        },
+        {
+          "number": 55,
+          "sequence": 60,
+          "candidateCount": 203,
+          "domAndPaintOpportunityMs": 121.79999995231628,
+          "startEpochMs": 1794946771444.6,
+          "peerConsoleMs": 953.599853515625,
+          "alertMs": 1969.5
+        }
+      ],
+      "preparation": {
+        "importMs": 1911.5930839999996,
+        "generationMs": 10245.553292,
+        "pdfBytes": 12540113,
+        "readyMs": 283.9407919999994,
+        "seed": "bingo-etapa8-3000-cards-v1",
+        "csvSha256": "5173fd4cf384daa8185b5f96245122d1dbf0edcd930a9b05cc32602bf1d5c654",
+        "layoutSha256": "e7bdf77103ebe7e621bb767a2ed35c9312c44ecd734e7eb2e9566bd01e6920fb"
+      },
+      "delivery": {
+        "count": 3000,
+        "queuedMs": 4026.897250000002,
+        "workerMs": 117588.52154199999,
+        "totalMs": 121752.87704200001,
+        "processed": 3000,
+        "counts": {
+          "delivered": 3000
+        },
+        "initialJobs": 3000,
+        "clock": "worker-only virtual clock advances 110ms per clock read; no pacing sleeps",
+        "configuredSpacingMs": 100,
+        "minimumConfiguredPacingMs": 299900,
+        "limitation": "Mock provider receipt only; not email/WhatsApp throughput or proof of real delivery"
+      }
+    },
+    {
+      "cards": 10000,
+      "seed": "bingo-etapa8-10000-draws-v1",
+      "numbers": [
+        20,
+        24,
+        38,
+        48,
+        47,
+        26,
+        43,
+        19,
+        1,
+        37,
+        61,
+        31,
+        49,
+        12,
+        6,
+        50,
+        35,
+        2,
+        11,
+        41,
+        34,
+        71,
+        57,
+        10,
+        44,
+        40,
+        67,
+        17,
+        16,
+        65,
+        70,
+        33,
+        59,
+        32,
+        72,
+        39,
+        46,
+        54,
+        69,
+        7,
+        55,
+        60,
+        36,
+        45,
+        74,
+        14,
+        21,
+        27,
+        15,
+        29,
+        5,
+        56,
+        58,
+        75,
+        13,
+        30,
+        42,
+        68,
+        9,
+        52
+      ],
+      "maskProfile": "brief reference masks, seven simultaneous figures; rules confirmed only for this synthetic edition",
+      "consoles": 2,
+      "playerSessions": 0,
+      "extractionMode": "manual real React review/confirm control; HTTP and MongoDB are real",
+      "primaryConsole": {
+        "samples": 60,
+        "p50Ms": 168.30000001192093,
+        "p95Ms": 198.89999997615814,
+        "maxMs": 239.80000001192093
+      },
+      "peerConsole": {
+        "samples": 60,
+        "p50Ms": 983.699951171875,
+        "p95Ms": 992.599853515625,
+        "maxMs": 1010.300048828125
+      },
+      "persistentAlerts": {
+        "samples": 30,
+        "p50Ms": 1977.7001953125,
+        "p95Ms": 1991,
+        "maxMs": 1995.60009765625
+      },
+      "underTwoSeconds": {
+        "primary": true,
+        "peer": true,
+        "alerts": true
+      },
+      "firstCandidates": [
+        {
+          "figure": "F",
+          "firstSequence": 36,
+          "primaryCandidates": 2
+        },
+        {
+          "figure": "A",
+          "firstSequence": 40,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "B",
+          "firstSequence": 43,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "U",
+          "firstSequence": 38,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "L",
+          "firstSequence": 26,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "S",
+          "firstSequence": 49,
+          "primaryCandidates": 1
+        },
+        {
+          "figure": "O",
+          "firstSequence": 45,
+          "primaryCandidates": 2
+        }
+      ],
+      "samples": [
+        {
+          "number": 20,
+          "sequence": 1,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 156.89999997615814,
+          "startEpochMs": 1794947315656.5,
+          "peerConsoleMs": 946.89990234375,
+          "alertMs": null
+        },
+        {
+          "number": 24,
+          "sequence": 2,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 160.89999997615814,
+          "startEpochMs": 1794947316618,
+          "peerConsoleMs": 987.5,
+          "alertMs": null
+        },
+        {
+          "number": 38,
+          "sequence": 3,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 154.19999998807907,
+          "startEpochMs": 1794947317624.7,
+          "peerConsoleMs": 967.39990234375,
+          "alertMs": null
+        },
+        {
+          "number": 48,
+          "sequence": 4,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 147,
+          "startEpochMs": 1794947318598.5,
+          "peerConsoleMs": 1010.300048828125,
+          "alertMs": null
+        },
+        {
+          "number": 47,
+          "sequence": 5,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 155.0999999642372,
+          "startEpochMs": 1794947319623,
+          "peerConsoleMs": 986,
+          "alertMs": null
+        },
+        {
+          "number": 26,
+          "sequence": 6,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 149.9000000357628,
+          "startEpochMs": 1794947320628.8,
+          "peerConsoleMs": 978.699951171875,
+          "alertMs": null
+        },
+        {
+          "number": 43,
+          "sequence": 7,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 162.0999999642372,
+          "startEpochMs": 1794947321616.7,
+          "peerConsoleMs": 988.39990234375,
+          "alertMs": null
+        },
+        {
+          "number": 19,
+          "sequence": 8,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 158.10000002384186,
+          "startEpochMs": 1794947322620.5999,
+          "peerConsoleMs": 986,
+          "alertMs": null
+        },
+        {
+          "number": 1,
+          "sequence": 9,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 171.30000001192093,
+          "startEpochMs": 1794947323624.7,
+          "peerConsoleMs": 984.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 37,
+          "sequence": 10,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 160.30000001192093,
+          "startEpochMs": 1794947324636.4,
+          "peerConsoleMs": 969.5,
+          "alertMs": null
+        },
+        {
+          "number": 61,
+          "sequence": 11,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 171.9000000357628,
+          "startEpochMs": 1794947325622.8,
+          "peerConsoleMs": 987.5,
+          "alertMs": null
+        },
+        {
+          "number": 31,
+          "sequence": 12,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 165.4000000357628,
+          "startEpochMs": 1794947326629.8,
+          "peerConsoleMs": 975,
+          "alertMs": null
+        },
+        {
+          "number": 49,
+          "sequence": 13,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 162.70000004768372,
+          "startEpochMs": 1794947327615.8,
+          "peerConsoleMs": 987.39990234375,
+          "alertMs": null
+        },
+        {
+          "number": 12,
+          "sequence": 14,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 164.9000000357628,
+          "startEpochMs": 1794947328613.5999,
+          "peerConsoleMs": 990.900146484375,
+          "alertMs": null
+        },
+        {
+          "number": 6,
+          "sequence": 15,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 164.39999997615814,
+          "startEpochMs": 1794947329614,
+          "peerConsoleMs": 987.800048828125,
+          "alertMs": null
+        },
+        {
+          "number": 50,
+          "sequence": 16,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 166.80000001192093,
+          "startEpochMs": 1794947330628.3,
+          "peerConsoleMs": 976.7998046875,
+          "alertMs": null
+        },
+        {
+          "number": 35,
+          "sequence": 17,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 164.10000002384186,
+          "startEpochMs": 1794947331614.3,
+          "peerConsoleMs": 996,
+          "alertMs": null
+        },
+        {
+          "number": 2,
+          "sequence": 18,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 166.69999998807907,
+          "startEpochMs": 1794947332627.4,
+          "peerConsoleMs": 978.800048828125,
+          "alertMs": null
+        },
+        {
+          "number": 11,
+          "sequence": 19,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 171.30000001192093,
+          "startEpochMs": 1794947333623.5999,
+          "peerConsoleMs": 983.7001953125,
+          "alertMs": null
+        },
+        {
+          "number": 41,
+          "sequence": 20,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 168.30000001192093,
+          "startEpochMs": 1794947334626.4,
+          "peerConsoleMs": 979.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 34,
+          "sequence": 21,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 183.80000001192093,
+          "startEpochMs": 1794947335627.7,
+          "peerConsoleMs": 979.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 71,
+          "sequence": 22,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 159.5,
+          "startEpochMs": 1794947336617.7,
+          "peerConsoleMs": 986.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 57,
+          "sequence": 23,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 162.5,
+          "startEpochMs": 1794947337615.5999,
+          "peerConsoleMs": 989.900146484375,
+          "alertMs": null
+        },
+        {
+          "number": 10,
+          "sequence": 24,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 158.0999999642372,
+          "startEpochMs": 1794947338621.8,
+          "peerConsoleMs": 983.699951171875,
+          "alertMs": null
+        },
+        {
+          "number": 44,
+          "sequence": 25,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 162.89999997615814,
+          "startEpochMs": 1794947339615,
+          "peerConsoleMs": 992.599853515625,
+          "alertMs": null
+        },
+        {
+          "number": 40,
+          "sequence": 26,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 162.69999998807907,
+          "startEpochMs": 1794947340631.9,
+          "peerConsoleMs": 975.5,
+          "alertMs": 974.199951171875
+        },
+        {
+          "number": 67,
+          "sequence": 27,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 172.10000002384186,
+          "startEpochMs": 1794947341622.5999,
+          "peerConsoleMs": 985.5,
+          "alertMs": null
+        },
+        {
+          "number": 17,
+          "sequence": 28,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 157,
+          "startEpochMs": 1794947342637,
+          "peerConsoleMs": 968.199951171875,
+          "alertMs": 966.599853515625
+        },
+        {
+          "number": 16,
+          "sequence": 29,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 158.5,
+          "startEpochMs": 1794947343619.5,
+          "peerConsoleMs": 988.199951171875,
+          "alertMs": null
+        },
+        {
+          "number": 65,
+          "sequence": 30,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 168.19999998807907,
+          "startEpochMs": 1794947344626,
+          "peerConsoleMs": 979.800048828125,
+          "alertMs": null
+        },
+        {
+          "number": 70,
+          "sequence": 31,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 162.69999998807907,
+          "startEpochMs": 1794947345615,
+          "peerConsoleMs": 992.099853515625,
+          "alertMs": 1988.5
+        },
+        {
+          "number": 33,
+          "sequence": 32,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 164.5,
+          "startEpochMs": 1794947347628.9,
+          "peerConsoleMs": 976.800048828125,
+          "alertMs": null
+        },
+        {
+          "number": 59,
+          "sequence": 33,
+          "candidateCount": 0,
+          "domAndPaintOpportunityMs": 161.10000002384186,
+          "startEpochMs": 1794947348616.8,
+          "peerConsoleMs": 987.699951171875,
+          "alertMs": null
+        },
+        {
+          "number": 32,
+          "sequence": 34,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 161.39999997615814,
+          "startEpochMs": 1794947349632.2,
+          "peerConsoleMs": 972.199951171875,
+          "alertMs": 1972.300048828125
+        },
+        {
+          "number": 72,
+          "sequence": 35,
+          "candidateCount": 1,
+          "domAndPaintOpportunityMs": 176.80000001192093,
+          "startEpochMs": 1794947351633.0999,
+          "peerConsoleMs": 966.10009765625,
+          "alertMs": 1968.7001953125
+        },
+        {
+          "number": 39,
+          "sequence": 36,
+          "candidateCount": 5,
+          "domAndPaintOpportunityMs": 180.30000001192093,
+          "startEpochMs": 1794947353613.2,
+          "peerConsoleMs": 988.199951171875,
+          "alertMs": 1990.39990234375
+        },
+        {
+          "number": 46,
+          "sequence": 37,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 179.5999999642372,
+          "startEpochMs": 1794947355630.7,
+          "peerConsoleMs": 973.10009765625,
+          "alertMs": 1973.60009765625
+        },
+        {
+          "number": 54,
+          "sequence": 38,
+          "candidateCount": 5,
+          "domAndPaintOpportunityMs": 186,
+          "startEpochMs": 1794947357624.5999,
+          "peerConsoleMs": 982.60009765625,
+          "alertMs": 1977.7001953125
+        },
+        {
+          "number": 69,
+          "sequence": 39,
+          "candidateCount": 2,
+          "domAndPaintOpportunityMs": 182.39999997615814,
+          "startEpochMs": 1794947359610.9,
+          "peerConsoleMs": 989.400146484375,
+          "alertMs": 1995.60009765625
+        },
+        {
+          "number": 7,
+          "sequence": 40,
+          "candidateCount": 8,
+          "domAndPaintOpportunityMs": 176.80000001192093,
+          "startEpochMs": 1794947361617.8,
+          "peerConsoleMs": 985.89990234375,
+          "alertMs": 1986.099853515625
+        },
+        {
+          "number": 55,
+          "sequence": 41,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 193.4000000357628,
+          "startEpochMs": 1794947363617.0999,
+          "peerConsoleMs": 992.2001953125,
+          "alertMs": 1988.2001953125
+        },
+        {
+          "number": 60,
+          "sequence": 42,
+          "candidateCount": 6,
+          "domAndPaintOpportunityMs": 166,
+          "startEpochMs": 1794947365627.4,
+          "peerConsoleMs": 980.800048828125,
+          "alertMs": 1976.699951171875
+        },
+        {
+          "number": 36,
+          "sequence": 43,
+          "candidateCount": 19,
+          "domAndPaintOpportunityMs": 176.5,
+          "startEpochMs": 1794947367617.0999,
+          "peerConsoleMs": 991.800048828125,
+          "alertMs": 1990.60009765625
+        },
+        {
+          "number": 45,
+          "sequence": 44,
+          "candidateCount": 21,
+          "domAndPaintOpportunityMs": 181.30000001192093,
+          "startEpochMs": 1794947369628.5999,
+          "peerConsoleMs": 968.2001953125,
+          "alertMs": 1977.10009765625
+        },
+        {
+          "number": 74,
+          "sequence": 45,
+          "candidateCount": 23,
+          "domAndPaintOpportunityMs": 175.89999997615814,
+          "startEpochMs": 1794947371633.7,
+          "peerConsoleMs": 978.199951171875,
+          "alertMs": 1972.89990234375
+        },
+        {
+          "number": 14,
+          "sequence": 46,
+          "candidateCount": 29,
+          "domAndPaintOpportunityMs": 170.20000004768372,
+          "startEpochMs": 1794947373622.8,
+          "peerConsoleMs": 979.7998046875,
+          "alertMs": 1983.39990234375
+        },
+        {
+          "number": 21,
+          "sequence": 47,
+          "candidateCount": 27,
+          "domAndPaintOpportunityMs": 172.80000001192093,
+          "startEpochMs": 1794947375637.0999,
+          "peerConsoleMs": 972.7001953125,
+          "alertMs": 1969.2001953125
+        },
+        {
+          "number": 27,
+          "sequence": 48,
+          "candidateCount": 43,
+          "domAndPaintOpportunityMs": 176.5,
+          "startEpochMs": 1794947377633.4,
+          "peerConsoleMs": 973.400146484375,
+          "alertMs": 1972.699951171875
+        },
+        {
+          "number": 15,
+          "sequence": 49,
+          "candidateCount": 47,
+          "domAndPaintOpportunityMs": 174.5,
+          "startEpochMs": 1794947379635.3,
+          "peerConsoleMs": 972.89990234375,
+          "alertMs": 1972
+        },
+        {
+          "number": 29,
+          "sequence": 50,
+          "candidateCount": 76,
+          "domAndPaintOpportunityMs": 189,
+          "startEpochMs": 1794947381621.5,
+          "peerConsoleMs": 988.199951171875,
+          "alertMs": 1981.89990234375
+        },
+        {
+          "number": 5,
+          "sequence": 51,
+          "candidateCount": 114,
+          "domAndPaintOpportunityMs": 179.5,
+          "startEpochMs": 1794947383629.4,
+          "peerConsoleMs": 976.400146484375,
+          "alertMs": 1975.199951171875
+        },
+        {
+          "number": 56,
+          "sequence": 52,
+          "candidateCount": 115,
+          "domAndPaintOpportunityMs": 173.10000002384186,
+          "startEpochMs": 1794947385619.4,
+          "peerConsoleMs": 986.5,
+          "alertMs": 1989.300048828125
+        },
+        {
+          "number": 58,
+          "sequence": 53,
+          "candidateCount": 164,
+          "domAndPaintOpportunityMs": 180.80000001192093,
+          "startEpochMs": 1794947387628.4,
+          "peerConsoleMs": 976.300048828125,
+          "alertMs": 1978
+        },
+        {
+          "number": 75,
+          "sequence": 54,
+          "candidateCount": 184,
+          "domAndPaintOpportunityMs": 179,
+          "startEpochMs": 1794947389630.0999,
+          "peerConsoleMs": 974.400146484375,
+          "alertMs": 1973.7001953125
+        },
+        {
+          "number": 13,
+          "sequence": 55,
+          "candidateCount": 213,
+          "domAndPaintOpportunityMs": 194.80000001192093,
+          "startEpochMs": 1794947391615.2,
+          "peerConsoleMs": 994.10009765625,
+          "alertMs": 1991
+        },
+        {
+          "number": 30,
+          "sequence": 56,
+          "candidateCount": 270,
+          "domAndPaintOpportunityMs": 192,
+          "startEpochMs": 1794947393619.0999,
+          "peerConsoleMs": 992.2001953125,
+          "alertMs": 1988.800048828125
+        },
+        {
+          "number": 42,
+          "sequence": 57,
+          "candidateCount": 309,
+          "domAndPaintOpportunityMs": 198.89999997615814,
+          "startEpochMs": 1794947395626.9,
+          "peerConsoleMs": 979.300048828125,
+          "alertMs": 1979.300048828125
+        },
+        {
+          "number": 68,
+          "sequence": 58,
+          "candidateCount": 410,
+          "domAndPaintOpportunityMs": 207.39999997615814,
+          "startEpochMs": 1794947397635.7,
+          "peerConsoleMs": 958.300048828125,
+          "alertMs": 1972.5
+        },
+        {
+          "number": 9,
+          "sequence": 59,
+          "candidateCount": 502,
+          "domAndPaintOpportunityMs": 208.39999997615814,
+          "startEpochMs": 1794947399616.9,
+          "peerConsoleMs": 990.300048828125,
+          "alertMs": 1989.699951171875
+        },
+        {
+          "number": 52,
+          "sequence": 60,
+          "candidateCount": 548,
+          "domAndPaintOpportunityMs": 239.80000001192093,
+          "startEpochMs": 1794947401619.2,
+          "peerConsoleMs": 986.199951171875,
+          "alertMs": 1986.800048828125
+        }
+      ],
+      "preparation": {
+        "importMs": 16791.946417,
+        "generationMs": 53213.193417,
+        "pdfBytes": 41825075,
+        "readyMs": 826.6910829999833,
+        "seed": "bingo-etapa8-10000-cards-v1",
+        "csvSha256": "0e8562ac98ce84586111ab29dee47a69d8ef34b140dbe05961f2e42c22158d6f",
+        "layoutSha256": "e4f114481ee46f3895c4f6d19dc1e31be8c8bfdebfa45facb5bc790d6a2c0b43"
+      },
+      "delivery": {
+        "count": 10000,
+        "queuedMs": 31816.979125000013,
+        "workerMs": 438283.17025,
+        "totalMs": 470538.28179100004,
+        "processed": 10000,
+        "counts": {
+          "delivered": 10000
+        },
+        "initialJobs": 10000,
+        "clock": "worker-only virtual clock advances 110ms per clock read; no pacing sleeps",
+        "configuredSpacingMs": 100,
+        "minimumConfiguredPacingMs": 999900,
+        "limitation": "Mock provider receipt only; not email/WhatsApp throughput or proof of real delivery"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "PA-01",
+      "status": "passed",
+      "participants": 3000
+    },
+    {
+      "id": "PA-02",
+      "status": "passed",
+      "participants": 3000,
+      "reimportWithoutDuplicates": true
+    },
+    {
+      "id": "PA-04",
+      "status": "passed",
+      "cards": 3000,
+      "allLayoutsUnique": true,
+      "allPdfHashesVerified": true
+    },
+    {
+      "id": "PA-15",
+      "status": "passed",
+      "participants": 3000,
+      "reconciliationCanClose": true
+    },
+    {
+      "id": "PA-17",
+      "status": "passed",
+      "missingCardsBlockedStart": true
+    },
+    {
+      "id": "PA-18",
+      "status": "passed",
+      "participants": 3000,
+      "simulatedProviderOnly": true
+    },
+    {
+      "id": "PA-01",
+      "status": "passed",
+      "participants": 10000
+    },
+    {
+      "id": "PA-02",
+      "status": "passed",
+      "participants": 10000,
+      "reimportWithoutDuplicates": true
+    },
+    {
+      "id": "PA-04",
+      "status": "passed",
+      "cards": 10000,
+      "allLayoutsUnique": true,
+      "allPdfHashesVerified": true
+    },
+    {
+      "id": "PA-15",
+      "status": "passed",
+      "participants": 10000,
+      "reconciliationCanClose": true
+    },
+    {
+      "id": "PA-17",
+      "status": "passed",
+      "missingCardsBlockedStart": true
+    },
+    {
+      "id": "PA-18",
+      "status": "passed",
+      "participants": 10000,
+      "simulatedProviderOnly": true
+    },
+    {
+      "id": "PA-14",
+      "status": "passed",
+      "volumes": [
+        3000,
+        10000
+      ],
+      "rnf02": [
+        {
+          "cards": 3000,
+          "primary": true,
+          "peer": true,
+          "alerts": true
+        },
+        {
+          "cards": 10000,
+          "primary": true,
+          "peer": true,
+          "alerts": true
+        }
+      ]
+    },
+    {
+      "id": "6afcb94b94505a160e7326e9",
+      "status": "passed",
+      "invalidAndSharedRowsReported": true,
+      "noSilentMerge": true
+    },
+    {
+      "id": "PA-16",
+      "status": "passed",
+      "failedInitialDoesNotRemoveParticipant": true
+    },
+    {
+      "id": "PA-22",
+      "status": "passed",
+      "resendOriginalParticipantAndPdf": true
+    },
+    {
+      "id": "PA-11",
+      "status": "passed",
+      "restoredNewReplicaAndRealServerProcess": true,
+      "allCollectionHashesAndIndexesMatch": true
+    },
+    {
+      "id": "PA-10",
+      "status": "passed",
+      "twoOperatorsStatuses": [
+        200,
+        409
+      ],
+      "replayedBeforeAndAfterRestore": true
+    },
+    {
+      "id": "PA-05",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-06",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-07",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-08",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-09",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-12",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-13",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-19",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-20",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-21",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-23",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    },
+    {
+      "id": "PA-24",
+      "status": "passed",
+      "scope": "synthetic integral HTTP flow, real MongoDB, restored snapshot; no real provider or credits"
+    }
+  ],
+  "status": "passed-functional-checks",
+  "labDirectory": "/var/folders/fg/x5c7t5fs6ldgczbfrznkt9f00000gn/T/bingo-etapa8-v5lmQq",
+  "environment": {
+    "node": "v22.16.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "25.6.0",
+    "cpu": "Apple M4 Pro",
+    "logicalCpus": 14,
+    "totalMemoryBytes": 51539607552,
+    "mongodb": "7.0.14",
+    "transport": "loopback HTTP; one-node local replica set; Chrome headless",
+    "chrome": "Chrome/157.0.8103.51"
+  },
+  "sourceFiles": {
+    "package-lock.json": "ffb23a09489ad2f9e3508bd066ce293b0fd3d5b42dc9914f7d1b045de98289d7",
+    "server.js": "71dfdac66e097894e917d88e175d93e11096e7e3df0654c33feacbcb920862a6",
+    "bingo-api/pilot/game.js": "9735357d496d31e3da96a94989a3631a08fa24ec2e55fd92eadfe35ee54860c4",
+    "bingo-api/pilot/game-engine.js": "ffe67088caa393ffbdf4f07066e52cb3f12b508a2038f097f0c9a3012c73e753",
+    "bingo-api/pilot/card-generator.js": "ffcd17989a4b511610cec78993d66da5607580d0508d94c7f7d144d1898bd358",
+    "bingo-api/pilot/cards.js": "b79d2b9b5590d5d6991e232a29ceb4cbb5e3f6a49d0089ae63419df07627a510",
+    "bingo-api/pilot/deliveries.js": "5791dc330a8c4c8ed73c09d6efb7a3fe5b546dc8ceaa5e03d891882e9e86a1bb",
+    "bingo-api/pilot/prizes.js": "85e9c6e2f5d763069634650ec233c7ddf40deee84e6b0f792eec9700f8cae3dc",
+    "src/back-office/components/GamePanel.js": "db4ad1f923cf33a1b9a4faab14ef70c8a52d3e5b22b63223b5debb42ba722d92",
+    "src/back-office/components/CandidateAlerts.js": "2427d2cf5702f3682188fbc8e834db880c7f7a77b1b6c33677e04c5679377d3c",
+    "scripts/rehearse-pilot.cjs": "20d3d51a2fa917a6ee1f675d9aaea0c34f2383229a224aabf1ed4cc9dbaa9bb9",
+    "scripts/rehearsal/browser.cjs": "172a770ac2a4886d96b00ea53e3985dbc6e79ff9f5b901b9670c5a73132c5f5c",
+    "scripts/rehearsal/backup.cjs": "933ae45f472d4e77e0e78edb870ceb4713db03075113ca48183286190e02bef2",
+    "scripts/rehearsal/annex.cjs": "55a18bf3a4e1b100256fb0d029dc6d8dd0aee82cfd312ab0c1f8a6db0ed57abe"
+  },
+  "conflicts": {
+    "id": "6afcb94b94505a160e7326e9",
+    "invalidAndSharedRowsReported": true,
+    "noSilentMerge": true
+  },
+  "backup": {
+    "backupMs": 3343.5591669999994,
+    "restoreMs": 9590.728791000089,
+    "bytes": 32581991,
+    "manifest": {
+      "version": 1,
+      "format": "concatenated-bson-gzip",
+      "quiescent": true,
+      "sourceDatabase": "stage8-source",
+      "createdAt": "2026-11-17T20:30:05.990Z",
+      "collections": [
+        {
+          "name": "admins",
+          "filename": "000.bson.gz",
+          "count": 6,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "email": 1
+              },
+              "name": "email_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "6fa85e0208d1e0b1ae65d382f6fdf478d38b82879d4ddca1de6c4e3b9b088d2e",
+          "rawSha256": "03f84af3d661fce9f1f3d611f246567ead06d7e06a3c40519da04a8d4dbdaca0",
+          "compressedBytes": 937
+        },
+        {
+          "name": "pilotaudits",
+          "filename": "001.bson.gz",
+          "count": 65846,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "eventId": 1
+              },
+              "name": "eventId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "occurredAt": 1
+              },
+              "name": "editionId_1_occurredAt_1",
+              "background": true
+            }
+          ],
+          "sha256": "0b0eee63622b3734df1fbd040e83108401068ca1fa45eb51092a26c081db2a89",
+          "rawSha256": "ecbe9a3906432383fd0c203988effc2a081f0b696a69dd35c85b098ede7ec520",
+          "compressedBytes": 2671486
+        },
+        {
+          "name": "pilotawards",
+          "filename": "002.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "operationKey": 1
+              },
+              "name": "editionId_1_operationKey_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "candidateId": 1
+              },
+              "name": "candidateId_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotcandidatealerts",
+          "filename": "003.bson.gz",
+          "count": 236,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "drawId": 1,
+                "figure": 1,
+                "cohort": 1
+              },
+              "name": "drawId_1_figure_1_cohort_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "acknowledgedAt": 1,
+                "createdAt": 1
+              },
+              "name": "editionId_1_acknowledgedAt_1_createdAt_1",
+              "background": true
+            }
+          ],
+          "sha256": "6ef799d417df1999c337dc0f0bfa9c1fc078bbb410b25492dac5f0e8ea79ddb0",
+          "rawSha256": "e36267c76614589f08d55f1ad387fbdbb87f92889edb40b5847f3e826a12e037",
+          "compressedBytes": 3199
+        },
+        {
+          "name": "pilotcandidates",
+          "filename": "004.bson.gz",
+          "count": 4093,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "roundId": 1,
+                "figure": 1,
+                "cardId": 1
+              },
+              "name": "roundId_1_figure_1_cardId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "roundId": 1,
+                "cohort": 1,
+                "createdAt": 1
+              },
+              "name": "editionId_1_roundId_1_cohort_1_createdAt_1",
+              "background": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "state": 1,
+                "cohort": 1
+              },
+              "name": "editionId_1_state_1_cohort_1",
+              "background": true
+            }
+          ],
+          "sha256": "ea76b2b034758b218b04e2673b6e6aaa20a8885f03a30067749f1364059ef381",
+          "rawSha256": "192c9d5b0ba4a4dad012a7068097d96343c8b5b8ab612d3df36f5670e8cd127c",
+          "compressedBytes": 498654
+        },
+        {
+          "name": "pilotcardpdfs",
+          "filename": "005.bson.gz",
+          "count": 13006,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "cardId": 1
+              },
+              "name": "cardId_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "052b3d6cfe4ea26bd561a3b81ba3ba981f8319db60fc74a84f14a9dcd470a2b2",
+          "rawSha256": "6ad94170fd8658def7859027babdb571f27eec7c07cc1fe04a80b74fe6ebc2d2",
+          "compressedBytes": 19403279
+        },
+        {
+          "name": "pilotcards",
+          "filename": "006.bson.gz",
+          "count": 13006,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "participantId": 1
+              },
+              "name": "editionId_1_participantId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "layoutHash": 1
+              },
+              "name": "editionId_1_layoutHash_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "cardCode": 1
+              },
+              "name": "cardCode_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "4debb4375ad0ab88aa2b62713d3272f9006b66fc9a7e4e60a905fc4ee2fc535b",
+          "rawSha256": "2b77e420805452cbb610e7a16ff7bf4aa7a77d600ef105e5647df83eceb0dfda",
+          "compressedBytes": 2562516
+        },
+        {
+          "name": "pilotcommands",
+          "filename": "007.bson.gz",
+          "count": 427,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "key": 1
+              },
+              "name": "editionId_1_key_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "400e5e614950fa0afd5ad0ea50ccce8b091dd161bf1b8e52e75cda64035b2e59",
+          "rawSha256": "daf2b366fb98fb3c331bf4a1e7cdb6b76c06226c9934913d2c3a140915a37376",
+          "compressedBytes": 39973
+        },
+        {
+          "name": "pilotconfigurations",
+          "filename": "008.bson.gz",
+          "count": 7,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "version": 1
+              },
+              "name": "editionId_1_version_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "f3933cabd1aa7d6493c3a1d3fd592c53bd8814ed03fdb350cf3691095bb802de",
+          "rawSha256": "f1dc747ac8d8e29012e6d0ee55bc991fb2953c37689f6b8e09eaa77e9401a714",
+          "compressedBytes": 302
+        },
+        {
+          "name": "pilotcontactevents",
+          "filename": "009.bson.gz",
+          "count": 5,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "candidateId": 1,
+                "occurredAt": 1
+              },
+              "name": "editionId_1_candidateId_1_occurredAt_1",
+              "background": true
+            }
+          ],
+          "sha256": "0ddbbaadd01df3ce863685804d410d3c00c92db313e5453c28b83a35866cdd24",
+          "rawSha256": "f6fa6b150f8cab8cc97ffbcb8a9ca45b2518b9c60613ad286983061ab7ab48fb",
+          "compressedBytes": 451
+        },
+        {
+          "name": "pilotdeliveries",
+          "filename": "010.bson.gz",
+          "count": 13007,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "queueKey": 1
+              },
+              "name": "editionId_1_queueKey_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "state": 1,
+                "nextAttemptAt": 1
+              },
+              "name": "editionId_1_state_1_nextAttemptAt_1",
+              "background": true
+            }
+          ],
+          "sha256": "be56f6503bc147b50256608b32c056ab26f5492d7c6983e6764a0d133e02d2fc",
+          "rawSha256": "032df8404cebcee0957b52adfd89ffe43d0768a4526d1eae6b374988c82fb852",
+          "compressedBytes": 1531134
+        },
+        {
+          "name": "pilotdeliverycontrols",
+          "filename": "011.bson.gz",
+          "count": 3,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1
+              },
+              "name": "editionId_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "d2ec25eb5a6ccc96f852023b02f6355d04c61b5521fb84370ebd56901a1df694",
+          "rawSha256": "4de157abcc5903ac4b3c51bce4192fcd02f05aca7d3f10ad472769ff2057778e",
+          "compressedBytes": 195
+        },
+        {
+          "name": "pilotdeliveryevents",
+          "filename": "012.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "eventKey": 1
+              },
+              "name": "editionId_1_eventKey_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotdraws",
+          "filename": "013.bson.gz",
+          "count": 123,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "roundId": 1,
+                "number": 1
+              },
+              "name": "roundId_1_number_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "roundId": 1,
+                "sequence": 1
+              },
+              "name": "roundId_1_sequence_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "91fc44a3812d29bc5d3fc1f261e52df19da8dbd4cf489eb4dd8da7387facc2fa",
+          "rawSha256": "1dff2b404e718e6b2154f2ca293cc3d39dab8451903d066fa6b8acad354b031a",
+          "compressedBytes": 3365
+        },
+        {
+          "name": "piloteditions",
+          "filename": "014.bson.gz",
+          "count": 4,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            }
+          ],
+          "sha256": "47242d3ec4db97f192bd31dc68627c02db978ea52d1504708172a70c1c69f284",
+          "rawSha256": "30ae152839958ac9e1628a6381054d7944bc422df117088303ec6318ef49dc5f",
+          "compressedBytes": 763
+        },
+        {
+          "name": "pilotfigureresults",
+          "filename": "015.bson.gz",
+          "count": 15,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "roundId": 1,
+                "figure": 1
+              },
+              "name": "roundId_1_figure_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "9b43530c6e7325b6a9c98dccb20e8917435985fc965e2b5b8ecb5418b5192a3d",
+          "rawSha256": "e6732973acf4495bffd558d897a13ec22d489914b3b6522f1949349a11e74179",
+          "compressedBytes": 678
+        },
+        {
+          "name": "pilotgameconfigurations",
+          "filename": "016.bson.gz",
+          "count": 3,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "version": 1
+              },
+              "name": "editionId_1_version_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "fab47f4c6698e119315caecca8f06dcddca5138b7dcee49423da7a34f0b54f4b",
+          "rawSha256": "4f6f34ff4f2a9dc3a6f02230069d4ebc869f8e22a80035a501aae7e558108d92",
+          "compressedBytes": 774
+        },
+        {
+          "name": "pilotgameincidents",
+          "filename": "017.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotgamerosters",
+          "filename": "018.bson.gz",
+          "count": 13006,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "cardId": 1
+              },
+              "name": "editionId_1_cardId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "participantId": 1
+              },
+              "name": "editionId_1_participantId_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "d1066de4f87a97d1468863227c3afdbdbdb14a1dc15f22dcf6d39057dd50edb0",
+          "rawSha256": "bff1e45aef902892f6b3fabce5e44986f5b42249b188143cfbd55432dc490140",
+          "compressedBytes": 2043558
+        },
+        {
+          "name": "pilotimportrows",
+          "filename": "019.bson.gz",
+          "count": 13009,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "importId": 1,
+                "rowNumber": 1
+              },
+              "name": "importId_1_rowNumber_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "43e6c2644553716cc00e27afd5ad3049e12491cf46f8c070b33ba08953ed722f",
+          "rawSha256": "f68a728c8b9fc2292cb3f3e7bdbf4ac04650b7e89ab4db3afa46a5f436c4817d",
+          "compressedBytes": 433805
+        },
+        {
+          "name": "pilotimports",
+          "filename": "020.bson.gz",
+          "count": 4,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "version": 1
+              },
+              "name": "editionId_1_version_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "sourceHash": 1
+              },
+              "name": "editionId_1_sourceHash_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "876f6180dce48e2e16b3239b1a78d196950dc83d9181a0e08ad386a54b704f03",
+          "rawSha256": "1abec790750a082cb63ea29df5c25be73532ff4656edd53474743fcfc1b1e04e",
+          "compressedBytes": 128648
+        },
+        {
+          "name": "pilotmockreceipts",
+          "filename": "021.bson.gz",
+          "count": 13006,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "providerKey": 1
+              },
+              "name": "providerKey_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "9df3e3ecb714d1459d5b5ad9406483763cfaec43f0ec5ff1fd3d0983eb40d515",
+          "rawSha256": "bd5b7558d0d2c5735fb3cdcd69fa4c9c952780edda6169bc45d3fd279888b263",
+          "compressedBytes": 1733875
+        },
+        {
+          "name": "pilotparticipants",
+          "filename": "022.bson.gz",
+          "count": 13006,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "participantKey": 1
+              },
+              "name": "editionId_1_participantKey_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "sourceRowId": 1
+              },
+              "name": "editionId_1_sourceRowId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "externalId": 1
+              },
+              "name": "editionId_1_externalId_1",
+              "background": true,
+              "unique": true,
+              "partialFilterExpression": {
+                "externalId": {
+                  "$type": "string"
+                }
+              }
+            }
+          ],
+          "sha256": "09cbf99be74b3a441488ee72a34e5cce88fc39f41d310afd65e925bd7c74a3f1",
+          "rawSha256": "7874e0b40d3e0f636ed73a9a745c79e5a5262703db0444b3da01708fd361dec9",
+          "compressedBytes": 414253
+        },
+        {
+          "name": "pilotpollaaccounts",
+          "filename": "023.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "participantId": 1
+              },
+              "name": "editionId_1_participantId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "accountHash": 1
+              },
+              "name": "editionId_1_accountHash_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotprizecredits",
+          "filename": "024.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "awardId": 1
+              },
+              "name": "awardId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "referenceHash": 1
+              },
+              "name": "editionId_1_referenceHash_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotprizepools",
+          "filename": "025.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "figure": 1
+              },
+              "name": "editionId_1_figure_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotprizeproposals",
+          "filename": "026.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "resultId": 1,
+                "cycle": 1
+              },
+              "name": "resultId_1_cycle_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotprizesettlements",
+          "filename": "027.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "proposalId": 1
+              },
+              "name": "proposalId_1",
+              "background": true,
+              "unique": true
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "poolId": 1,
+                "occurredAt": 1
+              },
+              "name": "editionId_1_poolId_1_occurredAt_1",
+              "background": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        },
+        {
+          "name": "pilotrounds",
+          "filename": "028.bson.gz",
+          "count": 3,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "ordinal": 1
+              },
+              "name": "editionId_1_ordinal_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "c763056f6e0e249e28bfca13a185c0311a6d735c50de2d89e156098ed58d2b51",
+          "rawSha256": "f0538484c87aaef8813ad635704c868ae01557c71405f33a1429ac2599d5656c",
+          "compressedBytes": 8333
+        },
+        {
+          "name": "pilotsendattempts",
+          "filename": "029.bson.gz",
+          "count": 13007,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "editionId": 1,
+                "operationKey": 1,
+                "attempt": 1
+              },
+              "name": "editionId_1_operationKey_1_attempt_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "0ac06724ed1b9a1fd476d3ead949e77c02de9e92f2ecbe166e921706aeb9239a",
+          "rawSha256": "8afbc2c1371ce048fce00fb4f68e38457f3c7c475b9d89840d0e413e0db9ab7e",
+          "compressedBytes": 1101633
+        },
+        {
+          "name": "users",
+          "filename": "030.bson.gz",
+          "count": 0,
+          "indexes": [
+            {
+              "v": 2,
+              "key": {
+                "_id": 1
+              },
+              "name": "_id_"
+            },
+            {
+              "v": 2,
+              "key": {
+                "email": 1
+              },
+              "name": "email_1",
+              "background": true,
+              "unique": true
+            }
+          ],
+          "sha256": "abfbb86f9f5ddfbd9fc1a72c43ab384702ce8bae86b60f3324748485e235e61e",
+          "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "compressedBytes": 20
+        }
+      ]
+    },
+    "collections": [
+      {
+        "name": "admins",
+        "count": 6,
+        "indexes": 2
+      },
+      {
+        "name": "pilotaudits",
+        "count": 65846,
+        "indexes": 3
+      },
+      {
+        "name": "pilotawards",
+        "count": 0,
+        "indexes": 3
+      },
+      {
+        "name": "pilotcandidatealerts",
+        "count": 236,
+        "indexes": 3
+      },
+      {
+        "name": "pilotcandidates",
+        "count": 4093,
+        "indexes": 4
+      },
+      {
+        "name": "pilotcardpdfs",
+        "count": 13006,
+        "indexes": 2
+      },
+      {
+        "name": "pilotcards",
+        "count": 13006,
+        "indexes": 4
+      },
+      {
+        "name": "pilotcommands",
+        "count": 427,
+        "indexes": 2
+      },
+      {
+        "name": "pilotconfigurations",
+        "count": 7,
+        "indexes": 2
+      },
+      {
+        "name": "pilotcontactevents",
+        "count": 5,
+        "indexes": 2
+      },
+      {
+        "name": "pilotdeliveries",
+        "count": 13007,
+        "indexes": 3
+      },
+      {
+        "name": "pilotdeliverycontrols",
+        "count": 3,
+        "indexes": 2
+      },
+      {
+        "name": "pilotdeliveryevents",
+        "count": 0,
+        "indexes": 2
+      },
+      {
+        "name": "pilotdraws",
+        "count": 123,
+        "indexes": 3
+      },
+      {
+        "name": "piloteditions",
+        "count": 4,
+        "indexes": 1
+      },
+      {
+        "name": "pilotfigureresults",
+        "count": 15,
+        "indexes": 2
+      },
+      {
+        "name": "pilotgameconfigurations",
+        "count": 3,
+        "indexes": 2
+      },
+      {
+        "name": "pilotgameincidents",
+        "count": 0,
+        "indexes": 1
+      },
+      {
+        "name": "pilotgamerosters",
+        "count": 13006,
+        "indexes": 3
+      },
+      {
+        "name": "pilotimportrows",
+        "count": 13009,
+        "indexes": 2
+      },
+      {
+        "name": "pilotimports",
+        "count": 4,
+        "indexes": 3
+      },
+      {
+        "name": "pilotmockreceipts",
+        "count": 13006,
+        "indexes": 2
+      },
+      {
+        "name": "pilotparticipants",
+        "count": 13006,
+        "indexes": 4
+      },
+      {
+        "name": "pilotpollaaccounts",
+        "count": 0,
+        "indexes": 3
+      },
+      {
+        "name": "pilotprizecredits",
+        "count": 0,
+        "indexes": 3
+      },
+      {
+        "name": "pilotprizepools",
+        "count": 0,
+        "indexes": 2
+      },
+      {
+        "name": "pilotprizeproposals",
+        "count": 0,
+        "indexes": 2
+      },
+      {
+        "name": "pilotprizesettlements",
+        "count": 0,
+        "indexes": 3
+      },
+      {
+        "name": "pilotrounds",
+        "count": 3,
+        "indexes": 2
+      },
+      {
+        "name": "pilotsendattempts",
+        "count": 13007,
+        "indexes": 2
+      },
+      {
+        "name": "users",
+        "count": 0,
+        "indexes": 2
+      }
+    ],
+    "serverRestartMs": 204.07366600004025,
+    "restorePlusRestartMs": 9794.802457000129,
+    "fullLabOutageMs": 16118.648791000014,
+    "restoreProcedureMs": 11565.896916000056,
+    "originalDeadlines": [
+      {
+        "candidateId": "6afcb94c94505a160e732990",
+        "contactStartedAt": "2026-11-17T20:30:04.411Z",
+        "expiresAt": "2026-11-17T20:31:04.411Z"
+      },
+      {
+        "candidateId": "6afcb94c94505a160e732991",
+        "contactStartedAt": "2026-11-17T20:30:05.950Z",
+        "expiresAt": "2026-11-17T20:31:05.950Z"
+      }
+    ]
+  },
+  "integral": {
+    "editionId": "6afcb94b94505a160e732742",
+    "participants": 6,
+    "independentRounds": 7,
+    "prizes": 15,
+    "discarded": 1,
+    "simulatedAllocatedClp": 400000,
+    "simulatedRecordedCreditsClp": 400000,
+    "actualCreditsExecuted": 0,
+    "delivery": {
+      "count": 6,
+      "queuedMs": 34.04649999993853,
+      "workerMs": 220.41816700005438,
+      "totalMs": 279.7681249999441,
+      "processed": 6,
+      "counts": {
+        "delivered": 5,
+        "failed": 1
+      },
+      "initialJobs": 6,
+      "clock": "worker-only virtual clock advances 110ms per clock read; no pacing sleeps",
+      "configuredSpacingMs": 100,
+      "minimumConfiguredPacingMs": 500,
+      "limitation": "Mock provider receipt only; not email/WhatsApp throughput or proof of real delivery"
+    },
+    "exportSha256": "e50160054a3cf4f48d8d5091314b20bb5abe984881b6e5d441fe9ad40d6f0547",
+    "backupDirectory": "/var/folders/fg/x5c7t5fs6ldgczbfrznkt9f00000gn/T/bingo-etapa8-v5lmQq/backup"
+  },
+  "annex": {
+    "seed": "bingo-etapa8-annex-v1",
+    "cards": 3000,
+    "trials": 300,
+    "model": "uniform unrestricted 1..75; unique complete layouts; fixed draw order by symmetry; no response/payment model",
+    "masks": {
+      "F": [
+        "11111",
+        "10000",
+        "11110",
+        "10000",
+        "10000"
+      ],
+      "A": [
+        "01110",
+        "10001",
+        "11111",
+        "10001",
+        "10001"
+      ],
+      "B": [
+        "11110",
+        "10001",
+        "11110",
+        "10001",
+        "11110"
+      ],
+      "U": [
+        "10001",
+        "10001",
+        "10001",
+        "10001",
+        "11111"
+      ],
+      "L": [
+        "10000",
+        "10000",
+        "10000",
+        "10000",
+        "11111"
+      ],
+      "S": [
+        "11111",
+        "10000",
+        "11111",
+        "00001",
+        "11111"
+      ],
+      "O": [
+        "11111",
+        "10001",
+        "10001",
+        "10001",
+        "11111"
+      ]
+    },
+    "checks": {
+      "engineProgressComparisons": 420,
+      "duplicateLayoutsRejected": 0
+    },
+    "rows": {
+      "F": {
+        "theory": {
+          "required": 11,
+          "at30": 0.032904048916178895,
+          "at40": 0.7573741031736078,
+          "at50": 0.9999999998937878,
+          "p10Draws": 33,
+          "medianDraws": 38,
+          "p90Draws": 42,
+          "tieProbability": 0.1435822584471338,
+          "expectedWinners": 1.174007507636443,
+          "individualShareProbability": 0.0003913358358788143,
+          "expectedDraws": 37.91144438861349
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0.03333333333333333,
+          "at40": 0.7733333333333333,
+          "at50": 1,
+          "tieProbability": 0.15666666666666668,
+          "meanFirstDraw": 37.99666666666667,
+          "meanWinners": 1.1833333333333333,
+          "at40StandardError": 0.024749314537011666
+        }
+      },
+      "A": {
+        "theory": {
+          "required": 13,
+          "at30": 0.002833880758778946,
+          "at40": 0.2481061650296582,
+          "at50": 0.9997797612937063,
+          "p10Draws": 38,
+          "medianDraws": 43,
+          "p90Draws": 46,
+          "tieProbability": 0.15355946565231116,
+          "expectedWinners": 1.1894739509836423,
+          "individualShareProbability": 0.00039649131699454743,
+          "expectedDraws": 42.46532898072756
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0.0033333333333333335,
+          "at40": 0.23666666666666666,
+          "at50": 1,
+          "tieProbability": 0.16,
+          "meanFirstDraw": 42.446666666666665,
+          "meanWinners": 1.21,
+          "at40StandardError": 0.024936552548680702
+        }
+      },
+      "B": {
+        "theory": {
+          "required": 15,
+          "at30": 0.0002040800440885366,
+          "at40": 0.05155194638738551,
+          "at50": 0.9483396229441649,
+          "p10Draws": 42,
+          "medianDraws": 47,
+          "p90Draws": 50,
+          "tieProbability": 0.16491610030651782,
+          "expectedWinners": 1.2075965151068306,
+          "individualShareProbability": 0.0004025321717022769,
+          "expectedDraws": 46.17261974932918
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0,
+          "at40": 0.03333333333333333,
+          "at50": 0.95,
+          "tieProbability": 0.17333333333333334,
+          "meanFirstDraw": 46.49,
+          "meanWinners": 1.2333333333333334,
+          "at40StandardError": 0.01276640685693742
+        }
+      },
+      "U": {
+        "theory": {
+          "required": 13,
+          "at30": 0.002833880758778946,
+          "at40": 0.2481061650296582,
+          "at50": 0.9997797612937063,
+          "p10Draws": 38,
+          "medianDraws": 43,
+          "p90Draws": 46,
+          "tieProbability": 0.15355946565231116,
+          "expectedWinners": 1.1894739509836423,
+          "individualShareProbability": 0.00039649131699454743,
+          "expectedDraws": 42.46532898072756
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0.006666666666666667,
+          "at40": 0.20666666666666667,
+          "at50": 1,
+          "tieProbability": 0.18,
+          "meanFirstDraw": 42.53,
+          "meanWinners": 1.2133333333333334,
+          "at40StandardError": 0.024936552548680702
+        }
+      },
+      "L": {
+        "theory": {
+          "required": 9,
+          "at30": 0.28948318662723904,
+          "at40": 0.9985533884488899,
+          "at50": 1,
+          "p10Draws": 27,
+          "medianDraws": 33,
+          "p90Draws": 37,
+          "tieProbability": 0.13603034657419988,
+          "expectedWinners": 1.1624145935150658,
+          "individualShareProbability": 0.00038747153117168863,
+          "expectedDraws": 32.22596237565301
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0.29,
+          "at40": 1,
+          "at50": 1,
+          "tieProbability": 0.16333333333333333,
+          "meanFirstDraw": 32.13333333333333,
+          "meanWinners": 1.1833333333333333,
+          "at40StandardError": 0.0021943251552814886
+        }
+      },
+      "S": {
+        "theory": {
+          "required": 16,
+          "at30": 0.00005102391474759166,
+          "at40": 0.021811930513383513,
+          "at50": 0.8223781508806203,
+          "p10Draws": 44,
+          "medianDraws": 48,
+          "p90Draws": 51,
+          "tieProbability": 0.17094950691179633,
+          "expectedWinners": 1.217485007409415,
+          "individualShareProbability": 0.00040582833580313834,
+          "expectedDraws": 47.775951030429404
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0,
+          "at40": 0.03333333333333333,
+          "at50": 0.8366666666666667,
+          "tieProbability": 0.15,
+          "meanFirstDraw": 47.46,
+          "meanWinners": 1.1966666666666668,
+          "at40StandardError": 0.00843330109361351
+        }
+      },
+      "O": {
+        "theory": {
+          "required": 16,
+          "at30": 0.00005102391474759166,
+          "at40": 0.021811930513383513,
+          "at50": 0.8223781508806203,
+          "p10Draws": 44,
+          "medianDraws": 48,
+          "p90Draws": 51,
+          "tieProbability": 0.17094950691179633,
+          "expectedWinners": 1.217485007409415,
+          "individualShareProbability": 0.00040582833580313834,
+          "expectedDraws": 47.775951030429404
+        },
+        "simulation": {
+          "trials": 300,
+          "at30": 0.0033333333333333335,
+          "at40": 0.02,
+          "at50": 0.8133333333333334,
+          "tieProbability": 0.16666666666666666,
+          "meanFirstDraw": 47.63333333333333,
+          "meanWinners": 1.2033333333333334,
+          "at40StandardError": 0.00843330109361351
+        }
+      }
+    },
+    "independentRoundsExpectedDraws": 296.7925865359096,
+    "meanSimultaneousLastDraw": 49.233333333333334,
+    "OLastIncludingTies": 0.57,
+    "orderCounts": {
+      "LFUASBO": 14,
+      "LFAUOSB": 6,
+      "LAFUBSO": 8,
+      "FLAUBOS": 9,
+      "LFAOUSB": 1,
+      "LFABUOS": 12,
+      "LFUOABS": 6,
+      "FLABSOU": 1,
+      "LAFSBOU": 1,
+      "LFBAUOS": 4,
+      "LFAUBOS": 17,
+      "LFUBSAO": 1,
+      "LFABSUO": 4,
+      "LFAOUBS": 5,
+      "LUFAOSB": 2,
+      "FLAUSOB": 1,
+      "LFAUBSO": 5,
+      "LFUABOS": 17,
+      "LUAFBOS": 2,
+      "LUFSABO": 3,
+      "FLUABOS": 4,
+      "LFUABSO": 6,
+      "LFUASOB": 2,
+      "LFUBAOS": 7,
+      "LAFUBOS": 7,
+      "LFSBUAO": 1,
+      "FLAOUSB": 1,
+      "FLOUABS": 1,
+      "LFUAOSB": 6,
+      "LFBASUO": 1,
+      "LUFASBO": 3,
+      "LFSABOU": 3,
+      "LFABUSO": 6,
+      "LAFBUOS": 2,
+      "LFAUOBS": 6,
+      "LFOUASB": 2,
+      "LOUFASB": 1,
+      "LUFSAOB": 1,
+      "LFBAUSO": 1,
+      "ALFUBOS": 3,
+      "FLSAUOB": 2,
+      "LFAUSBO": 5,
+      "FLABOSU": 2,
+      "LAFBUSO": 1,
+      "LAFBOSU": 1,
+      "LUOFABS": 1,
+      "FLAUSBO": 3,
+      "LFBUASO": 3,
+      "FLSUABO": 1,
+      "LFASUBO": 5,
+      "LSFUAOB": 1,
+      "LUFABSO": 2,
+      "LFAUSOB": 3,
+      "LAFBOUS": 1,
+      "LUFBAOS": 2,
+      "LUFABOS": 7,
+      "LUAFOSB": 1,
+      "FLAUOSB": 1,
+      "FLUABSO": 1,
+      "ALFBUOS": 1,
+      "LFUAOBS": 6,
+      "LUAFOBS": 1,
+      "LFBAOUS": 1,
+      "LFOUBAS": 2,
+      "LBFAUOS": 1,
+      "FLABSUO": 2,
+      "FLAUOBS": 2,
+      "FLBUASO": 1,
+      "FLASUBO": 2,
+      "FLSAUBO": 2,
+      "ALBUFOS": 1,
+      "LFOUABS": 4,
+      "LABFUSO": 1,
+      "LFSAUBO": 3,
+      "LFUBASO": 3,
+      "LAFUOBS": 2,
+      "LUAFSOB": 2,
+      "LFABOSU": 2,
+      "LFSAOUB": 1,
+      "LFSUABO": 1,
+      "LUFASOB": 1,
+      "LAFOUBS": 1,
+      "LAUFBSO": 1,
+      "FLABUSO": 1,
+      "LSUFAOB": 1,
+      "FLBASOU": 1,
+      "LFSOUAB": 1,
+      "LUBOAFS": 1,
+      "FALUBSO": 1,
+      "FLAUBSO": 1,
+      "LOUFABS": 1,
+      "LAFUOSB": 2,
+      "LFSABUO": 1,
+      "LFUSABO": 2,
+      "LUAFSBO": 1,
+      "LAFSBUO": 1,
+      "FLABUOS": 2,
+      "FALUSBO": 1,
+      "FLUASBO": 1,
+      "LFBOUSA": 1,
+      "ALUFBOS": 1,
+      "LUFAOBS": 1,
+      "LFUOASB": 1,
+      "LFBUOSA": 1,
+      "LFABOUS": 1,
+      "LBFUAOS": 1,
+      "LAFUSOB": 1,
+      "LFBUAOS": 1,
+      "LAFBSUO": 1,
+      "LUBOFAS": 1
+    },
+    "elapsedMs": 23957.750666999957
+  },
+  "finishedAt": "2026-11-17T20:31:31.433Z",
+  "pilotAuthorized": false,
+  "pending": [
+    "Final Fabuloso rule approval, including exhaustion/reserve policy",
+    "Live provider enablement and measured limits",
+    "Production infrastructure/network and backup RPO/RTO agreement",
+    "Human rehearsal of roles, contact workload, physical sound and actual Polla receipt references"
+  ],
+  "processMemory": {
+    "rss": 559972352,
+    "heapTotal": 182992896,
+    "heapUsed": 149704640,
+    "external": 26256544,
+    "arrayBuffers": 22628938,
+    "maxRssKiB": 1185408,
+    "scope": "Node rehearsal/API process only; excludes MongoDB and Chrome"
+  }
+}

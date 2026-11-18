@@ -5,12 +5,16 @@
   "main": "src/app.js",
   "jest": {
     "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "^.+\\.js?$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "setupFiles": [
       "./setupJest.js",
       "jest-canvas-mock"
+    ],
+    "testEnvironment": "jsdom",
+    "roots": [
+      "<rootDir>/front-end-tests",
+      "<rootDir>/back-office-tests"
     ]
   },
   "repository": {
@@ -29,12 +33,16 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.3",
-    "dotenv": "^2.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.22.0",
     "express-jwt": "^6.0.0",
     "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.9.5",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^10.6.0",
     "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pdf-lib": "1.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -56,7 +64,6 @@
     "classnames": "^2.2.5",
     "del": "^2.2.2",
     "event-emitter-es6": "^1.1.5",
-    "express": "^4.22.0",
     "fbemitter": "^2.1.1",
     "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
@@ -73,11 +80,14 @@
     "invariant": "^2.2.4",
     "jest-canvas-mock": "^2.2.0",
     "jest-cli": "^29.6.1",
+    "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.0",
-    "mongoose": "^8.9.5",
+    "mongodb-memory-server": "~10.1.4",
     "paper": "^0.12.4",
+    "pdf-parse": "1.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "sass": "~1.83.4",
     "vanilla-modal": "^1.6.5",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
@@ -86,5 +96,24 @@
   "bugs": {
     "url": "https://github.com/mihailgaberov/bingo/issues"
   },
-  "homepage": "https://github.com/mihailgaberov/bingo#readme"
+  "homepage": "https://github.com/mihailgaberov/bingo#readme",
+  "scripts": {
+    "start": "node server.js",
+    "build": "gulp build",
+    "config:client": "node scripts/client-config.cjs",
+    "env:check": "node scripts/check-environment.cjs",
+    "dev": "gulp",
+    "test": "jest --runInBand",
+    "test:frontend": "jest --runInBand front-end-tests",
+    "test:back-office": "jest --runInBand back-office-tests",
+    "test:api": "node --test --test-concurrency=1 api-tests/*.test.cjs",
+    "lint": "gulp lint",
+    "test:all": "npm test && npm run test:api",
+    "staff:provision": "node scripts/provision-staff.cjs",
+    "deliveries:worker": "node scripts/delivery-worker.cjs",
+    "rehearse:pilot": "node scripts/rehearse-pilot.cjs"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  }
 }

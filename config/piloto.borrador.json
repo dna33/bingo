@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "estado": "borrador_no_operativo",
+  "referencia": "Brief_Codex_Factibilidad_Bingo_Fabuloso.md",
+  "responsable_reglas": "Equipo de Fabuloso",
+  "confirmado_por_requisitos": {
+    "experiencia": "PDF y YouTube, sin cuenta ni login de jugador",
+    "cartones_por_jugador_edicion": 1,
+    "grilla": [5, 5],
+    "centro_libre": [3, 3],
+    "plazo_respuesta_segundos": 60,
+    "premios_clp": { "F": 50000, "A": 50000, "B": 50000, "U": 50000, "L": 50000, "S": 50000, "O": 100000 },
+    "presupuesto_maximo_clp": 400000
+  },
+  "pendiente_confirmacion": {
+    "universo_numeros": null,
+    "restricciones_columnas": null,
+    "mascaras_definitivas": null,
+    "modalidad_rondas_y_orden": null,
+    "modalidad_extraccion": null,
+    "repeticion_ganadores": null,
+    "redondeo": null,
+    "canal_y_proveedor_entrega": null,
+    "inicio_del_minuto_y_evidencia": null,
+    "destino_partes_descartadas": null,
+    "continuacion_si_nadie_responde": null,
+    "pausa_durante_contactos": null,
+    "dotacion_contactos_simultaneos": null,
+    "infraestructura_y_recuperacion": null,
+    "conservacion_datos": null
+  }
+}

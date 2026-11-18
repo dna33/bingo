@@ -7,9 +7,10 @@ describe('WinningDialog module', () => {
 	});
 
 	test('Should attach the necessary listeners', () => {
-		const spy = spyOn(WinningDialog, 'attachListeners');
+		const spy = jest.spyOn(WinningDialog, 'attachListeners');
 		new WinningDialog('#id');
 		expect(spy).toHaveBeenCalled();
+		spy.mockRestore();
 	});
 
 	test(
