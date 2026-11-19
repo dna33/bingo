@@ -111,7 +111,8 @@ async function openRound(edition, config, ordinal, session) {
         minNumber: edition.cardSettings.minNumber,
         maxNumber: edition.cardSettings.maxNumber,
         startedAt: new Date(),
-        progress: engine.evaluate(roster, definitions, []).summaries
+        progress: engine.evaluate(roster, definitions, [], new Set(), new Set(), rules.nearMissThresholds)
+          .summaries
       }
     ],
     { session }
@@ -221,7 +222,14 @@ async function draw(command) {
       const definitions = config.rules.figures.filter((f) =>
         results.some((result) => result.figure === f.name)
       );
-      const evaluated = engine.evaluate(roster, definitions, numbers, seen, excluded);
+      const evaluated = engine.evaluate(
+        roster,
+        definitions,
+        numbers,
+        seen,
+        excluded,
+        config.rules.nearMissThresholds
+      );
       const candidates = [];
       let primaryFound = false;
       for (const result of results) {

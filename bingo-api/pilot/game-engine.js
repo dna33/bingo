@@ -14,7 +14,8 @@ function validateConfiguration(input) {
     'noResponsePolicy',
     'contactClockStart',
     'maskReviewConfirmed',
-    'confirmationReference'
+    'confirmationReference',
+    'nearMissThresholds'
   ];
   if (
     !input ||
@@ -38,7 +39,11 @@ function validateConfiguration(input) {
     input.order.some((n) => !names.includes(n)) ||
     !Array.isArray(input.figures) ||
     input.figures.length !== 7 ||
-    new Set(input.figures.map((f) => f && f.name)).size !== 7
+    new Set(input.figures.map((f) => f && f.name)).size !== 7 ||
+    !Array.isArray(input.nearMissThresholds) ||
+    input.nearMissThresholds.length > 10 ||
+    new Set(input.nearMissThresholds).size !== input.nearMissThresholds.length ||
+    input.nearMissThresholds.some((n) => !Number.isSafeInteger(n) || n < 1 || n > 20)
   ) {
     throw Object.assign(failure(400, 'Complete game rules are required'), {
       publicCode: 'game_configuration'
@@ -77,7 +82,8 @@ function validateConfiguration(input) {
     discardPolicy: input.discardPolicy,
     noResponsePolicy: input.noResponsePolicy,
     contactClockStart: input.contactClockStart,
-    maskReviewConfirmed: true
+    maskReviewConfirmed: true,
+    nearMissThresholds: [...input.nearMissThresholds].sort((a, b) => a - b)
   };
 }
 function progress(cells, mask, drawn) {
@@ -103,12 +109,15 @@ function progress(cells, mask, drawn) {
   };
 }
 // Pure evaluator: no DOM, network, clock, player connection or manual marks.
-function evaluate(roster, figures, drawnNumbers, seen = new Set(), excluded = new Set()) {
+function evaluate(roster, figures, drawnNumbers, seen = new Set(), excluded = new Set(), proximityThresholds = []) {
   const drawn = new Set(drawnNumbers),
     completions = [],
-    summaries = [];
+    summaries = [],
+    thresholds = new Set(proximityThresholds);
   for (const figure of figures) {
     const nearest = [];
+    const proximityCounts = {};
+    for (const distance of thresholds) proximityCounts[distance] = 0;
     let evaluatedCards = 0;
     for (const card of roster) {
       if (excluded.has(String(card.participantId))) continue;
@@ -123,6 +132,7 @@ function evaluate(roster, figures, drawnNumbers, seen = new Set(), excluded = ne
       if (status.complete && !seen.has(`${figure.name}:${card.cardId}`))
         completions.push({ ...item, figure: figure.name });
       if (!status.complete) {
+        if (thresholds.has(status.missingNumbers.length)) proximityCounts[status.missingNumbers.length] += 1;
         nearest.push(item);
         nearest.sort(
           (a, b) => a.missingNumbers.length - b.missingNumbers.length || a.cardId.localeCompare(b.cardId)
@@ -130,7 +140,7 @@ function evaluate(roster, figures, drawnNumbers, seen = new Set(), excluded = ne
         if (nearest.length > 10) nearest.pop();
       }
     }
-    summaries.push({ figure: figure.name, evaluatedCards, nearCards: nearest });
+    summaries.push({ figure: figure.name, evaluatedCards, nearCards: nearest, proximityCounts });
   }
   return { completions, summaries };
 }

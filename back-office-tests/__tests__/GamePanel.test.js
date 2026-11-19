@@ -156,6 +156,27 @@ test('all ties are counted and contacts are fetched only by an authorized explic
     'private@example.invalid'
   );
 });
+test('near-miss alerts show the configured distances and stay silent for distances without pending cards', async () => {
+  frame.rules.nearMissThresholds = [1, 2];
+  frame.round.progress = [
+    { figure: 'F', nearCards: [], proximityCounts: { 1: 3, 2: 0 } }
+  ];
+  frame.results = [
+    {
+      _id: 'result1',
+      figure: 'F',
+      poolClp: 50000,
+      firstSequence: null,
+      primaryCandidateCount: 0,
+      reserveCandidateCount: 0
+    }
+  ];
+  const ui = render(
+    <GamePanel edition={edition} token="staff" permissions={['game:operate']} onChanged={changed} />
+  );
+  await waitForElement(() => ui.getByText(/3 cartones a 1 extracción de completar F/));
+  expect(ui.queryByText(/extracciones de completar F/)).toBeNull();
+});
 test('the selected contact-pause policy blocks resume while primary candidates are unresolved', async () => {
   frame.state = 'paused';
   frame.rules.pauseDuringContact = true;

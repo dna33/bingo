@@ -33,6 +33,7 @@ const gameRules = (extra = {}) => ({
   contactClockStart: 'operator_confirms_notice',
   maskReviewConfirmed: true,
   confirmationReference: 'Synthetic rules, not final pilot approval',
+  nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
     poolClp: E.pools[name],
@@ -222,6 +223,23 @@ test('later completions are reserve candidates, and an adjudicated figure receiv
   await M.FigureResult.updateOne({ _id: result._id }, { state: 'adjudicated' });
   assert.equal((await ball(id, 3)).candidateCount, 0);
   assert.equal(await M.Candidate.countDocuments({ editionId: id, cohort: 'reserve' }), 1);
+});
+test('near-miss proximity counts reflect every pending card at a configured distance, not just the completions', async () => {
+  const id = await fixture(5, gameRules({ nearMissThresholds: [1, 2] }));
+  await start(id);
+  const roundId = (await M.Edition.findById(id)).currentRoundId;
+  const beforeDraw = (await M.Round.findById(roundId)).progress.find((p) => p.figure === 'F');
+  assert.equal(beforeDraw.proximityCounts[1], 5);
+  assert.equal(beforeDraw.proximityCounts[2], 0);
+  await ball(id, 1);
+  const afterDraw = (await M.Round.findById(roundId)).progress.find((p) => p.figure === 'F');
+  assert.equal(afterDraw.proximityCounts[1], 0);
+});
+test('an empty configured threshold list disables proximity counts entirely', async () => {
+  const id = await fixture(2, gameRules({ nearMissThresholds: [] }));
+  await start(id);
+  const round = await M.Round.findById((await M.Edition.findById(id)).currentRoundId);
+  assert.ok(!round.progress[0].proximityCounts); // Mongoose minimizes an empty Mixed object away
 });
 test('simultaneous figures retain every tie from a draw; contact-pause prevents bypassing unresolved candidates', async () => {
   const id = await fixture(2, gameRules({ roundMode: 'simultaneous', pauseDuringContact: true }));

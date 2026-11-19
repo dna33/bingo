@@ -13,6 +13,7 @@ const base = () => ({
   contactClockStart: 'operator_confirms_notice',
   maskReviewConfirmed: true,
   confirmationReference: 'Synthetic rules',
+  nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
     poolClp: E.pools[name],
@@ -32,12 +33,24 @@ test('all adjudication-relevant rules and reviewed masks are required before con
     'noResponsePolicy',
     'contactClockStart',
     'maskReviewConfirmed',
-    'confirmationReference'
+    'confirmationReference',
+    'nearMissThresholds'
   ]) {
     const invalid = { ...rules };
     delete invalid[key];
     assert.throws(
       () => E.validateConfiguration(invalid),
+      (e) => e.publicCode === 'game_configuration'
+    );
+  }
+  assert.deepEqual(E.validateConfiguration({ ...rules, nearMissThresholds: [] }).nearMissThresholds, []);
+  assert.deepEqual(
+    E.validateConfiguration({ ...rules, nearMissThresholds: [3, 1, 2] }).nearMissThresholds,
+    [1, 2, 3]
+  );
+  for (const nearMissThresholds of [[1, 1], [0], [21], ['1'], Array(11).fill(1).map((_, i) => i + 1)]) {
+    assert.throws(
+      () => E.validateConfiguration({ ...rules, nearMissThresholds }),
       (e) => e.publicCode === 'game_configuration'
     );
   }
@@ -75,6 +88,28 @@ test('every tied card and figure is returned regardless of processing order, wit
   const seen = new Set(one.completions.map((c) => `${c.figure}:${c.cardId}`));
   assert.equal(E.evaluate(roster, figures, [1, 2], seen).completions.length, 0);
   assert.equal(E.evaluate(roster, figures, [1], new Set(), new Set(['b'])).completions.length, 14);
+});
+test('proximity counts for configured near-miss distances are exact, not capped to the ten displayed near cards', () => {
+  const mask = ['10000', '00000', '00100', '00000', '00000']; // one required non-free cell besides the free center
+  const roster = Array.from({ length: 15 }, (_, i) => {
+    const cells = Array.from({ length: 25 }, (_, p) => (p === 12 ? null : p + 1));
+    cells[0] = i; // every card still misses exactly one required number: distance 1
+    return { cardId: `card-${i}`, participantId: `person-${i}`, cells };
+  });
+  const figures = [{ name: 'F', mask, poolClp: E.pools.F }];
+  const evaluated = E.evaluate(roster, figures, [], new Set(), new Set(), [1, 2, 3]);
+  const summary = evaluated.summaries[0];
+  assert.equal(summary.nearCards.length, 10); // display list stays capped
+  assert.equal(summary.proximityCounts[1], 15); // but the count reflects every near card
+  assert.equal(summary.proximityCounts[2], 0);
+  assert.equal(summary.proximityCounts[3], 0);
+});
+test('proximity counts are omitted for distances outside the configured thresholds', () => {
+  const figures = base().figures;
+  const cells = Array.from({ length: 25 }, (_, i) => (i === 12 ? null : i + 1));
+  const roster = [{ cardId: 'a', participantId: 'a', cells }];
+  const evaluated = E.evaluate(roster, figures, [], new Set(), new Set(), []);
+  assert.deepEqual(evaluated.summaries[0].proximityCounts, {});
 });
 module.exports = { base };
 

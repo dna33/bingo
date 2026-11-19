@@ -149,6 +149,7 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
     order: 'F,A,B,U,L,S,O',
     maskReviewConfirmed: false,
     confirmationReference: '',
+    nearMissThresholds: '1,2,3',
     figures: proposedFigures()
   });
   const mounted = useRef(false),
@@ -283,7 +284,12 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                         ...draft,
                         repeatWinners: draft.repeatWinners === 'true',
                         pauseDuringContact: draft.pauseDuringContact === 'true',
-                        order: draft.order.split(',').map((s) => s.trim().toUpperCase())
+                        order: draft.order.split(',').map((s) => s.trim().toUpperCase()),
+                        nearMissThresholds: draft.nearMissThresholds
+                          .split(',')
+                          .map((s) => s.trim())
+                          .filter(Boolean)
+                          .map(Number)
                       }
                     })
                   );
@@ -313,6 +319,13 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                     required
                     value={draft.order}
                     onChange={(e) => setDraft({ ...draft, order: e.target.value })}
+                  />
+                </label>
+                <label>
+                  Alertar cartones a N extracciones de completar (separadas por coma; vacío desactiva)
+                  <input
+                    value={draft.nearMissThresholds}
+                    onChange={(e) => setDraft({ ...draft, nearMissThresholds: e.target.value })}
                   />
                 </label>
                 <p>
@@ -502,6 +515,18 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                         {result.primaryCandidateCount > 1 && ' empatados'}.
                       </p>
                       <p>Completaciones posteriores en reserva: {result.reserveCandidateCount}.</p>
+                      {advance &&
+                        (frame.rules.nearMissThresholds || [])
+                          .filter((distance) => advance.proximityCounts && advance.proximityCounts[distance])
+                          .map((distance) => {
+                            const count = advance.proximityCounts[distance];
+                            return (
+                              <p key={distance} role="alert" className="game-near-miss-alert">
+                                {count} {count > 1 ? 'cartones' : 'cartón'} a {distance}{' '}
+                                {distance > 1 ? 'extracciones' : 'extracción'} de completar {result.figure}.
+                              </p>
+                            );
+                          })}
                       {near && (
                         <React.Fragment>
                           <p>

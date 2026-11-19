@@ -21,6 +21,7 @@ const rules = (extra = {}) => ({
   contactClockStart: 'operator_confirms_notice',
   maskReviewConfirmed: true,
   confirmationReference: 'Synthetic prize tests',
+  nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
     poolClp: E.pools[name],
