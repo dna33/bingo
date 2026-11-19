@@ -25,17 +25,14 @@ function decodeFile(base64) {
 // accepted shape, both normalized to the same {email, telefono, jugador_id, nombre} values so
 // every downstream step (duplicate/conflict detection, preview, resolution) is unaffected.
 const LEGACY_ALLOWED = ['email', 'telefono', 'jugador_id', 'nombre'];
-const POLLA_FIELD_MAP = { 'player email': 'email', 'player mobile phone': 'telefono', 'player id': 'jugador_id' };
+const POLLA_FIELD_MAP = {
+  'player email': 'email',
+  'player mobile phone': 'telefono',
+  'player id': 'jugador_id',
+  'player rut': 'rut'
+};
 const POLLA_NAME_COLUMNS = ['player name', 'player surname'];
-const POLLA_IGNORED = [
-  'influencer id',
-  'influencer code',
-  'player rut',
-  'transaction date',
-  'game',
-  'bets number',
-  'bet amount'
-];
+const POLLA_IGNORED = ['influencer id', 'influencer code', 'transaction date', 'game', 'bets number', 'bet amount'];
 function detectDelimiter(source) {
   const end = source.search(/\r\n|\r|\n/);
   const firstLine = end === -1 ? source : source.slice(0, end);
@@ -77,14 +74,16 @@ function valueExtractor(shape, entries) {
       email: field(fields, email),
       telefono: field(fields, telefono),
       jugador_id: field(fields, jugadorId),
-      nombre: field(fields, nombre)
+      nombre: field(fields, nombre),
+      rut: ''
     });
   }
   const email = indexOf('player email'),
     phone = indexOf('player mobile phone'),
     jugadorId = indexOf('player id'),
     name = indexOf('player name'),
-    surname = indexOf('player surname');
+    surname = indexOf('player surname'),
+    rut = indexOf('player rut');
   return (fields) => ({
     email: field(fields, email),
     telefono: field(fields, phone),
@@ -92,7 +91,8 @@ function valueExtractor(shape, entries) {
     nombre: [field(fields, name), field(fields, surname)]
       .map((value) => value.trim())
       .filter(Boolean)
-      .join(' ')
+      .join(' '),
+    rut: field(fields, rut)
   });
 }
 function parseCsv(bytes) {
@@ -191,11 +191,15 @@ function normalize(values) {
   if (phone && !phone.startsWith('+')) phone = `+${phone}`;
   const externalId = read('jugador_id');
   const name = read('nombre');
+  // RUT is kept only as a reference datum, never used to match or merge rows: it is not
+  // format-validated or normalized beyond trimming/length, and a missing/malformed value never
+  // blocks the row.
+  const rut = read('rut').slice(0, 20);
   if (!email || email.length > 254 || !/^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(email))
     issues.push('email_format');
   if (!/^\+[1-9][0-9]{7,14}$/.test(phone)) issues.push('phone_format');
   if (externalId.length > 128 || /[\r\n\x00-\x1f]/.test(externalId)) issues.push('external_id_format');
   if (name.length > 200 || /[\x00-\x1f]/.test(name)) issues.push('name_format');
-  return { data: { email, phone, externalId, name }, issues };
+  return { data: { email, phone, externalId, name, rut }, issues };
 }
 module.exports = { decodeFile, parseCsv, normalize, MAX_BYTES, MAX_ROWS };

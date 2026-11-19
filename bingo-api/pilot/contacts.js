@@ -76,9 +76,11 @@ function createService(clock = () => new Date()) {
         _id: candidate.participantId,
         editionId: candidate.editionId
       })
-        .select('email phone')
+        .select('+emails +phones')
         .session(session);
-      const recipient = person && (input.channel === 'email' ? person.email : person.phone);
+      // A person may have more than one email/phone on file; the prize contact uses the first
+      // known address for the chosen channel.
+      const recipient = person && (input.channel === 'email' ? person.emails : person.phones)[0];
       if (!recipient) throw blocked('contact_recipient');
       candidate.state = 'contacting';
       candidate.channel = input.channel;

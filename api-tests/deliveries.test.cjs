@@ -117,9 +117,9 @@ test('queue is persistent, deduplicated across requeue and concurrency, and snap
   assert.equal(await M.Delivery.countDocuments({ editionId }), 3);
   const jobs = await M.Delivery.find({ editionId }).select('+recipient');
   for (const job of jobs) {
-    const person = await M.Participant.findById(job.participantId).select('+email');
+    const person = await M.Participant.findById(job.participantId).select('+emails');
     const card = await M.Card.findById(job.cardId);
-    assert.equal(job.recipient, person.email);
+    assert.ok(person.emails.includes(job.recipient));
     assert.equal(job.channel, 'email');
     assert.equal(job.pdfSha256, card.pdf.sha256);
   }
@@ -127,6 +127,55 @@ test('queue is persistent, deduplicated across requeue and concurrency, and snap
   await db.disconnect();
   await db.connect(uri);
   assert.equal(await M.Delivery.countDocuments({ editionId, state: 'pending' }), 3);
+});
+test('a person with more than one email/phone gets the same card delivered to every known address, never a second card', async () => {
+  const editionId = oid();
+  await createEdition({ editionId, actorId, name: 'Multi-contact edition' });
+  const csv =
+    'email,telefono,jugador_id\n' +
+    'first@example.invalid,+56900000010,shared\n' +
+    'second@example.invalid,+56900000011,shared\n';
+  const staged = await I.stageImport(
+    await command(editionId, {
+      filename: 'synthetic.csv',
+      contentBase64: Buffer.from(csv).toString('base64'),
+      sourceReference: 'Two contacts, one person'
+    })
+  );
+  await I.applyImport(await command(editionId, { importId: staged.importId }));
+  assert.equal(await M.Participant.countDocuments({ editionId }), 1);
+  await C.configureCards(
+    await command(editionId, {
+      settings: { minNumber: 1, maxNumber: 75, columnMode: 'unrestricted', confirmationReference: 'Synthetic' }
+    })
+  );
+  await C.issueBatch(await command(editionId, { limit: 100 }));
+  await I.closeList(await command(editionId));
+  assert.equal(await M.Card.countDocuments({ editionId }), 1);
+  const card = await M.Card.findOne({ editionId });
+
+  await S.enqueue(await command(editionId, { channel: 'email' }));
+  assert.equal(await M.Delivery.countDocuments({ editionId }), 2);
+  const jobs = await M.Delivery.find({ editionId }).select('+recipient').sort({ recipient: 1 });
+  assert.deepEqual(
+    jobs.map((j) => j.recipient),
+    ['first@example.invalid', 'second@example.invalid']
+  );
+  for (const job of jobs) {
+    assert.equal(String(job.cardId), card.id);
+    assert.equal(job.kind, 'initial');
+  }
+  assert.notEqual(jobs[0].queueKey, jobs[1].queueKey);
+
+  // Re-enqueuing does not add a third job: both known addresses are already queued.
+  const again = await S.enqueue(await command(editionId, { channel: 'email' }));
+  assert.equal(again.queued, 0);
+  assert.equal(await M.Delivery.countDocuments({ editionId }), 2);
+
+  await S.processBatch(editionId, { limit: 10, now: clock() });
+  const processed = await M.Delivery.find({ editionId }).select('+providerReference');
+  assert.ok(processed.every((j) => j.state === 'provider_accepted'));
+  assert.equal(new Set(processed.map((j) => j.providerReference)).size, 2);
 });
 test('accepted is distinct from delivered; events and retries cannot duplicate a confirmed message', async () => {
   const { editionId } = await fixture(1);
@@ -267,8 +316,8 @@ test('resends and channel fallback use the same card, PDF and person, with separ
   assert.equal(sent.state, 'delivered');
   assert.equal(String(sent.parentId), job.id);
   assert.equal(String(sent.cardId), original.id);
-  const person = await M.Participant.findById(sent.participantId).select('+phone');
-  assert.equal(sent.recipient, person.phone);
+  const person = await M.Participant.findById(sent.participantId).select('+phones');
+  assert.ok(person.phones.includes(sent.recipient));
   assert.equal(await M.Card.countDocuments({ editionId }), 1);
   assert.ok((await M.CardPdf.findById(originalPdf.id).select('+bytes')).bytes.equals(originalPdf.bytes));
   assert.equal(await M.MockReceipt.countDocuments({ editionId }), 2);
@@ -283,7 +332,7 @@ test('missing/corrupt PDF and changed recipient become incidents without regener
   assert.equal(await M.MockReceipt.countDocuments({ editionId }), 0);
   const another = await fixture(1);
   await enqueue(another.editionId);
-  await M.Participant.updateOne({ editionId: another.editionId }, { email: 'corrected@example.invalid' });
+  await M.Participant.updateOne({ editionId: another.editionId }, { emails: ['corrected@example.invalid'] });
   await S.processBatch(another.editionId, { now: clock() });
   const old = await M.Delivery.findOne({ editionId: another.editionId }).select('+recipient');
   assert.equal(old.errorCode, 'recipient_changed');

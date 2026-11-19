@@ -123,8 +123,12 @@ export default function ContactWorkflow({ contact, root, token, permissions, bus
                   onChange={(e) => setChannel(e.target.value)}
                 >
                   <option value="">Seleccionar…</option>
-                  {contact.email && <option value="email">Email · {contact.email}</option>}
-                  {contact.phone && <option value="whatsapp">WhatsApp · {contact.phone}</option>}
+                  {contact.emails && contact.emails.length > 0 && (
+                    <option value="email">Email · {contact.emails.join(', ')}</option>
+                  )}
+                  {contact.phones && contact.phones.length > 0 && (
+                    <option value="whatsapp">WhatsApp · {contact.phones.join(', ')}</option>
+                  )}
                 </select>
               </label>
               <button

@@ -140,7 +140,7 @@ router.get(
     const person = await M.Participant.findOne({
       _id: candidate.participantId,
       editionId: req.params.editionId
-    }).select('_id name email phone');
+    }).select('_id name +emails +phones');
     if (!person) throw failure(404, 'Participant not found');
     const deliveries = await M.Delivery.find({
       editionId: req.params.editionId,
@@ -162,8 +162,8 @@ router.get(
       figure: candidate.figure,
       participantId: person._id,
       name: person.name,
-      email: person.email,
-      phone: person.phone,
+      emails: person.emails,
+      phones: person.phones,
       deliveries,
       workflow: contacts.publicStatus(candidate.toObject()),
       events: await M.ContactEvent.find({ editionId: req.params.editionId, candidateId: candidate._id })

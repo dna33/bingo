@@ -112,7 +112,7 @@ async function report(editionId, kind, input = {}) {
       editionId,
       _id: { $in: candidates.map((c) => c.participantId) }
     })
-      .select('+name +email +phone')
+      .select('+name +emails +phones')
       .session(session)
       .lean();
     const cards = await M.Card.find({ editionId, _id: { $in: candidates.map((c) => c.cardId) } })
@@ -174,8 +174,8 @@ async function report(editionId, kind, input = {}) {
         sourceRowId: card ? sid(card.sourceRowId) : '',
         externalId: person ? person.externalId || '' : '',
         name: person ? person.name || '' : '',
-        email: person ? person.email : '',
-        phone: person ? person.phone : '',
+        email: person ? (person.emails || []).join('; ') : '',
+        phone: person ? (person.phones || []).join('; ') : '',
         cardId: sid(c.cardId),
         cardCode: card ? card.cardCode : '',
         roundId: sid(c.roundId),

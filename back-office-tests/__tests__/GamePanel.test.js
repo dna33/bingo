@@ -55,8 +55,8 @@ beforeEach(() => {
       return {
         figure: 'F',
         name: 'Private name',
-        email: 'private@example.invalid',
-        phone: '+56900000000',
+        emails: ['private@example.invalid'],
+        phones: ['+56900000000'],
         deliveries: []
       };
     if (options) {

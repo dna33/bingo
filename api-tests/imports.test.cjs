@@ -169,7 +169,7 @@ test('invalid rows and shared contacts are retained; correction/separation requi
   assert.ok(!audit.includes('c@example.invalid'));
   assert.ok(!audit.includes('synthetic clarification'));
 });
-test('a stable ID with changed contacts blocks until explicitly corrected, preserving participant and cartón', async () => {
+test('a stable ID with a new contact merges automatically, preserving participant and cartón', async () => {
   const id = await edition();
   const one = await stage(id, 'email,telefono,jugador_id\na@example.invalid,+56900000000,stable\n');
   await apply(id, one.importId);
@@ -180,14 +180,14 @@ test('a stable ID with changed contacts blocks until explicitly corrected, prese
   );
   const two = await stage(id, 'email,telefono,jugador_id\nnew@example.invalid,+56900000001,stable\n');
   const view = await preview(id, two.importId);
-  assert.deepEqual(view.rows[0].issues, ['identity_contacts_changed']);
-  await resolve(id, two.importId, view.rows[0].id, {
-    kind: 'correct',
-    corrected: { email: 'new@example.invalid', telefono: '+56900000001', jugador_id: 'stable' }
-  });
+  // Same jugador_id, a different email/phone: not a conflict, no administrator needed - the
+  // new contact is merged into the same person automatically.
+  assert.deepEqual(view.rows[0].issues, []);
+  assert.equal(view.rows[0].status, 'duplicate');
   await apply(id, two.importId);
-  const updated = await M.Participant.findById(person.id).select('+email +contactHistory');
-  assert.equal(updated.email, 'new@example.invalid');
+  const updated = await M.Participant.findById(person.id).select('+emails +phones +contactHistory');
+  assert.deepEqual(updated.emails, ['a@example.invalid', 'new@example.invalid']);
+  assert.deepEqual(updated.phones, ['+56900000000', '+56900000001']);
   assert.equal(updated.contactHistory.length, 2);
   assert.deepEqual((await M.Card.findById(card.id)).cells.toObject(), cells);
   assert.equal(await M.Participant.countDocuments({ editionId: id }), 1);
@@ -333,39 +333,89 @@ test('a new external ID is not silently attached by contacts; explicit link pres
     (e) => e.status === 404
   );
 });
-test('conflicting rows with one external ID require a correction; they never create two people', async () => {
+test('rows sharing one external ID merge into a single person; explicit separation is still blocked', async () => {
   const id = await edition();
   const first = await stage(
     id,
     'email,telefono,jugador_id\na@example.invalid,+56900000000,same\nb@example.invalid,+56900000001,same\n'
   );
-  let view = await preview(id, first.importId);
-  assert.equal(view.summary.conflicts, 1);
-  await resolve(id, first.importId, view.rows[1].id, { kind: 'separate' });
-  await assert.rejects(apply(id, first.importId), (e) => e.publicCode === 'import_unresolved');
-  await resolve(id, first.importId, view.rows[1].id, {
-    kind: 'correct',
-    corrected: { email: 'a@example.invalid', telefono: '+56900000000', jugador_id: 'same' }
-  });
+  const view = await preview(id, first.importId);
+  // Same jugador_id, different contacts across rows: merges automatically, no conflict.
+  assert.equal(view.summary.conflicts, 0);
+  assert.deepEqual(view.rows[1].issues, []);
   await apply(id, first.importId);
   assert.equal(await M.Participant.countDocuments({ editionId: id }), 1);
-  view = await preview(id, first.importId);
-  assert.equal(view.rows[1].decisions.length, 2);
+  const person = await M.Participant.findOne({ editionId: id }).select('+emails +phones');
+  assert.deepEqual(person.emails, ['a@example.invalid', 'b@example.invalid']);
+  assert.deepEqual(person.phones, ['+56900000000', '+56900000001']);
+  // An operator who explicitly insists a same-ID row is a different person is still blocked:
+  // one external ID can never resolve to two participants.
+  const second = await stage(id, 'email,telefono,jugador_id\nc@example.invalid,+56900000002,same\n', 'Second batch');
+  const secondView = await preview(id, second.importId);
+  await resolve(id, second.importId, secondView.rows[0].id, { kind: 'separate' });
+  const resolvedView = await preview(id, second.importId);
+  assert.deepEqual(resolvedView.rows[0].issues, ['external_id_already_used']);
 });
 
-test('a repeated old row cannot silently overwrite a contact correction made earlier in the file', async () => {
+test('three rows sharing one external ID merge every distinct contact exactly once, without duplicates', async () => {
   const id = await edition();
   const file = await stage(
     id,
     'email,telefono,jugador_id\na@example.invalid,+56900000000,same\nb@example.invalid,+56900000001,same\na@example.invalid,+56900000000,same\n'
   );
-  let view = await preview(id, file.importId);
-  await resolve(id, file.importId, view.rows[1].id, {
-    kind: 'correct',
-    corrected: { email: 'b@example.invalid', telefono: '+56900000001', jugador_id: 'same' }
-  });
-  view = await preview(id, file.importId);
-  assert.equal(view.rows[2].status, 'conflict');
-  await assert.rejects(apply(id, file.importId), (e) => e.publicCode === 'import_unresolved');
-  assert.equal(await M.Participant.countDocuments({ editionId: id }), 0);
+  const view = await preview(id, file.importId);
+  assert.equal(view.summary.conflicts, 0);
+  assert.equal(view.rows[2].status, 'duplicate');
+  await apply(id, file.importId);
+  assert.equal(await M.Participant.countDocuments({ editionId: id }), 1);
+  const person = await M.Participant.findOne({ editionId: id }).select('+emails +phones');
+  // The third row repeats the first row's contact exactly: it does not add a duplicate entry.
+  assert.deepEqual(person.emails, ['a@example.invalid', 'b@example.invalid']);
+  assert.deepEqual(person.phones, ['+56900000000', '+56900000001']);
+});
+
+test('a name difference alone, with the same external ID or the same exact contact pair, never blocks', async () => {
+  const id = await edition();
+  const first = await stage(
+    id,
+    'email,telefono,jugador_id,nombre\na@example.invalid,+56900000000,same,Original Name\n' +
+      'a@example.invalid,+56900000000,same,Totally Different Name\n'
+  );
+  const view = await preview(id, first.importId);
+  assert.equal(view.summary.conflicts, 0);
+  await apply(id, first.importId);
+  assert.equal(await M.Participant.countDocuments({ editionId: id }), 1);
+  const byId = await M.Participant.findOne({ editionId: id, externalId: 'same' }).select('+name');
+  assert.equal(byId.name, 'Totally Different Name');
+
+  // Same exact email+phone pair, no external ID at all: a later name-only difference is the
+  // same person too.
+  const second = await stage(
+    id,
+    'email,telefono,nombre\nc@example.invalid,+56900000099,First\nc@example.invalid,+56900000099,Second\n',
+    'No external id batch'
+  );
+  const secondView = await preview(id, second.importId);
+  assert.equal(secondView.summary.conflicts, 0);
+  await apply(id, second.importId);
+  assert.equal(await M.Participant.countDocuments({ editionId: id, externalId: { $exists: false } }), 1);
+});
+
+test('RUT is captured from Polla\'s raw export as a reference datum but never used to match or merge people', async () => {
+  const id = await edition();
+  const csv =
+    'Player ID;Player Name;Player Surname;Player RUT;Player Email;Player Mobile Phone\n' +
+    'p1;Ana;Lopez;11111111-1;ana@example.invalid;56900000001\n' +
+    'p2;Beto;Soto;11111111-1;beto@example.invalid;56900000002\n';
+  const file = await stage(id, csv, 'Polla RUT batch');
+  const view = await preview(id, file.importId);
+  // Two different Player IDs sharing the same RUT (e.g. a shared household ID in the export)
+  // are not merged: jugador_id remains the identity, RUT is only stored alongside it.
+  assert.equal(view.summary.conflicts, 0);
+  assert.equal(view.summary.uniqueParticipants, 2);
+  await apply(id, file.importId);
+  assert.equal(await M.Participant.countDocuments({ editionId: id }), 2);
+  const ana = await M.Participant.findOne({ editionId: id, externalId: 'p1' }).select('+rut +emails');
+  assert.equal(ana.rut, '11111111-1');
+  assert.deepEqual(ana.emails, ['ana@example.invalid']);
 });

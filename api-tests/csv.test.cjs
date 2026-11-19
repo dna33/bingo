@@ -39,7 +39,8 @@ test('normalization keeps phone as text and records invalid/blank/short rows', (
     email: 'a@example.invalid',
     phone: '+56900000000',
     name: '',
-    externalId: ''
+    externalId: '',
+    rut: ''
   });
   // A phone with no leading '+' is assumed to be missing it, not malformed (Polla's raw export
   // gives bare national numbers), so only the email is reported invalid here.
@@ -57,7 +58,8 @@ test('a semicolon-delimited file with the legacy column names is also accepted',
     email: 'a@example.invalid',
     telefono: '+56900000000',
     jugador_id: '',
-    nombre: 'Ana'
+    nombre: 'Ana',
+    rut: ''
   });
 });
 test("Polla's raw platform export (Report NNN) is accepted: title row skipped, columns mapped, extras ignored", () => {
@@ -77,12 +79,13 @@ test("Polla's raw platform export (Report NNN) is accepted: title row skipped, c
     email: 'dna33@cornell.edu',
     telefono: '56998673105',
     jugador_id: '1000063111',
-    nombre: 'GLADYS DEL CARMEN ACEVEDO'
+    nombre: 'GLADYS DEL CARMEN ACEVEDO',
+    rut: '130152570'
   });
   assert.equal(normalize(rows[0].raw.values).data.phone, '+56998673105');
   // The same Player ID reappears with a different phone across transaction rows: parseCsv keeps
-  // both rows as-is (one per CSV line) and lets the existing import conflict detection, which
-  // already matches by jugador_id, decide this needs operator resolution.
+  // both rows as-is (one per CSV line) and lets import conflict detection, which matches by
+  // jugador_id, merge them into the same person's accumulated contacts automatically.
   assert.equal(rows[1].raw.values.jugador_id, '1000063111');
   assert.equal(rows[1].raw.values.telefono, '56958710337');
   assert.deepEqual(rows.map((r) => r.structureIssues), [[], [], []]);

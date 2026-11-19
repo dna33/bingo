@@ -34,7 +34,7 @@ router.get(
     const person = await M.Participant.findOne({
       _id: req.params.participantId,
       editionId: req.params.editionId
-    }).select('+name +email +phone');
+    }).select('+name +emails +phones');
     if (!person) throw failure(404, 'Participant not found');
     const account = await M.PollaAccount.findOne({
       participantId: person._id,

@@ -651,7 +651,7 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
             <aside aria-label="Contacto privado del candidato">
               <h3>Contacto privado · figura {contact.figure}</h3>
               <p>
-                {contact.name} · {contact.email} · {contact.phone}
+                {contact.name} · {(contact.emails || []).join(', ')} · {(contact.phones || []).join(', ')}
               </p>
               <p>Estos datos son para el equipo; no deben mostrarse en la salida pública.</p>
               <ul>

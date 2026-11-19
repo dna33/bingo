@@ -69,8 +69,8 @@ async function fixture(count = 2) {
       editionId,
       sourceRowId,
       participantKey: `p${i}`,
-      email: `p${i}@example.invalid`,
-      phone: `+5690000000${i}`,
+      emails: [`p${i}@example.invalid`],
+      phones: [`+5690000000${i}`],
       name: `Person ${i}`
     });
     cards.push(

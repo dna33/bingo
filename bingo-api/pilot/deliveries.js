@@ -34,7 +34,7 @@ function reason(value) {
   return value.trim();
 }
 async function createJob(
-  { edition, participant, card, queueKey, kind, parentId, sendChannel, simulation, actorId, justification },
+  { edition, participant, card, queueKey, kind, parentId, sendChannel, recipient, simulation, actorId, justification },
   session
 ) {
   const artifact = await M.CardPdf.findOne({ cardId: card._id, editionId: edition._id })
@@ -53,7 +53,7 @@ async function createJob(
           kind,
           parentId,
           channel: sendChannel,
-          recipient: sendChannel === 'email' ? participant.email : participant.phone,
+          recipient,
           pdfSha256: artifact.sha256,
           simulation,
           reason: justification,
@@ -64,6 +64,9 @@ async function createJob(
       { session }
     )
   )[0];
+}
+function addressesFor(participant, sendChannel) {
+  return sendChannel === 'email' ? participant.emails || [] : participant.phones || [];
 }
 async function enqueue(command) {
   const sendChannel = channel(command.input.channel);
@@ -88,7 +91,7 @@ async function enqueue(command) {
       active: true,
       ...(selected ? { _id: { $in: selected } } : {})
     })
-      .select('+email +phone')
+      .select('+emails +phones')
       .sort({ _id: 1 })
       .session(session);
     if (selected && people.length !== selected.length) throw failure(404, 'Participant not found');
@@ -105,25 +108,31 @@ async function enqueue(command) {
     for (const person of pending.slice(0, limit)) {
       const card = byPerson.get(person.id);
       if (!card) throw fail('pdf_missing');
-      const job = await createJob(
-        {
-          edition,
-          participant: person,
-          card,
-          queueKey: `initial-${card.id}`,
-          kind: 'initial',
-          sendChannel,
-          simulation,
-          actorId: command.actorId
-        },
-        session
-      );
-      await audit(session, {
-        editionId: edition._id,
-        actorId: command.actorId,
-        action: 'delivery.queued',
-        resourceId: job._id
-      });
+      const addresses = addressesFor(person, sendChannel);
+      // A person can carry more than one email/phone across their transaction rows; the same
+      // card goes to every known address instead of picking just one or issuing a second card.
+      for (const [index, recipient] of addresses.entries()) {
+        const job = await createJob(
+          {
+            edition,
+            participant: person,
+            card,
+            queueKey: `initial-${card.id}-${index}`,
+            kind: 'initial',
+            sendChannel,
+            recipient,
+            simulation,
+            actorId: command.actorId
+          },
+          session
+        );
+        await audit(session, {
+          editionId: edition._id,
+          actorId: command.actorId,
+          action: 'delivery.queued',
+          resourceId: job._id
+        });
+      }
     }
     await M.DeliveryControl.updateOne(
       { editionId: edition._id },
@@ -165,7 +174,7 @@ async function resend(command) {
       editionId: edition._id,
       active: true
     })
-      .select('+email +phone')
+      .select('+emails +phones')
       .session(session);
     const card = await M.Card.findOne({
       _id: old.cardId,
@@ -173,6 +182,10 @@ async function resend(command) {
       participantId: old.participantId
     }).session(session);
     if (!participant || !card) throw fail('delivery_participant_inactive');
+    // A resend targets the participant's first known address for the chosen channel; an
+    // operator who needs a specific one of several addresses retried uses that job's own retry.
+    const recipient = addressesFor(participant, sendChannel)[0];
+    if (!recipient) throw fail('delivery_participant_inactive');
     const job = await createJob(
       {
         edition,
@@ -182,6 +195,7 @@ async function resend(command) {
         kind: 'resend',
         parentId: old._id,
         sendChannel,
+        recipient,
         simulation,
         actorId: command.actorId,
         justification
@@ -353,9 +367,9 @@ async function processBatch(editionId, { limit = 25, now = () => new Date(), aft
         _id: job.participantId,
         editionId,
         active: true
-      }).select('+email +phone');
+      }).select('+emails +phones');
       if (!participant) throw Object.assign(new Error(), { providerCode: 'participant_inactive' });
-      if ((job.channel === 'email' ? participant.email : participant.phone) !== job.recipient)
+      if (!addressesFor(participant, job.channel).includes(job.recipient))
         throw Object.assign(new Error(), { providerCode: 'recipient_changed' });
       const card = await M.Card.findOne({ _id: job.cardId, editionId, participantId: job.participantId });
       const pdf = card && (await M.CardPdf.findOne({ cardId: card._id, editionId }).select('+bytes'));

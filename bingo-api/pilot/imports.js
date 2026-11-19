@@ -20,15 +20,37 @@ async function importFor(editionId, importId, session) {
   if (!doc) throw failure(404, 'Import not found');
   return doc;
 }
-function pair(p) {
-  return JSON.stringify([p.email, p.phone]);
+function hasEmail(p, email) {
+  return Array.isArray(p.emails) && p.emails.includes(email);
 }
-function same(p, q) {
-  return pair(p) === pair(q) && (!q.name || p.name === q.name);
+function hasPhone(p, phone) {
+  return Array.isArray(p.phones) && p.phones.includes(phone);
+}
+function knowsContact(p, data) {
+  return hasEmail(p, data.email) || hasPhone(p, data.phone);
+}
+function fullyKnown(p, data) {
+  return hasEmail(p, data.email) && hasPhone(p, data.phone);
+}
+function addContact(list, value) {
+  const current = Array.isArray(list) ? list : [];
+  return value && !current.includes(value) ? [...current, value] : current;
+}
+// A row's exact (email, phone, name, externalId) combination, used only to spot a literal
+// repeated row within the same file; unrelated to how a person's accumulated contacts compare.
+function signatureOf(data) {
+  return JSON.stringify(data);
 }
 
-// Preview is calculated against the current participant snapshot. Shared contacts never
-// identify a person on their own; explicit decisions retain the operator and Polla reference.
+// Preview is calculated against the current participant snapshot. A person is identified by
+// jugador_id (Polla's own stable Player ID, kept in externalId); RUT is a reference datum only
+// and never used to match or merge rows. Once a row's externalId matches an existing person, a
+// different email, phone or name across their transaction rows is not a conflict: it is the
+// same person using another contact channel, so it is merged into their accumulated contacts
+// (every email/phone ever seen is kept, and the same card later goes to all of them) instead of
+// blocking on an administrator. Shared contacts never identify a person on their own: if the
+// same email/phone belongs to a DIFFERENT jugador_id, that remains a conflict requiring
+// resolution, since merging those would incorrectly combine two different real people.
 function analyze(rows, participants) {
   const entities = new Map(
     participants.map((p) => [sid(p._id), { ...p, id: sid(p._id), existing: true, wasActive: p.active }])
@@ -50,7 +72,7 @@ function analyze(rows, participants) {
       plans.push(plan);
       continue;
     }
-    const signature = JSON.stringify(data);
+    const signature = signatureOf(data);
     const earlier = seen.get(signature);
     let target,
       create = false;
@@ -60,26 +82,24 @@ function analyze(rows, participants) {
       else if (data.externalId && target.externalId && data.externalId !== target.externalId)
         issues.push('external_id_mismatch');
     } else if (decision.kind !== 'separate' && earlier) {
+      // A literal repeat of an already-processed row; nothing new to merge.
       target = entities.get(earlier.targetId);
       plan.duplicateOfRowId = earlier.row._id;
-      if (!same(target, data) && decision.kind !== 'correct') issues.push('identity_contacts_changed');
-      if (!data.externalId && [...entities.values()].filter((p) => pair(p) === pair(data)).length > 1) {
+      if (!data.externalId && [...entities.values()].filter((p) => fullyKnown(p, data)).length > 1) {
         issues.push('shared_contact_requires_resolution');
       }
     } else {
       const external = [...entities.values()].filter(
         (p) => data.externalId && p.externalId === data.externalId
       );
-      const exact = [...entities.values()].filter((p) => pair(p) === pair(data));
+      const exact = [...entities.values()].filter((p) => fullyKnown(p, data));
       if (external.length) {
         target = external[0];
-        if (!same(target, data) && decision.kind !== 'correct') issues.push('identity_contacts_changed');
         if (decision.kind === 'separate') issues.push('external_id_already_used');
       } else if (!data.externalId && exact.length === 1 && decision.kind !== 'separate') {
         target = exact[0];
-        if (!same(target, data) && decision.kind !== 'correct') issues.push('contact_name_changed');
       } else {
-        const shared = [...entities.values()].filter((p) => p.email === data.email || p.phone === data.phone);
+        const shared = [...entities.values()].filter((p) => knowsContact(p, data));
         if (shared.length && decision.kind !== 'separate') issues.push('shared_contact_requires_resolution');
         create = true;
       }
@@ -99,22 +119,34 @@ function analyze(rows, participants) {
         .filter(
           (p) =>
             p.existing &&
-            ((p.externalId && p.externalId === data.externalId) ||
-              p.email === data.email ||
-              p.phone === data.phone)
+            ((p.externalId && p.externalId === data.externalId) || hasEmail(p, data.email) || hasPhone(p, data.phone))
         )
         .map((p) => p.id);
     } else {
-      if (create) target = { ...data, id: sid(row._id), active: true, existing: false, sourceRowId: row._id };
+      if (create)
+        target = {
+          id: sid(row._id),
+          active: true,
+          existing: false,
+          sourceRowId: row._id,
+          name: '',
+          externalId: '',
+          rut: '',
+          emails: [],
+          phones: []
+        };
       plan.targetId = target.id;
       plan.create = create;
       plan.status = decision.kind ? 'resolved' : target.existing || earlier ? 'duplicate' : 'valid';
-      // Do not erase existing names/external IDs when an optional CSV field is absent.
+      // Do not erase an existing name/external ID/RUT when an optional CSV field is absent; a
+      // new email or phone is added to the accumulated contacts rather than replacing them.
       target = {
         ...target,
-        ...data,
         name: data.name || target.name || '',
         externalId: data.externalId || target.externalId || '',
+        rut: data.rut || target.rut || '',
+        emails: addContact(target.emails, data.email),
+        phones: addContact(target.phones, data.phone),
         active: true
       };
       entities.set(target.id, target);
@@ -135,7 +167,7 @@ async function snapshot(editionId, importId, session) {
     .session(session)
     .lean();
   const participants = await M.Participant.find({ editionId })
-    .select('+name +email +phone')
+    .select('+name +emails +phones +rut')
     .session(session)
     .lean();
   return analyze(rows, participants);
@@ -232,7 +264,7 @@ async function resolveRow(command) {
       typeof decision.corrected !== 'object' ||
       Array.isArray(decision.corrected) ||
       Object.keys(decision.corrected).some(
-        (k) => !['email', 'telefono', 'jugador_id', 'nombre'].includes(k)
+        (k) => !['email', 'telefono', 'jugador_id', 'nombre', 'rut'].includes(k)
       ) ||
       Object.values(decision.corrected).some((v) => typeof v !== 'string') ||
       normalize(decision.corrected).issues.length
@@ -304,13 +336,14 @@ async function applyImport(command) {
         operatorId: command.actorId,
         occurredAt: new Date(),
         pollaReference: latest ? latest.row.decision.pollaReference : file.sourceReference,
-        email: entity.email,
-        phone: entity.phone,
+        emails: entity.emails,
+        phones: entity.phones,
         name: entity.name
       };
       if (entity.existing) {
-        const update = { email: entity.email, phone: entity.phone, name: entity.name, active: true };
+        const update = { emails: entity.emails, phones: entity.phones, name: entity.name, active: true };
         if (entity.externalId) update.externalId = entity.externalId;
+        if (entity.rut) update.rut = entity.rut;
         participantWrites.push({
           updateOne: {
             filter: { _id: targetId, editionId: edition._id },
@@ -342,9 +375,10 @@ async function applyImport(command) {
               sourceRowId: sourcePlan.row._id,
               participantKey: `internal-${targetId}`,
               ...(entity.externalId ? { externalId: entity.externalId } : {}),
+              ...(entity.rut ? { rut: entity.rut } : {}),
               name: entity.name,
-              email: entity.email,
-              phone: entity.phone,
+              emails: entity.emails,
+              phones: entity.phones,
               active: true,
               contactHistory: [history]
             }

@@ -55,7 +55,14 @@ const ImportRow = model('PilotImportRow', {
 }, [[{ importId: 1, rowNumber: 1 }, unique]]);
 const Participant = model('PilotParticipant', {
   editionId: id, sourceRowId: id, externalId: String, participantKey: text,
-  name: { type: String, select: false }, email: { ...text, select: false }, phone: { ...text, select: false },
+  name: { type: String, select: false },
+  // A person may carry more than one email/phone across their transaction rows (same jugador_id,
+  // different contact per bet): every one seen is kept, and the same card is delivered to each,
+  // rather than treating the difference as a conflict or creating a second card. RUT is kept
+  // purely as a reference datum, never used to match or merge rows.
+  emails: { type: [String], select: false },
+  phones: { type: [String], select: false },
+  rut: { type: String, select: false },
   active: { type: Boolean, default: true },
   contactHistory: { type: [Schema.Types.Mixed], select: false },
   activityHistory: { type: [Schema.Types.Mixed], select: false }

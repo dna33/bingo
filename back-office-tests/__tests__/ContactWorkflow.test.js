@@ -9,8 +9,8 @@ beforeEach(() => {
   jest.clearAllMocks();
   contact = {
     candidateId: 'c1',
-    email: 'test@example.invalid',
-    phone: '+56900000000',
+    emails: ['test@example.invalid'],
+    phones: ['+56900000000'],
     serverTime: '2026-11-16T20:00:00Z',
     workflow: { state: 'detected', cohort: 'primary' },
     events: []

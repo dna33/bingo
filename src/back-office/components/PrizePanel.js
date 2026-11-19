@@ -413,7 +413,8 @@ export default function PrizePanel({ root, token, permissions, version, busy, ru
         >
           <h4>Verificar cuenta en polla.cl</h4>
           <p>
-            {account.participant.name} · {account.participant.email} · {account.participant.phone}.
+            {account.participant.name} · {(account.participant.emails || []).join(', ')} ·{' '}
+            {(account.participant.phones || []).join(', ')}.
           </p>
           <p>
             Identificador de origen: {account.participant.externalId || 'no informado'}. No se considera una

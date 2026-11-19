@@ -58,10 +58,10 @@ router.get('/editions/:editionId/participants', permit('participants:read'), asy
 router.get('/editions/:editionId/participants/:participantId/contact', permit('contacts:read'), asyncHandler(async (req, res) => {
   const editionId = await requireEdition(req);
   const participant = await Participant.findOne({ _id: objectId(req.params.participantId), editionId })
-    .select('_id name email phone').lean();
+    .select('_id name +emails +phones').lean();
   if (!participant) throw failure(404, 'Participant not found');
   await audit(null, { editionId, actorId: req.staff.id, action: 'participant.contact_viewed', resourceId: participant._id });
-  res.json({ id: participant._id, name: participant.name, email: participant.email, phone: participant.phone });
+  res.json({ id: participant._id, name: participant.name, emails: participant.emails, phones: participant.phones });
 }));
 router.get('/editions/:editionId/cards', permit('participants:read'), asyncHandler(async (req, res) => {
   const editionId = await requireEdition(req);
@@ -75,9 +75,9 @@ router.get('/editions/:editionId/cards', permit('participants:read'), asyncHandl
 router.get('/editions/:editionId/exports/participants', permit('exports:read'), permit('contacts:read'), asyncHandler(async (req, res) => {
   const editionId = await requireEdition(req);
   const { limit, offset } = page(req);
-  const rows = await Participant.find({ editionId }).select('_id name email phone').sort({ _id: 1 }).skip(offset).limit(limit).lean();
+  const rows = await Participant.find({ editionId }).select('_id name +emails +phones').sort({ _id: 1 }).skip(offset).limit(limit).lean();
   await audit(null, { editionId, actorId: req.staff.id, action: 'participants.exported', resourceId: editionId });
-  res.json(rows.map(p => ({ id: p._id, name: p.name, email: p.email, phone: p.phone })));
+  res.json(rows.map(p => ({ id: p._id, name: p.name, emails: p.emails, phones: p.phones })));
 }));
 router.get('/audit', permit('audit:read'), asyncHandler(async (req, res) => {
   const { limit, offset } = page(req);

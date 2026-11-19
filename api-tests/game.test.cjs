@@ -351,9 +351,9 @@ test('HTTP permissions and privacy protect configuration, operation, candidate c
   assert.equal(list.data.length, 1);
   const candidateId = list.data[0]._id;
   assert.equal((await http(id, `/candidates/${candidateId}/contact`, 'viewer')).status, 403);
-  assert.equal(
-    (await http(id, `/candidates/${candidateId}/contact`, 'operator')).data.email,
-    'player0@example.invalid'
+  assert.deepEqual(
+    (await http(id, `/candidates/${candidateId}/contact`, 'operator')).data.emails,
+    ['player0@example.invalid']
   );
   assert.equal((await http(id, '/incidents', 'viewer')).status, 403);
   const other = await fixture(1);

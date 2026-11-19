@@ -53,7 +53,7 @@ async function edition(name = 'Synthetic edition') {
 async function playerFixture(editionId, offset = 0) {
   const importId = oid(), sourceRowId = oid();
   const participant = await models.Participant.create({ editionId, sourceRowId, participantKey: `person-${oid()}`,
-    email: 'shared@example.invalid', phone: '+56900000000', name: 'Private name' });
+    emails: ['shared@example.invalid'], phones: ['+56900000000'], name: 'Private name' });
   const card = await models.Card.create(cardRecord({ editionId, participantId: participant._id, sourceRowId, cells: cells(offset) }));
   return { participant, card, importId, sourceRowId };
 }
@@ -96,10 +96,10 @@ test('roles enforce configuration, contact, export and audit permissions with ex
   assert.equal((await http(root + `/participants/${participant.id}/contact`, { token: tokens.viewer })).status, 403);
   const contact = await http(root + `/participants/${participant.id}/contact`, { token: tokens.operator });
   assert.equal(contact.status, 200, JSON.stringify(contact));
-  assert.equal(contact.data.email, 'shared@example.invalid', JSON.stringify(contact));
+  assert.deepEqual(contact.data.emails, ['shared@example.invalid'], JSON.stringify(contact));
   assert.equal((await http(root + '/exports/participants', { token: tokens.operator })).status, 403);
   assert.equal((await http(root + '/audit', { token: tokens.operator })).status, 403);
-  assert.equal((await http(root + '/exports/participants', { token: tokens.auditor })).data[0].phone, '+56900000000');
+  assert.deepEqual((await http(root + '/exports/participants', { token: tokens.auditor })).data[0].phones, ['+56900000000']);
   const other = await edition('Other edition');
   assert.equal((await http(`/pilot/editions/${other}/participants/${participant.id}/contact`, { token: tokens.operator })).status, 404);
   const trail = await http(root + '/audit', { token: tokens.auditor });
@@ -181,9 +181,9 @@ test('unique indexes prevent participant/card/draw/award/send duplicates while c
   const first = await playerFixture(editionId);
   const second = await playerFixture(editionId, 25);
   assert.equal(await models.Participant.countDocuments({ editionId }), 2);
-  assert.equal((await models.Participant.findById(first.participant.id)).email, undefined);
+  assert.equal((await models.Participant.findById(first.participant.id)).emails, undefined);
   await assert.rejects(models.Participant.create({ editionId, sourceRowId: oid(), participantKey: first.participant.participantKey,
-    email: 'other@example.invalid', phone: '+56911111111' }), duplicate);
+    emails: ['other@example.invalid'], phones: ['+56911111111'] }), duplicate);
   await assert.rejects(models.Card.create(cardRecord({ editionId, participantId: first.participant._id, sourceRowId: first.sourceRowId, cells: cells(50) })), duplicate);
   await assert.rejects(models.Card.create(cardRecord({ editionId, participantId: oid(), sourceRowId: oid(), cells: cells(0) })), duplicate);
   const invalid = cells(0); invalid[12] = 12;
