@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'test') require('dotenv').config();
 
 const adminSchema = new mongoose.Schema({
   email: {

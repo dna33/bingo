@@ -1,4 +1,4 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'test') require('dotenv').config();
 const fs = require('node:fs');
 const db = require('../bingo-api/models/db');
 const { provision } = require('../bingo-api/pilot/staff');

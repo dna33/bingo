@@ -7,6 +7,7 @@ const http = require('node:http');
 const net = require('node:net');
 const { once } = require('node:events');
 const { spawn } = require('node:child_process');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'synthetic-t02-secret-only-01234567890123456789';
 process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(os.tmpdir(), 'bingo-mongodb-binaries');
 const { MongoMemoryReplSet, MongoMemoryServer } = require('mongodb-memory-server');

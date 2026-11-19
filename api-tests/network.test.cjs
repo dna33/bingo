@@ -8,6 +8,7 @@ const vm = require('node:vm');
 const { spawn } = require('node:child_process');
 const { networkConfig } = require('../bingo-api/config/network');
 const { writeClientConfig } = require('../scripts/client-config.cjs');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'synthetic-network-only-secret';
 const { createApp } = require('../server');
 

@@ -1,4 +1,4 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'test') require('dotenv').config();
 const db = require('../bingo-api/models/db');
 const { DeliveryControl } = require('../bingo-api/pilot/models');
 const { processBatch } = require('../bingo-api/pilot/deliveries');

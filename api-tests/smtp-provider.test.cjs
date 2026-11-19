@@ -2,6 +2,7 @@ const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(require('node:os').tmpdir(), 'bingo-mongodb-binaries');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'synthetic-smtp-provider-secret';
 const { MongoMemoryReplSet } = require('mongodb-memory-server');
 const mongoose = require('mongoose');

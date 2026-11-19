@@ -103,6 +103,25 @@ export function Mask({ mask, matched = [], pending = [], cells }) {
     </div>
   );
 }
+export function DrawHistory({ draws }) {
+  if (!draws.length) return null;
+  return (
+    <div className="game-draws" role="list" aria-label={`Bolillas extraídas: ${draws.length}`}>
+      {draws.map((draw, i) => (
+        <span
+          key={draw._id}
+          role="listitem"
+          className={`game-ball${i === draws.length - 1 ? ' latest' : ''}`}
+          title={`Extracción ${draw.sequence} · ${draw.drawnAt} · ${
+            draw.origin === 'manual' ? 'registro físico' : 'digital'
+          }`}
+        >
+          {draw.number}
+        </span>
+      ))}
+    </div>
+  );
+}
 export default function GamePanel({ edition, token, permissions, onChanged }) {
   const [frame, setFrame] = useState(null),
     [candidates, setCandidates] = useState([]),
@@ -240,6 +259,7 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
             Último número oficial: {last ? last.number : '—'}
             {last && ` · extracción ${last.sequence}`}
           </p>
+          <DrawHistory draws={frame.draws} />
           <button disabled={busy} onClick={() => run(() => load())}>
             Actualizar partida
           </button>

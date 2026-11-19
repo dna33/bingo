@@ -6,6 +6,7 @@ process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(require('node:os').tmpdir(), 'bin
 const { MongoMemoryReplSet } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const { spawn } = require('node:child_process');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'synthetic-stage0-secret-not-for-production';
 const { createApp } = require('../server');
 const db = require('../bingo-api/models/db');

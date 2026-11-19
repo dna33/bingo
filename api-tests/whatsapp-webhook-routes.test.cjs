@@ -4,6 +4,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { once } = require('node:events');
 process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(require('node:os').tmpdir(), 'bingo-mongodb-binaries');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'synthetic-whatsapp-webhook-secret';
 process.env.DELIVERY_WHATSAPP_PROVIDER = 'meta_cloud_api';
 process.env.WHATSAPP_PHONE_NUMBER_ID = '1234567890';

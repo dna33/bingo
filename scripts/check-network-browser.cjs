@@ -9,6 +9,7 @@ const express = require('express');
 const { networkConfig } = require('../bingo-api/config/network');
 const { writeClientConfig } = require('./client-config.cjs');
 const Browser = require('./rehearsal/browser.cjs');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this rehearsal run
 process.env.DB_SECRET = 'synthetic-network-browser-only';
 const { createApp } = require('../server');
 const repo = path.resolve(__dirname, '..');

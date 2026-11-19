@@ -5,7 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
-require('dotenv').config();
+// Tests set their own synthetic env vars and must stay hermetic: a local .env (e.g. real
+// delivery-provider credentials for manual testing) must never leak into a test run.
+if (process.env.NODE_ENV !== 'test') require('dotenv').config();
 const db = require('./bingo-api/models/db');
 require('./bingo-api/config/passport');
 const { networkConfig, corsMiddleware } = require('./bingo-api/config/network');

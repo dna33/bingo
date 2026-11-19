@@ -66,7 +66,7 @@ async function checkEnvironment(env = process.env) {
   return report;
 }
 if (require.main === module) {
-  require('dotenv').config();
+  if (process.env.NODE_ENV !== 'test') require('dotenv').config();
   checkEnvironment()
     .then((report) => {
       console.log(JSON.stringify(report, null, 2));

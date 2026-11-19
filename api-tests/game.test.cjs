@@ -4,6 +4,7 @@ const { performance } = require('node:perf_hooks');
 const path = require('node:path');
 const { once } = require('node:events');
 process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(require('node:os').tmpdir(), 'bingo-mongodb-binaries');
+process.env.NODE_ENV = 'test'; // keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'stage5-synthetic-secret';
 const { MongoMemoryReplSet } = require('mongodb-memory-server');
 const mongoose = require('mongoose');

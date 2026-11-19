@@ -96,6 +96,9 @@ footer {
   .game-mask-cell.matched { background: #c9e9d2; border: 2px solid #236337; }
   .game-mask-cell.pending { border: 2px dashed #773e08; }
   .game-current { font-weight: bold; font-size: 24px; }
+  .game-draws { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 16px; max-width: 520px; }
+  .game-ball { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #798797; box-sizing: border-box; background: white; font-size: 13px; font-weight: bold; }
+  .game-ball.latest { background: #552a78; color: white; border-color: #552a78; box-shadow: 0 0 0 3px #e4def2; }
 }
 
 .candidate-alerts {

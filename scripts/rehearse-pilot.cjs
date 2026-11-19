@@ -7,6 +7,7 @@ const { createHash, randomUUID } = require('node:crypto');
 const { performance } = require('node:perf_hooks');
 const { once } = require('node:events');
 const { spawn } = require('node:child_process');
+process.env.NODE_ENV = 'test'; // synthetic lab: keeps a local .env (e.g. real provider credentials) out of this run
 process.env.DB_SECRET = 'stage8-synthetic-lab-secret-not-for-production';
 process.env.MONGOMS_DOWNLOAD_DIR ||= path.join(os.tmpdir(), 'bingo-mongodb-binaries');
 const { MongoMemoryReplSet } = require('mongodb-memory-server');
