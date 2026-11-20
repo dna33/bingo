@@ -12,7 +12,7 @@ const example = {
     eventDate: '2026-11-16',
     eventTime: '10:00',
     timeZone: 'America/Santiago',
-    templateVersion: 1,
+    templateVersion: 4,
     issuedAt: '2026-11-16T12:00:00.000Z'
   }
 };
@@ -42,7 +42,7 @@ test('actual PDF text contains the exact stored layout in row-major order with o
     '16/11/2026',
     '10:00',
     'YouTube',
-    '60 segundos',
+    'se va al agua',
     'iniciar sesión',
     'no cambia su asignación'
   ])

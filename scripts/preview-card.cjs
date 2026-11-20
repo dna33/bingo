@@ -7,7 +7,7 @@ const sample = {
   generation: { minNumber: 1, maxNumber: 75, columnMode: 'american75' },
   presentation: { title: 'Una Mañana Fabulosa · DEMOSTRACIÓN', editionId: '000000000000000000000001',
     eventDate: '2026-11-16', eventTime: '10:00', timeZone: 'America/Santiago',
-    templateVersion: 1, issuedAt: '2026-11-16T12:00:00.000Z' }
+    templateVersion: 4, issuedAt: '2026-11-16T12:00:00.000Z' }
 };
 renderCardPdf(sample).then(bytes => {
   const output = process.argv[2];
