@@ -4,7 +4,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid $brandInk;
 
   &:before {
     content: "";
@@ -32,52 +32,52 @@
       display: block;
       width: 25px;
       margin: 0 auto;
-      font-family: $mainFontFamily;
+      font-family: $displayFontFamily;
       font-size: 1.3em;
-      font-weight: bold;
       position: relative;
       text-align: center;
-      color: black;
+      color: $brandInk;
     }
   }
 
   &.original_ballB {
-    background: radial-gradient(circle at 50% 120%, #008ed6, #76deef 10%, #055194 80%, #062745 100%);
+    background: radial-gradient(circle at 50% 120%, $brandRed, lighten($brandRed, 20%) 10%, $brandRed 80%, darken($brandRed, 15%) 100%);
   }
 
   &.original_ballI {
-    background: radial-gradient(circle at 50% 120%, #83d100, #c3ec81 10%, #83d100 80%, #83d100 100%);
+    background: radial-gradient(circle at 50% 120%, $brandBlue, lighten($brandBlue, 25%) 10%, $brandBlue 80%, darken($brandBlue, 10%) 100%);
   }
 
   &.original_ballN {
-    background: radial-gradient(circle at 50% 120%, #e17000, #f6c079 10%, #e17000 80%, #e17000 100%);
+    background: radial-gradient(circle at 50% 120%, $brandGreen, lighten($brandGreen, 25%) 10%, $brandGreen 80%, darken($brandGreen, 10%) 100%);
   }
 
   &.original_ballG {
-    background: radial-gradient(circle at 50% 120%, #a71906, #e35a45 10%, #a71906 80%, #a71906 100%);
+    background: radial-gradient(circle at 50% 120%, $brandGold, lighten($brandGold, 20%) 10%, $brandGold 80%, darken($brandGold, 10%) 100%);
+    #innerCircle span { color: $brandInk; }
   }
 
   &.original_ballO {
-    background: radial-gradient(circle at 50% 120%, #642e88, #8f4ad2 10%, #642e88 80%, #642e88 100%);
+    background: radial-gradient(circle at 50% 120%, $brandMagenta, lighten($brandMagenta, 25%) 10%, $brandMagenta 80%, darken($brandMagenta, 10%) 100%);
   }
 
   &.redish_ballB {
-    background: radial-gradient(circle at 50% 120%, #008ed6, #ff0000 10%, #055194 80%, #062745 100%);
+    background: radial-gradient(circle at 50% 120%, $brandRed, #ff0000 10%, darken($brandRed, 10%) 80%, darken($brandRed, 20%) 100%);
   }
 
   &.redish_ballI {
-    background: radial-gradient(circle at 50% 120%, #83d100, #ff0000 10%, #83d100 80%, #83d100 100%);
+    background: radial-gradient(circle at 50% 120%, $brandBlue, #ff0000 10%, $brandBlue 80%, $brandBlue 100%);
   }
 
   &.redish_ballN {
-    background: radial-gradient(circle at 50% 120%, #e17000, #ff0000 10%, #e17000 80%, #e17000 100%);
+    background: radial-gradient(circle at 50% 120%, $brandGreen, #ff0000 10%, $brandGreen 80%, $brandGreen 100%);
   }
 
   &.redish_ballG {
-    background: radial-gradient(circle at 50% 120%, #a71906, #ff0000 10%, #a71906 80%, #a71906 100%);
+    background: radial-gradient(circle at 50% 120%, $brandGold, #ff0000 10%, $brandGold 80%, $brandGold 100%);
   }
 
   &.redish_ballO {
-    background: radial-gradient(circle at 50% 120%, #642e88, #ff0000 10%, #642e88 80%, #642e88 100%);
+    background: radial-gradient(circle at 50% 120%, $brandMagenta, #ff0000 10%, $brandMagenta 80%, $brandMagenta 100%);
   }
 }

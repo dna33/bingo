@@ -200,7 +200,10 @@ export default function PilotConsole() {
   return (
     <main className="pilot-console" aria-busy={busy}>
       <header>
-        <h1>Bingo Fabuloso · Participantes</h1>
+        <h1>
+          <img src="images/fabuloso-logo.png" alt="" height="28" style={{ verticalAlign: 'middle', marginRight: 12 }} />
+          Participantes
+        </h1>
         {token && (
           <button onClick={logout} disabled={busy}>
             Cerrar sesión

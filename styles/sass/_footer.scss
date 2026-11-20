@@ -1,8 +1,31 @@
 #footer {
+  padding: 16px 0 32px;
+
   .main-btn {
-    background-color: $mainHeaderColour;
+    background-color: $brandGold;
+    border-color: $brandGold;
+    color: $brandInk;
+    font-family: $displayFontFamily;
+    letter-spacing: 0.03em;
+    border-radius: 999px;
     display: block;
     margin: 0 auto;
+
+    &:hover, &:focus {
+      background-color: darken($brandGold, 8%);
+      border-color: darken($brandGold, 8%);
+    }
+  }
+
+  #logoutBtn {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: $mainFrontColour;
+
+    &:hover, &:focus {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
   }
 
   #startBtn {

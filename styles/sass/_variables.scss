@@ -1,20 +1,32 @@
-$mainFontFamily: 'Roboto Slab', serif;
-$mainFrontColour: #ffffdd;
-$mainWheatColour: #F5DEB2;
+// Bingo Fabuloso brand palette — kept in sync with bingo-api/pilot/card-pdf.js (the official card PDF).
+$brandInk: #111111;
+$brandCream: #FFF9F1;
+$brandRed: #E54A3A; // B
+$brandBlue: #007401; // I
+$brandGreen: #04994E; // N
+$brandGold: #FFC200; // G
+$brandMagenta: #B20062; // O
 
-$firstColColour: #008ed6;
-$secondColColour: #83d100;
-$thirdColColour: #e17000;
-$fourthColColour: #a71906;
-$fifthColColour: #642e88;
+$displayFontFamily: 'Lilita One', 'Open Sans', sans-serif;
+$bodyFontFamily: 'Open Sans', sans-serif;
 
-$winningDialogMainColour: #e17010;
+$mainFontFamily: $bodyFontFamily;
+$mainFrontColour: #ffffff;
+$mainWheatColour: $brandCream;
+
+$firstColColour: $brandRed;
+$secondColColour: $brandBlue;
+$thirdColColour: $brandGreen;
+$fourthColColour: $brandGold;
+$fifthColColour: $brandMagenta;
+
+$winningDialogMainColour: $brandInk;
 $mainWinningDialogFontSize: 1.2em;
 
-$mainHeaderColour: #1a0850;
+$mainHeaderColour: $brandInk;
 
 // Back office app
-$backOfficeHeaderColour: #642e87;
-$backOfficeBackgroundColour: #f0f0f0;
+$backOfficeHeaderColour: $brandInk;
+$backOfficeBackgroundColour: $brandCream;
 $backOfficeTableBackgroundColour: #fff;
 $backOfficeInputsFontSize: 16px;

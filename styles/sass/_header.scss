@@ -1,11 +1,13 @@
 #header {
   height: 130px;
-  font-family: $mainFontFamily;
+  font-family: $bodyFontFamily;
   color: $mainFrontColour;
-  background: $mainHeaderColour url('../../images/logo.png') no-repeat 1% 60%;
+  background: $mainHeaderColour url('../../images/fabuloso-logo.png') no-repeat 24px 50%;
+  background-size: 160px auto;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.1);
 
   @include breakpointMaxWidth('xs') {
-    background-size: 115px 100px;
+    background-size: 110px auto;
   }
 
   h1 {
@@ -14,6 +16,7 @@
     width: 500px;
     margin-left: 48%;
     line-height: 130px;
+    font-family: $displayFontFamily;
     text-transform: uppercase;
 
     @include breakpointMinWidth('l') {
