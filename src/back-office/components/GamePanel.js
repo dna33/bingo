@@ -289,7 +289,11 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                           .split(',')
                           .map((s) => s.trim())
                           .filter(Boolean)
-                          .map(Number)
+                          .map(Number),
+                        figures: draft.figures.map((f) => ({
+                          ...f,
+                          mask: f.mask.map((row) => row.trim()).filter(Boolean)
+                        }))
                       }
                     })
                   );
