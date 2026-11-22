@@ -261,6 +261,52 @@ async function recoverPdf(command) {
     return { cardId: card.id, version: edition.version, recovered: true };
   });
 }
+async function rerenderPdf(card, session) {
+  card.presentation = { ...card.presentation, templateVersion: TEMPLATE_VERSION };
+  const bytes = await renderCardPdf(card);
+  const digest = sha256(bytes);
+  await M.CardPdf.deleteOne({ cardId: card._id, editionId: card.editionId }).session(session);
+  const [pdf] = await M.CardPdf.create(
+    [{ editionId: card.editionId, cardId: card._id, bytes, sha256: digest, templateVersion: TEMPLATE_VERSION }],
+    { session }
+  );
+  card.pdf = { storageKey: `mongodb:pilotcardpdfs:${pdf.id}`, sha256: digest };
+  await card.save({ session });
+}
+async function reissuePdf(command) {
+  return execute({ ...command, action: 'card.pdf_reissued' }, async ({ session, edition }) => {
+    const card = await cardFor(edition._id, command.input.cardId, session);
+    if (!card.presentation || !card.generation) throw fail('card_legacy');
+    if (card.presentation.templateVersion === TEMPLATE_VERSION)
+      return { cardId: card.id, version: edition.version, updated: false };
+    await rerenderPdf(card, session);
+    return { cardId: card.id, version: edition.version, updated: true };
+  });
+}
+async function reissueBatch(command) {
+  const limit = command.input.limit === undefined ? 50 : command.input.limit;
+  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100)
+    throw failure(400, 'Batch size must be 1–100');
+  return execute({ ...command, action: 'cards.batch_pdf_reissued' }, async ({ session, edition }) => {
+    const outdated = await M.Card.find({
+      editionId: edition._id,
+      presentation: { $exists: true },
+      generation: { $exists: true },
+      'presentation.templateVersion': { $ne: TEMPLATE_VERSION }
+    })
+      .sort({ _id: 1 })
+      .limit(limit)
+      .session(session);
+    for (const card of outdated) await rerenderPdf(card, session);
+    const remaining = await M.Card.countDocuments({
+      editionId: edition._id,
+      presentation: { $exists: true },
+      generation: { $exists: true },
+      'presentation.templateVersion': { $ne: TEMPLATE_VERSION }
+    }).session(session);
+    return { version: edition.version, updated: outdated.length, remaining };
+  });
+}
 async function readPdf(editionId, cardId, actorId) {
   const card = await cardFor(editionId, cardId);
   const artifact = await M.CardPdf.findOne({ editionId, cardId: card._id }).select('+bytes');
@@ -287,6 +333,12 @@ async function summary(editionId) {
   );
   const byCard = new Map(pdfs.map((pdf) => [String(pdf.cardId), pdf.sha256]));
   const pdfReady = cards.filter((c) => c.pdf && byCard.get(c.id) === c.pdf.sha256).length;
+  const outdatedTemplates = await M.Card.countDocuments({
+    editionId,
+    presentation: { $exists: true },
+    generation: { $exists: true },
+    'presentation.templateVersion': { $ne: TEMPLATE_VERSION }
+  });
   const settings = edition.cardSettings;
   return {
     version: edition.version,
@@ -306,7 +358,17 @@ async function summary(editionId) {
     activeParticipants: report.activeParticipants,
     issuedCards: cards.length,
     pdfReady,
-    remaining: report.activeParticipants - pdfReady
+    remaining: report.activeParticipants - pdfReady,
+    outdatedTemplates
   };
 }
-module.exports = { configureCards, issueBatch, recoverPdf, readPdf, summary, sha256 };
+module.exports = {
+  configureCards,
+  issueBatch,
+  recoverPdf,
+  reissuePdf,
+  reissueBatch,
+  readPdf,
+  summary,
+  sha256
+};

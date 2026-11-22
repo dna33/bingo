@@ -7,7 +7,11 @@ const service = require('./cards');
 const failure = require('./errors');
 const router = express.Router({ mergeParams: true });
 router.use((req, res, next) => {
-  if (!/^\/(card-settings$|cards\/(?:summary$|issue$|[^/]+\/pdf(?:\/recover)?$))/.test(req.path))
+  if (
+    !/^\/(card-settings$|cards\/(?:summary$|issue$|pdf\/reissue-batch$|[^/]+\/pdf(?:\/(?:recover|reissue))?$))/.test(
+      req.path
+    )
+  )
     return next('router');
   next();
 });
@@ -56,5 +60,15 @@ router.post(
   '/cards/:cardId/pdf/recover',
   permit('cards:issue'),
   asyncHandler(async (req, res) => res.json(await service.recoverPdf(command(req))))
+);
+router.post(
+  '/cards/:cardId/pdf/reissue',
+  permit('cards:issue'),
+  asyncHandler(async (req, res) => res.json(await service.reissuePdf(command(req))))
+);
+router.post(
+  '/cards/pdf/reissue-batch',
+  permit('cards:issue'),
+  asyncHandler(async (req, res) => res.json(await service.reissueBatch(command(req))))
 );
 module.exports = router;

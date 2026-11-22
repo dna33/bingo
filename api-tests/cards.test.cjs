@@ -15,6 +15,7 @@ const I = require('../bingo-api/pilot/imports');
 const S = require('../bingo-api/pilot/cards');
 const { createApp } = require('../server');
 const { matchesVariant, generateCells } = require('../bingo-api/pilot/card-generator');
+const { TEMPLATE_VERSION } = require('../bingo-api/pilot/card-pdf');
 const parsePdf = require('pdf-parse');
 const oid = () => new mongoose.Types.ObjectId();
 const settings = {
@@ -273,6 +274,82 @@ test('PDF integrity mismatches are reported rather than silently changing number
     (e) => e.publicCode === 'pdf_integrity'
   );
   assert.deepEqual((await M.Card.findById(card.id)).cells.toObject(), card.cells.toObject());
+});
+test('reissuing a PDF refreshes only a stale template, keeps the same numbers and is audited', async () => {
+  const { editionId } = await fixture(2);
+  await S.issueBatch(await command(editionId));
+  const [first, second] = await M.Card.find({ editionId }).sort({ _id: 1 });
+  const originalCells = first.cells.toObject();
+  const originalSha = first.pdf.sha256;
+  const originalArtifactId = (await M.CardPdf.findOne({ cardId: first._id }))._id;
+  const noop = await S.reissuePdf(await command(editionId, { cardId: first.id }));
+  assert.equal(noop.updated, false);
+  assert.equal((await M.Card.findById(first.id)).pdf.sha256, originalSha);
+  // Simulate a card issued under an older brand template, as if from before a redesign. The
+  // renderer itself hasn't changed within this test run, so re-rendering produces the same
+  // bytes it always would for this content — what this proves is that the stored artifact and
+  // the template marker actually get replaced, not that a different-looking PDF comes out.
+  await M.Card.collection.updateOne({ _id: first._id }, { $set: { 'presentation.templateVersion': 1 } });
+  const result = await S.reissuePdf(await command(editionId, { cardId: first.id }));
+  assert.equal(result.updated, true);
+  const reissued = await M.Card.findById(first.id);
+  assert.equal(reissued.presentation.templateVersion, TEMPLATE_VERSION);
+  assert.deepEqual(reissued.cells.toObject(), originalCells);
+  assert.equal(await M.CardPdf.countDocuments({ cardId: first._id }), 1);
+  assert.notEqual(String((await M.CardPdf.findOne({ cardId: first._id }))._id), String(originalArtifactId));
+  const artifact = await M.CardPdf.findOne({ cardId: first._id }).select('+bytes');
+  assert.equal(S.sha256(artifact.bytes), reissued.pdf.sha256);
+  assert.ok((await S.readPdf(editionId, first.id, actorId)).bytes.equals(artifact.bytes));
+  // Every command through execute() is audited, including the earlier no-op call above.
+  assert.equal(await M.Audit.countDocuments({ editionId, action: 'card.pdf_reissued' }), 2);
+  assert.equal((await M.Card.findById(second.id)).presentation.templateVersion, TEMPLATE_VERSION);
+});
+test('reissueBatch updates outdated cards in bounded batches and reports what remains', async () => {
+  const { editionId } = await fixture(3);
+  await S.issueBatch(await command(editionId));
+  const cards = await M.Card.find({ editionId }).sort({ _id: 1 });
+  await M.Card.collection.updateMany(
+    { _id: { $in: cards.map((c) => c._id) } },
+    { $set: { 'presentation.templateVersion': 1 } }
+  );
+  const firstBatch = await S.reissueBatch(await command(editionId, { limit: 2 }));
+  assert.equal(firstBatch.updated, 2);
+  assert.equal(firstBatch.remaining, 1);
+  const secondBatch = await S.reissueBatch(await command(editionId, { limit: 2 }));
+  assert.equal(secondBatch.updated, 1);
+  assert.equal(secondBatch.remaining, 0);
+  const refreshed = await M.Card.find({ editionId });
+  const originalCellsById = new Map(cards.map((c) => [String(c._id), c.cells.toObject()]));
+  for (const card of refreshed) {
+    assert.equal(card.presentation.templateVersion, TEMPLATE_VERSION);
+    assert.deepEqual(card.cells.toObject(), originalCellsById.get(String(card._id)));
+  }
+});
+test('reissue routes require cards:issue, same as issuing and recovering', async () => {
+  const { editionId } = await fixture(1);
+  await S.issueBatch(await command(editionId));
+  const card = await M.Card.findOne({ editionId });
+  await M.Card.collection.updateOne({ _id: card._id }, { $set: { 'presentation.templateVersion': 1 } });
+  const version = (await S.summary(editionId)).version;
+  assert.equal(
+    (await http(editionId, `/cards/${card.id}/pdf/reissue`, 'viewer', { expectedVersion: version })).status,
+    403
+  );
+  const ok = await http(editionId, `/cards/${card.id}/pdf/reissue`, 'importer', { expectedVersion: version });
+  assert.equal(ok.status, 200);
+  assert.equal(ok.data.updated, true);
+  const batchVersion = (await S.summary(editionId)).version;
+  assert.equal(
+    (await http(editionId, '/cards/pdf/reissue-batch', 'viewer', { expectedVersion: batchVersion, limit: 10 }))
+      .status,
+    403
+  );
+  const batch = await http(editionId, '/cards/pdf/reissue-batch', 'importer', {
+    expectedVersion: batchVersion,
+    limit: 10
+  });
+  assert.equal(batch.status, 200);
+  assert.equal(batch.data.updated, 0);
 });
 test('staff-only HTTP issuance and PDF access are scoped by permissions and edition; code is not a credential', async () => {
   const { editionId } = await fixture(1, null);

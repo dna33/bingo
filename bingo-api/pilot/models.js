@@ -77,7 +77,10 @@ const Card = model('PilotCard', {
     message: 'A card needs 24 distinct positive integers and a null center'
   } },
   generation: { type: Schema.Types.Mixed, immutable: true },
-  presentation: { type: Schema.Types.Mixed, immutable: true },
+  // Not immutable: reissuePdf() updates only presentation.templateVersion, in place, to
+  // let an already-issued card's PDF be re-rendered with a newer brand template without
+  // touching cells/layoutHash or the printed title/date/time/timeZone it was confirmed with.
+  presentation: { type: Schema.Types.Mixed },
   pdf: { storageKey: String, sha256: String }
 }, [[{ editionId: 1, participantId: 1 }, unique], [{ editionId: 1, layoutHash: 1 }, unique], [{ cardCode: 1 }, unique]]);
 const CardPdf = model('PilotCardPdf', {

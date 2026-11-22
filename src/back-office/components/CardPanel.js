@@ -6,6 +6,7 @@ export default function CardPanel({ edition, token, permissions, onChanged }) {
   const [offset, setOffset] = useState(0);
   const [busy, setBusy] = useState(false);
   const [issuing, setIssuing] = useState(false);
+  const [reissuing, setReissuing] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [draft, setDraft] = useState({
@@ -44,6 +45,7 @@ export default function CardPanel({ edition, token, permissions, onChanged }) {
       if (mounted.current) {
         setBusy(false);
         setIssuing(false);
+        setReissuing(false);
       }
     }
   }
@@ -86,6 +88,24 @@ export default function CardPanel({ edition, token, permissions, onChanged }) {
       await refresh();
       await onChanged();
       setNotice('Progreso guardado. Los cartones emitidos se conservarán al reanudar.');
+    }
+  }
+  async function reissueAll() {
+    continuing.current = true;
+    setReissuing(true);
+    let version = status.version;
+    do {
+      const result = await mutate('/cards/pdf/reissue-batch', { limit: 50 }, version);
+      version = result.version;
+      if (mounted.current)
+        setStatus((previous) => ({ ...previous, version, outdatedTemplates: result.remaining }));
+      if (!result.remaining) break;
+    } while (continuing.current && mounted.current);
+    continuing.current = false;
+    if (mounted.current) {
+      await refresh();
+      await onChanged();
+      setNotice('Diseño actualizado. Los números de cada cartón no cambiaron.');
     }
   }
   async function download(card) {
@@ -267,6 +287,31 @@ export default function CardPanel({ edition, token, permissions, onChanged }) {
             Cada participante conserva un cartón por edición. Descargar o recuperar el PDF mantiene sus
             números; no envía ningún mensaje.
           </p>
+          {status.outdatedTemplates > 0 && (
+            <React.Fragment>
+              <p role="status">
+                {status.outdatedTemplates} cartón(es) con un diseño de PDF anterior al vigente.
+              </p>
+              {can('cards:issue') && (
+                <React.Fragment>
+                  <button disabled={busy} onClick={() => run(reissueAll)}>
+                    Actualizar todos los PDFs al diseño vigente
+                  </button>
+                  {reissuing && (
+                    <button
+                      onClick={() => {
+                        continuing.current = false;
+                        setNotice('Se pausará al terminar el lote en curso.');
+                      }}
+                    >
+                      Pausar tras este lote
+                    </button>
+                  )}
+                  <p>No cambia los números de ningún cartón, solo el diseño impreso.</p>
+                </React.Fragment>
+              )}
+            </React.Fragment>
+          )}
           <button disabled={busy} onClick={() => run(() => refresh())}>
             Actualizar cartones
           </button>
@@ -287,9 +332,25 @@ export default function CardPanel({ edition, token, permissions, onChanged }) {
                     <td>{card.participantId}</td>
                     <td>
                       {card.pdfAvailable ? (
-                        <button disabled={busy} onClick={() => run(() => download(card))}>
-                          Descargar PDF {card.cardCode}
-                        </button>
+                        <React.Fragment>
+                          <button disabled={busy} onClick={() => run(() => download(card))}>
+                            Descargar PDF {card.cardCode}
+                          </button>
+                          {!card.templateCurrent && can('cards:issue') && (
+                            <button
+                              disabled={busy}
+                              onClick={() =>
+                                run(async () => {
+                                  await mutate(`/cards/${card._id}/pdf/reissue`, {}, status.version);
+                                  await refresh();
+                                  await onChanged();
+                                })
+                              }
+                            >
+                              Actualizar al diseño vigente {card.cardCode}
+                            </button>
+                          )}
+                        </React.Fragment>
                       ) : (
                         <React.Fragment>
                           <span>PDF no disponible</span>

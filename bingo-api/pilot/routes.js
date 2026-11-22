@@ -5,6 +5,7 @@ const { staff, permit } = require('./auth');
 const { Edition, ConfigVersion, Participant, Audit, Card, CardPdf } = require('./models');
 const { createEdition, configureEdition } = require('./persistence');
 const { audit } = require('./commands');
+const { TEMPLATE_VERSION } = require('./card-pdf');
 const failure = require('./errors');
 const router = express.Router();
 router.use(staff);
@@ -66,11 +67,12 @@ router.get('/editions/:editionId/participants/:participantId/contact', permit('c
 router.get('/editions/:editionId/cards', permit('participants:read'), asyncHandler(async (req, res) => {
   const editionId = await requireEdition(req);
   const { limit, offset } = page(req);
-  const cards = await Card.find({ editionId }).select('_id participantId cardCode cells pdf').sort({ _id: 1 }).skip(offset).limit(limit).lean();
+  const cards = await Card.find({ editionId }).select('_id participantId cardCode cells pdf presentation').sort({ _id: 1 }).skip(offset).limit(limit).lean();
   const artifacts = await CardPdf.find({ editionId, cardId: { $in: cards.map(c => c._id) } }).select('cardId sha256').lean();
   const hashes = new Map(artifacts.map(p => [String(p.cardId), p.sha256]));
   res.json(cards.map(card => ({ _id: card._id, participantId: card.participantId, cardCode: card.cardCode, cells: card.cells,
-    pdfAvailable: Boolean(card.pdf && hashes.get(String(card._id)) === card.pdf.sha256) })));
+    pdfAvailable: Boolean(card.pdf && hashes.get(String(card._id)) === card.pdf.sha256),
+    templateCurrent: Boolean(card.presentation) && card.presentation.templateVersion === TEMPLATE_VERSION })));
 }));
 router.get('/editions/:editionId/exports/participants', permit('exports:read'), permit('contacts:read'), asyncHandler(async (req, res) => {
   const editionId = await requireEdition(req);

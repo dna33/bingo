@@ -21,7 +21,8 @@ beforeEach(() => {
     eligible: true,
     activeParticipants: 120,
     pdfReady: 0,
-    remaining: 120
+    remaining: 120,
+    outdatedTemplates: 0
   };
   rows = [];
   issued = [];
@@ -45,6 +46,25 @@ beforeEach(() => {
         locked: true
       };
       return { version: summary.version, remaining: summary.remaining, totalParticipants: 120, processed };
+    }
+    if (path.endsWith('/pdf/reissue')) {
+      const body = JSON.parse(options.body);
+      summary = {
+        ...summary,
+        version: body.expectedVersion + 1,
+        outdatedTemplates: Math.max(0, summary.outdatedTemplates - 1)
+      };
+      return { version: summary.version, updated: true };
+    }
+    if (path.endsWith('/cards/pdf/reissue-batch')) {
+      const body = JSON.parse(options.body);
+      const processed = Math.min(50, summary.outdatedTemplates);
+      summary = {
+        ...summary,
+        version: body.expectedVersion + 1,
+        outdatedTemplates: summary.outdatedTemplates - processed
+      };
+      return { version: summary.version, updated: processed, remaining: summary.outdatedTemplates };
     }
     throw new Error('Unexpected route');
   });
@@ -145,4 +165,49 @@ test('pausing stops after the in-flight batch and resuming uses its committed ve
     ui.getByText('Progreso guardado. Los cartones emitidos se conservarán al reanudar.')
   );
   expect(issued.map((command) => command.expectedVersion)).toEqual([1, 2, 3]);
+});
+test('a card with an outdated template shows an update action, hidden once it is current', async () => {
+  rows = [
+    { _id: 'card-1', cardCode: 'old-code', participantId: 'participant-1', pdfAvailable: true, templateCurrent: false },
+    { _id: 'card-2', cardCode: 'new-code', participantId: 'participant-2', pdfAvailable: true, templateCurrent: true }
+  ];
+  const ui = render(
+    <CardPanel edition={edition} token="staff" permissions={['cards:issue', 'participants:read']} onChanged={changed} />
+  );
+  await waitForElement(() => ui.getByText('Actualizar al diseño vigente old-code'));
+  expect(ui.queryByText('Actualizar al diseño vigente new-code')).toBeNull();
+  fireEvent.click(ui.getByText('Actualizar al diseño vigente old-code'));
+  await waitForElement(() => {
+    if (!changed.mock.calls.length) throw new Error('waiting');
+    return true;
+  });
+  const sent = request.mock.calls.find((call) => call[0].endsWith('/cards/card-1/pdf/reissue'));
+  expect(sent).toBeTruthy();
+  expect(JSON.parse(sent[2].body).expectedVersion).toBe(1);
+  expect(changed).toHaveBeenCalled();
+});
+test('read-only staff never sees the per-card or batch update actions', async () => {
+  rows = [
+    { _id: 'card-1', cardCode: 'old-code', participantId: 'participant-1', pdfAvailable: true, templateCurrent: false }
+  ];
+  summary.outdatedTemplates = 1;
+  const ui = render(
+    <CardPanel edition={edition} token="staff" permissions={['participants:read']} onChanged={changed} />
+  );
+  await waitForElement(() => ui.getByText('Descargar PDF old-code'));
+  expect(ui.queryByText('Actualizar al diseño vigente old-code')).toBeNull();
+  expect(ui.queryByText('Actualizar todos los PDFs al diseño vigente')).toBeNull();
+});
+test('updating all outdated PDFs advances in batches, keeps pausing/resuming and stops when none remain', async () => {
+  summary.outdatedTemplates = 3;
+  const ui = render(
+    <CardPanel edition={edition} token="staff" permissions={['cards:issue']} onChanged={changed} />
+  );
+  await waitForElement(() => ui.getByText('Actualizar todos los PDFs al diseño vigente'));
+  fireEvent.click(ui.getByText('Actualizar todos los PDFs al diseño vigente'));
+  await waitForElement(() => ui.getByText('Diseño actualizado. Los números de cada cartón no cambiaron.'));
+  const reissued = request.mock.calls.filter((call) => call[0].endsWith('/cards/pdf/reissue-batch'));
+  expect(reissued).toHaveLength(1);
+  expect(summary.outdatedTemplates).toBe(0);
+  expect(ui.queryByText('Actualizar todos los PDFs al diseño vigente')).toBeNull();
 });
