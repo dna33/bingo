@@ -23,24 +23,24 @@ const base = () => ({
 test('all adjudication-relevant rules and reviewed masks are required before configuring', () => {
   const rules = base();
   assert.equal(E.validateConfiguration(rules).figures.length, 7);
-  for (const key of [
-    'roundMode',
-    'extractionMode',
-    'repeatWinners',
-    'pauseDuringContact',
-    'roundingPolicy',
-    'discardPolicy',
-    'noResponsePolicy',
-    'contactClockStart',
-    'maskReviewConfirmed',
-    'confirmationReference',
-    'nearMissThresholds'
+  for (const [key, code] of [
+    ['roundMode', 'game_round_mode'],
+    ['extractionMode', 'game_extraction_mode'],
+    ['repeatWinners', 'game_repeat_winners'],
+    ['pauseDuringContact', 'game_pause_contact'],
+    ['roundingPolicy', 'game_rounding_policy'],
+    ['discardPolicy', 'game_discard_policy'],
+    ['noResponsePolicy', 'game_no_response_policy'],
+    ['contactClockStart', 'game_contact_clock'],
+    ['maskReviewConfirmed', 'game_mask_review'],
+    ['confirmationReference', 'game_confirmation_reference'],
+    ['nearMissThresholds', 'game_near_miss']
   ]) {
     const invalid = { ...rules };
     delete invalid[key];
     assert.throws(
       () => E.validateConfiguration(invalid),
-      (e) => e.publicCode === 'game_configuration'
+      (e) => e.publicCode === code
     );
   }
   assert.deepEqual(E.validateConfiguration({ ...rules, nearMissThresholds: [] }).nearMissThresholds, []);
@@ -51,7 +51,7 @@ test('all adjudication-relevant rules and reviewed masks are required before con
   for (const nearMissThresholds of [[1, 1], [0], [21], ['1'], Array(11).fill(1).map((_, i) => i + 1)]) {
     assert.throws(
       () => E.validateConfiguration({ ...rules, nearMissThresholds }),
-      (e) => e.publicCode === 'game_configuration'
+      (e) => e.publicCode === 'game_near_miss'
     );
   }
   assert.throws(

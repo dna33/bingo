@@ -1,6 +1,9 @@
 const failure = require('./errors');
 const names = ['F', 'A', 'B', 'U', 'L', 'S', 'O'];
 const pools = Object.fromEntries(names.map((name) => [name, name === 'O' ? 100000 : 50000]));
+function invalid(code, message) {
+  return Object.assign(failure(400, message), { publicCode: code });
+}
 function validateConfiguration(input) {
   const allowed = [
     'roundMode',
@@ -17,43 +20,53 @@ function validateConfiguration(input) {
     'confirmationReference',
     'nearMissThresholds'
   ];
+  if (!input || typeof input !== 'object' || Object.keys(input).some((k) => !allowed.includes(k)))
+    throw invalid('game_configuration', 'Complete game rules are required');
+  if (!['independent', 'simultaneous'].includes(input.roundMode))
+    throw invalid('game_round_mode', 'Choose a valid round mode');
+  if (!['manual', 'digital'].includes(input.extractionMode))
+    throw invalid('game_extraction_mode', 'Choose a valid extraction mode');
+  if (typeof input.repeatWinners !== 'boolean')
+    throw invalid('game_repeat_winners', 'State whether a card can win more than one figure');
+  if (typeof input.pauseDuringContact !== 'boolean')
+    throw invalid('game_pause_contact', 'State whether the game pauses while contacting candidates');
+  if (input.roundingPolicy !== 'auditable_residual_draw')
+    throw invalid('game_rounding_policy', 'Choose a valid residual rounding policy');
+  if (!['redistribute_confirmed', 'redispute_remainder'].includes(input.discardPolicy))
+    throw invalid('game_discard_policy', 'Choose what happens to the share of non-respondents');
+  if (!['redispute_same_figure', 'advance_keep_unassigned'].includes(input.noResponsePolicy))
+    throw invalid('game_no_response_policy', 'Choose what happens if nobody responds');
+  if (input.contactClockStart !== 'operator_confirms_notice')
+    throw invalid('game_contact_clock', 'Choose when the contact minute starts');
+  if (input.maskReviewConfirmed !== true) throw invalid('game_mask_review', 'Confirm the mask review checkbox');
   if (
-    !input ||
-    typeof input !== 'object' ||
-    Object.keys(input).some((k) => !allowed.includes(k)) ||
-    !['independent', 'simultaneous'].includes(input.roundMode) ||
-    !['manual', 'digital'].includes(input.extractionMode) ||
-    typeof input.repeatWinners !== 'boolean' ||
-    typeof input.pauseDuringContact !== 'boolean' ||
-    input.roundingPolicy !== 'auditable_residual_draw' ||
-    !['redistribute_confirmed', 'redispute_remainder'].includes(input.discardPolicy) ||
-    !['redispute_same_figure', 'advance_keep_unassigned'].includes(input.noResponsePolicy) ||
-    input.contactClockStart !== 'operator_confirms_notice' ||
-    input.maskReviewConfirmed !== true ||
     typeof input.confirmationReference !== 'string' ||
     !input.confirmationReference.trim() ||
-    input.confirmationReference.length > 1000 ||
+    input.confirmationReference.length > 1000
+  )
+    throw invalid('game_confirmation_reference', 'Provide a rules confirmation reference');
+  if (
     !Array.isArray(input.order) ||
     input.order.length !== 7 ||
     new Set(input.order).size !== 7 ||
-    input.order.some((n) => !names.includes(n)) ||
+    input.order.some((n) => !names.includes(n))
+  )
+    throw invalid('game_order', 'The figure order must list F,A,B,U,L,S,O exactly once each');
+  if (
     !Array.isArray(input.figures) ||
     input.figures.length !== 7 ||
-    new Set(input.figures.map((f) => f && f.name)).size !== 7 ||
+    new Set(input.figures.map((f) => f && f.name)).size !== 7
+  )
+    throw invalid('game_figures_set', 'Provide exactly the seven figures with distinct names');
+  if (
     !Array.isArray(input.nearMissThresholds) ||
     input.nearMissThresholds.length > 10 ||
     new Set(input.nearMissThresholds).size !== input.nearMissThresholds.length ||
     input.nearMissThresholds.some((n) => !Number.isSafeInteger(n) || n < 1 || n > 20)
-  ) {
-    throw Object.assign(failure(400, 'Complete game rules are required'), {
-      publicCode: 'game_configuration'
-    });
-  }
-  if (input.roundMode === 'simultaneous' && !input.repeatWinners) {
-    throw Object.assign(failure(400, 'Cross-figure arbitration is not configured'), {
-      publicCode: 'game_cross_figure_policy'
-    });
-  }
+  )
+    throw invalid('game_near_miss', 'Near-miss thresholds must be unique integers from 1 to 20 (up to 10)');
+  if (input.roundMode === 'simultaneous' && !input.repeatWinners)
+    throw invalid('game_cross_figure_policy', 'Cross-figure arbitration is not configured');
   for (const figure of input.figures) {
     if (
       !figure ||
