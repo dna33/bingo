@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { request, newId } from '../pilot-api';
-import { proposedFigures } from '../game-patterns';
+import { proposedFigures, alternateMasks, masks } from '../game-patterns';
 import CandidateAlerts from './CandidateAlerts';
 import ContactWorkflow from './ContactWorkflow';
 import PrizePanel from './PrizePanel';
@@ -343,6 +343,29 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                         Figura {figure.name} · ${figure.poolClp.toLocaleString('es-CL')}
                       </legend>
                       <Mask mask={figure.mask} />
+                      {alternateMasks[figure.name] && (
+                        <label>
+                          Patrón {figure.name}
+                          <select
+                            value={
+                              figure.mask.join('\n') === alternateMasks[figure.name].join('\n')
+                                ? 'binguito'
+                                : 'classic'
+                            }
+                            onChange={(e) => {
+                              const mask =
+                                e.target.value === 'binguito'
+                                  ? [...alternateMasks[figure.name]]
+                                  : [...masks[figure.name]];
+                              const figures = draft.figures.map((f, j) => (j === i ? { ...f, mask } : f));
+                              setDraft({ ...draft, figures });
+                            }}
+                          >
+                            <option value="classic">Letra clásica</option>
+                            <option value="binguito">Binguito</option>
+                          </select>
+                        </label>
+                      )}
                       <label>
                         Máscara {figure.name}: cinco filas de 0 y 1
                         <textarea

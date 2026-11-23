@@ -15,3 +15,7 @@ export function proposedFigures() {
     poolClp: name === 'O' ? 100000 : 50000
   }));
 }
+// Alternate, faster-to-complete mask for a figure, selectable instead of its classic letter shape.
+export const alternateMasks = {
+  F: ['10001', '00000', '00010', '00000', '00001']
+};
