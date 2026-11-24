@@ -420,32 +420,85 @@ test(
   }
 );
 
-test('the live event order (Binguito then letra F) follows the configured order, and the edition finishes before the five idle, unfunded figures are ever opened', async () => {
-  const order = ['U', 'F', 'A', 'B', 'L', 'S', 'O'];
-  const id = await fixture(1, gameRules({ order }));
-  await start(id);
+test('the live event (binguito then letra F) opens one simultaneous round where binguito completes first since its cells are a subset of letra F, and the edition finishes without ever detecting the five idle, unfunded figures', async () => {
+  const editionId = oid();
+  await createEdition({ editionId, actorId, name: 'Stage 5 synthetic edition' });
+  const file = await I.stageImport(
+    await command(editionId, {
+      filename: 'synthetic.csv',
+      contentBase64: Buffer.from('email,telefono,jugador_id\nplayer0@example.invalid,+56900000000,id-0').toString(
+        'base64'
+      ),
+      sourceReference: 'Synthetic Polla list'
+    })
+  );
+  await I.applyImport(await command(editionId, { importId: file.importId }));
+  await C.configureCards(
+    await command(editionId, {
+      settings: { minNumber: 1, maxNumber: 75, columnMode: 'unrestricted', confirmationReference: 'Synthetic variant' }
+    })
+  );
+  const [cornerNumber, fullNumber] = [1, 2];
+  const generate = (settings) => {
+    const cells = generateCells(settings);
+    for (const [value, index] of [
+      [cornerNumber, 0],
+      [fullNumber, 4]
+    ]) {
+      const old = cells.indexOf(value);
+      if (old >= 0 && old !== index) [cells[old], cells[index]] = [cells[index], cells[old]];
+      else if (old < 0) cells[index] = value;
+    }
+    return cells;
+  };
+  let remaining = 1;
+  while (remaining)
+    remaining = (await C.issueBatch(await command(editionId, { limit: 100 }), { generate })).remaining;
+  await I.closeList(await command(editionId));
+  const figures = E.names.map((name) => ({
+    name,
+    poolClp: E.pools[name],
+    mask:
+      name === 'U'
+        ? ['10000', '00000', '00000', '00000', '00000']
+        : name === 'F'
+          ? ['10001', '00000', '00000', '00000', '00000']
+          : ['00000', '00000', '00000', '00000', '00001']
+  }));
+  await G.configure(await command(editionId, { settings: gameRules({ roundMode: 'simultaneous', figures }) }));
+  await start(editionId);
+
+  const round = await M.Round.findById((await M.Edition.findById(editionId)).currentRoundId);
+  assert.deepEqual([...round.figures].sort(), [...E.names].sort());
+  assert.equal(await M.Round.countDocuments({ editionId }), 1);
+
   const money = require('./helpers/prize-fixture.cjs').helpers(actorId);
-  for (let i = 0; i < 2; i++) {
-    const round = await M.Round.findById((await M.Edition.findById(id)).currentRoundId);
-    assert.equal(round.figures[0], order[i]);
-    assert.equal(round.lastSequence, 0);
-    await ball(id, 1);
-    await money.settle(id, await money.resolve(id));
-    if (i < 1) await G.nextRound(await command(id));
-  }
-  assert.equal(await M.Round.countDocuments({ editionId: id }), 2);
-  assert.equal(await M.Candidate.countDocuments({ editionId: id, cohort: 'primary' }), 2);
-  const pools = await M.FigureResult.find({ editionId: id });
+  await ball(editionId, cornerNumber);
+  let results = await M.FigureResult.find({ editionId });
+  const uResult = results.find((r) => r.figure === 'U');
+  assert.equal(uResult.state, 'detected');
+  assert.equal(results.find((r) => r.figure === 'F').state, 'open');
+  for (const idle of results.filter((r) => !['U', 'F'].includes(r.figure))) assert.equal(idle.state, 'open');
+  await money.settle(editionId, await money.resolve(editionId, [], uResult._id));
+
+  await ball(editionId, fullNumber);
+  const fResult = await M.FigureResult.findOne({ editionId, figure: 'F' });
+  assert.equal(fResult.state, 'detected');
+  await money.settle(editionId, await money.resolve(editionId, [], fResult._id));
+
+  assert.equal(await M.Round.countDocuments({ editionId }), 1);
+  assert.equal(await M.Candidate.countDocuments({ editionId, cohort: 'primary' }), 2);
+  const pools = await M.FigureResult.find({ editionId });
   assert.equal(
     pools.reduce((sum, result) => sum + result.poolClp, 0),
     400000
   );
   await G.finish(
-    await command(id, {
-      reason: 'Only Binguito and letra F are played this event; credits remain pending'
+    await command(editionId, {
+      reason: 'Only binguito and letra F are played this event; credits remain pending'
     })
   );
-  assert.equal(await M.Award.countDocuments({ editionId: id }), 2);
+  assert.equal(await M.Award.countDocuments({ editionId }), 2);
 });
 
 test('contact resolution releases pause only after all primary deadlines are reconciled, including expired timely receipts', async () => {

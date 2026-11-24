@@ -344,37 +344,65 @@ test('credit requires full amount, original verified account, actual date and pr
   assert.equal((await R.report(id, 'delivered')).total, 1);
   await assert.rejects(M.PrizeCredit.updateOne({ _id: record._id }, { amountClp: 1 }), /append-only/);
 });
-test('the live event order (Binguito then letra F) settles both funded pools and finishes before the idle figures are ever opened', async () => {
-  const id = await h.fixture(1, { order: ['U', 'F', 'A', 'B', 'L', 'S', 'O'] });
+test('the live event (binguito then letra F) opens one simultaneous round where binguito completes first since its cells are a subset of letra F, settles both funded pools and finishes without ever detecting the idle figures', async () => {
+  const figures = E.names.map((name) => ({
+    name,
+    poolClp: E.pools[name],
+    mask:
+      name === 'U'
+        ? ['10000', '00000', '00000', '00000', '00000']
+        : name === 'F'
+          ? ['10001', '00000', '00000', '00000', '00000']
+          : ['00000', '00000', '00000', '00000', '00001']
+  }));
+  const id = await h.fixture(1, { roundMode: 'simultaneous', figures }, undefined, [
+    [1, 0],
+    [2, 4]
+  ]);
+  assert.equal(await M.Round.countDocuments({ editionId: id }), 1);
   await h.ball(id, 1);
   const binguito = await h.resolve(id);
   assert.equal(binguito.figure, 'U');
   await h.settle(id, binguito);
   assert.equal((await totals(id)).allocatedClp, 100000);
-  await G.nextRound(await h.command(id));
-  await h.ball(id, 1);
+  await h.ball(id, 2);
   const letraF = await h.resolve(id);
   assert.equal(letraF.figure, 'F');
   await h.settle(id, letraF);
   const sum = await totals(id);
   assert.equal(sum.allocatedClp, 400000);
   assert.equal(sum.availableClp, 0);
-  await G.finish(await h.command(id, { reason: 'Only Binguito and letra F are played this event' }));
+  assert.equal(await M.Round.countDocuments({ editionId: id }), 1);
+  await G.finish(await h.command(id, { reason: 'Only binguito and letra F are played this event' }));
   assert.equal((await M.Edition.findById(id)).state, 'finished');
   const awards = await M.Award.find({ editionId: id }).select('+accountReference');
   for (const award of awards) await P.credit(await creditInput(id, award));
   assert.equal((await totals(id)).deliveredClp, 400000);
 });
 test('a figure with no pool this event blocks preparation instead of paying out money that was never budgeted', async () => {
-  const id = await h.fixture(1, { order: ['U', 'F', 'A', 'B', 'L', 'S', 'O'] });
+  const figures = E.names.map((name) => ({
+    name,
+    poolClp: E.pools[name],
+    mask:
+      name === 'U'
+        ? ['10000', '00000', '00000', '00000', '00000']
+        : name === 'F'
+          ? ['10001', '00000', '00000', '00000', '00000']
+          : name === 'A'
+            ? ['00000', '00000', '00000', '00000', '00001']
+            : ['00000', '00000', '00000', '10000', '00000']
+  }));
+  const id = await h.fixture(1, { roundMode: 'simultaneous', figures }, undefined, [
+    [1, 0],
+    [2, 4],
+    [3, 24],
+    [75, 15]
+  ]);
   await h.ball(id, 1);
   await h.settle(id, await h.resolve(id));
-  await G.nextRound(await h.command(id));
-  await h.ball(id, 1);
-  const letraF = await h.resolve(id);
-  await h.settle(id, letraF);
-  await G.nextRound(await h.command(id));
-  await h.ball(id, 1);
+  await h.ball(id, 2);
+  await h.settle(id, await h.resolve(id));
+  await h.ball(id, 3);
   const idleFigure = await h.resolve(id);
   assert.equal(idleFigure.figure, 'A');
   await assert.rejects(h.prepare(id, idleFigure), (e) => e.publicCode === 'prize_budget');

@@ -48,7 +48,7 @@ function helpers(actorId) {
       await command(id, { roundId: String((await M.Edition.findById(id)).currentRoundId), number })
     );
   }
-  async function fixture(count = 3, extra = {}, firstNumbers = [1]) {
+  async function fixture(count = 3, extra = {}, firstNumbers = [1], placements) {
     const id = oid();
     await createEdition({ editionId: id, actorId, name: 'Synthetic prize edition' });
     const csv =
@@ -78,8 +78,16 @@ function helpers(actorId) {
     let n = 0;
     await C.issueBatch(await command(id, { limit: 100 }), {
       generate: (settings) => {
-        const cells = generateCells(settings),
-          target = firstNumbers[n++ % firstNumbers.length],
+        const cells = generateCells(settings);
+        if (placements) {
+          for (const [value, index] of placements) {
+            const old = cells.indexOf(value);
+            if (old >= 0 && old !== index) [cells[old], cells[index]] = [cells[index], cells[old]];
+            else if (old < 0) cells[index] = value;
+          }
+          return cells;
+        }
+        const target = firstNumbers[n++ % firstNumbers.length],
           old = cells.indexOf(target);
         if (old >= 0) [cells[old], cells[0]] = [cells[0], cells[old]];
         else cells[0] = target;
