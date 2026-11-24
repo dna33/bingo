@@ -55,7 +55,8 @@ const messages = {
   game_near_miss: 'Los umbrales de alerta deben ser enteros entre 1 y 20, sin repetir (máximo 10).',
   game_cross_figure_policy:
     'Las figuras simultáneas requieren permitir varias figuras por persona; falta definir la otra prioridad.',
-  game_mask: 'Revisa las siete máscaras de 5 × 5 y los pozos: seis de $50.000 y O de $100.000.',
+  game_mask:
+    'Revisa las siete máscaras de 5 × 5 y los pozos: U (Binguito) $100.000, F (letra completa) $300.000, el resto en $0.',
   game_configuration_required: 'Confirma primero las reglas y máscaras del juego.',
   game_frozen: 'Las reglas quedaron congeladas al preparar la partida.',
   game_state: 'Esta acción no corresponde al estado actual. Actualiza la partida.',

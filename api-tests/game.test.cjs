@@ -420,33 +420,32 @@ test(
   }
 );
 
-test('all seven independent rounds follow the configured order with one O and exactly seven first-cohort results', async () => {
-  const id = await fixture(1);
+test('the live event order (Binguito then letra F) follows the configured order, and the edition finishes before the five idle, unfunded figures are ever opened', async () => {
+  const order = ['U', 'F', 'A', 'B', 'L', 'S', 'O'];
+  const id = await fixture(1, gameRules({ order }));
   await start(id);
-  for (let i = 0; i < 7; i++) {
+  const money = require('./helpers/prize-fixture.cjs').helpers(actorId);
+  for (let i = 0; i < 2; i++) {
     const round = await M.Round.findById((await M.Edition.findById(id)).currentRoundId);
-    assert.equal(round.figures[0], E.names[i]);
+    assert.equal(round.figures[0], order[i]);
     assert.equal(round.lastSequence, 0);
     await ball(id, 1);
-    const money = require('./helpers/prize-fixture.cjs').helpers(actorId);
     await money.settle(id, await money.resolve(id));
-    if (i < 6) await G.nextRound(await command(id));
+    if (i < 1) await G.nextRound(await command(id));
   }
-  assert.equal(await M.Round.countDocuments({ editionId: id }), 7);
-  assert.equal(await M.FigureResult.countDocuments({ editionId: id, figure: 'O' }), 1);
+  assert.equal(await M.Round.countDocuments({ editionId: id }), 2);
+  assert.equal(await M.Candidate.countDocuments({ editionId: id, cohort: 'primary' }), 2);
   const pools = await M.FigureResult.find({ editionId: id });
   assert.equal(
     pools.reduce((sum, result) => sum + result.poolClp, 0),
     400000
   );
-  assert.equal(await M.Candidate.countDocuments({ editionId: id, cohort: 'primary' }), 7);
-  await assert.rejects(G.nextRound(await command(id)), (e) => e.publicCode === 'game_rounds_complete');
   await G.finish(
     await command(id, {
-      reason: 'All configured rounds and prize allocations validated; credits remain pending'
+      reason: 'Only Binguito and letra F are played this event; credits remain pending'
     })
   );
-  assert.equal(await M.Award.countDocuments({ editionId: id }), 7);
+  assert.equal(await M.Award.countDocuments({ editionId: id }), 2);
 });
 
 test('contact resolution releases pause only after all primary deadlines are reconciled, including expired timely receipts', async () => {

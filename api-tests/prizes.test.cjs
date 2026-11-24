@@ -9,6 +9,7 @@ const { MongoMemoryReplSet } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const db = require('../bingo-api/models/db');
 const M = require('../bingo-api/pilot/models');
+const E = require('../bingo-api/pilot/game-engine');
 const P = require('../bingo-api/pilot/prizes');
 const G = require('../bingo-api/pilot/game');
 const R = require('../bingo-api/pilot/prize-reports');
@@ -129,7 +130,7 @@ test('validated distribution is exact, proposal seed cannot be rerolled, account
   assert.deepEqual(
     stored.split,
     split(
-      50000,
+      300000,
       stored.basis.candidates.map((c) => c.id),
       stored.seed
     )
@@ -185,10 +186,10 @@ test('validated distribution is exact, proposal seed cannot be rerolled, account
   assert.equal(awards.length, 3);
   assert.equal(
     awards.reduce((sum, a) => sum + a.amountClp, 0),
-    50000
+    300000
   );
   assert.equal(await M.PrizeSettlement.countDocuments({ editionId: id }), 1);
-  assert.equal((await totals(id)).allocatedClp, 50000);
+  assert.equal((await totals(id)).allocatedClp, 300000);
   await assert.rejects(
     P.confirm(await h.command(id, cmd.input)),
     (e) => e.publicCode === 'prize_already_allocated'
@@ -199,7 +200,7 @@ test('discard redistribution pays only timely responders, and pending report nev
   await h.settle(id, result);
   const awards = await M.Award.find({ editionId: id });
   assert.equal(awards.length, 2);
-  assert.ok(awards.every((a) => a.amountClp === 25000));
+  assert.ok(awards.every((a) => a.amountClp === 150000));
   const pending = await R.report(id, 'pending'),
     discarded = await R.report(id, 'discarded');
   assert.equal(pending.total, 2);
@@ -212,7 +213,7 @@ test('no responses follow advance_keep_unassigned with no awards; redispute poli
   const one = await ready({}, 2, [1], ['discarded', 'discarded']);
   const settled = await h.settle(one.id, one.result);
   assert.equal(settled.disposition, 'keep_unassigned');
-  assert.equal((await totals(one.id)).unassignedClp, 50000);
+  assert.equal((await totals(one.id)).unassignedClp, 300000);
   assert.equal(await M.Award.countDocuments({ editionId: one.id }), 0);
   await G.nextRound(await h.command(one.id));
   const two = await ready({ noResponsePolicy: 'redispute_same_figure' }, 2, [1, 2], ['discarded']);
@@ -224,7 +225,7 @@ test('no responses follow advance_keep_unassigned with no awards; redispute poli
   await h.ball(two.id, 2);
   const second = await h.resolve(two.id);
   await h.settle(two.id, second);
-  assert.equal((await totals(two.id)).allocatedClp, 50000);
+  assert.equal((await totals(two.id)).allocatedClp, 300000);
 });
 test('redispute_remainder conserves the discarded shares and promotes the entire earliest reserve draw', async () => {
   const id = await h.fixture(5, { discardPolicy: 'redispute_remainder' }, [1, 1, 2, 2, 3]);
@@ -233,8 +234,8 @@ test('redispute_remainder conserves the discarded shares and promotes the entire
   await h.ball(id, 3);
   const first = await h.resolve(id, ['confirmed', 'discarded']);
   const result = await h.settle(id, first);
-  assert.equal(result.allocatedClp, 25000);
-  assert.equal(result.remainderClp, 25000);
+  assert.equal(result.allocatedClp, 150000);
+  assert.equal(result.remainderClp, 150000);
   assert.equal(result.continuation.promoted, 2);
   const promoted = await M.Candidate.find({ editionId: id, cohort: 'primary', allocationCycle: 1 });
   assert.equal(promoted.length, 2);
@@ -243,8 +244,8 @@ test('redispute_remainder conserves the discarded shares and promotes the entire
   const next = await h.resolve(id);
   await h.settle(id, next);
   const ledger = await totals(id);
-  assert.equal(ledger.allocatedClp, 50000);
-  assert.equal(ledger.availableClp, 350000);
+  assert.equal(ledger.allocatedClp, 300000);
+  assert.equal(ledger.availableClp, 100000);
   const history = await M.PrizeSettlement.find({ editionId: id }).sort({ createdAt: 1 });
   assert.equal(String(history[1].sourceProposalId), String(history[0].proposalId));
   assert.equal(history[1].availableBeforeClp, history[0].availableAfterClp);
@@ -289,7 +290,7 @@ test('exhausted eligibility can only close unused balance after explicit excepti
       exhaustionAcknowledged: true
     })
   );
-  assert.equal((await totals(id)).unassignedClp, 50000);
+  assert.equal((await totals(id)).unassignedClp, 300000);
   assert.equal(await M.Award.countDocuments({ editionId: id }), 0);
   await G.nextRound(await h.command(id));
 });
@@ -312,7 +313,7 @@ test('concurrent approvals and credits commit once, and duplicate credit referen
     P.credit(await creditInput(id, awards[1], 'unique-operation')),
     (e) => e.publicCode === 'prize_credit_duplicate'
   );
-  assert.equal((await totals(id)).deliveredClp, 25000);
+  assert.equal((await totals(id)).deliveredClp, 150000);
 });
 test('credit requires full amount, original verified account, actual date and proof; it records only an external Polla credit', async () => {
   const { id, result } = await ready({}, 1);
@@ -343,22 +344,40 @@ test('credit requires full amount, original verified account, actual date and pr
   assert.equal((await R.report(id, 'delivered')).total, 1);
   await assert.rejects(M.PrizeCredit.updateOne({ _id: record._id }, { amountClp: 1 }), /append-only/);
 });
-test('seven figures cannot exceed 400000, O occurs once, source amounts stay exact through delivery', async () => {
-  const id = await h.fixture(1);
-  for (let i = 0; i < 7; i++) {
-    await h.ball(id, 1);
-    const result = await h.resolve(id);
-    await h.settle(id, result);
-    if (i < 6) await G.nextRound(await h.command(id));
-  }
+test('the live event order (Binguito then letra F) settles both funded pools and finishes before the idle figures are ever opened', async () => {
+  const id = await h.fixture(1, { order: ['U', 'F', 'A', 'B', 'L', 'S', 'O'] });
+  await h.ball(id, 1);
+  const binguito = await h.resolve(id);
+  assert.equal(binguito.figure, 'U');
+  await h.settle(id, binguito);
+  assert.equal((await totals(id)).allocatedClp, 100000);
+  await G.nextRound(await h.command(id));
+  await h.ball(id, 1);
+  const letraF = await h.resolve(id);
+  assert.equal(letraF.figure, 'F');
+  await h.settle(id, letraF);
   const sum = await totals(id);
   assert.equal(sum.allocatedClp, 400000);
   assert.equal(sum.availableClp, 0);
-  assert.equal(await M.Award.countDocuments({ editionId: id, figure: 'O' }), 1);
+  await G.finish(await h.command(id, { reason: 'Only Binguito and letra F are played this event' }));
+  assert.equal((await M.Edition.findById(id)).state, 'finished');
   const awards = await M.Award.find({ editionId: id }).select('+accountReference');
   for (const award of awards) await P.credit(await creditInput(id, award));
   assert.equal((await totals(id)).deliveredClp, 400000);
-  await assert.rejects(G.nextRound(await h.command(id)), (e) => e.publicCode === 'game_rounds_complete');
+});
+test('a figure with no pool this event blocks preparation instead of paying out money that was never budgeted', async () => {
+  const id = await h.fixture(1, { order: ['U', 'F', 'A', 'B', 'L', 'S', 'O'] });
+  await h.ball(id, 1);
+  await h.settle(id, await h.resolve(id));
+  await G.nextRound(await h.command(id));
+  await h.ball(id, 1);
+  const letraF = await h.resolve(id);
+  await h.settle(id, letraF);
+  await G.nextRound(await h.command(id));
+  await h.ball(id, 1);
+  const idleFigure = await h.resolve(id);
+  assert.equal(idleFigure.figure, 'A');
+  await assert.rejects(h.prepare(id, idleFigure), (e) => e.publicCode === 'prize_budget');
 });
 test('unsettled monetary result prevents next round even if contacts are resolved; corrupt ledger and proposal block atomically', async () => {
   const { id, result } = await ready({}, 1);
@@ -436,7 +455,7 @@ test('repeated redisputes conserve every peso down to a one-peso balance; zero s
     await h.ball(id, n++);
     const result = await h.resolve(id, ['confirmed', 'discarded']);
     const settled = await h.settle(id, result);
-    assert.ok((await totals(id)).allocatedClp <= 50000);
+    assert.ok((await totals(id)).allocatedClp <= 300000);
     if (settled.remainderClp === 1) break;
     assert.ok(n < 25);
   }
@@ -445,7 +464,7 @@ test('repeated redisputes conserve every peso down to a one-peso balance; zero s
   await h.settle(id, result);
   const report = await R.report(id, 'confirmed');
   assert.equal(report.rows.filter((r) => r.awardState === 'no_credit_due').length, 2);
-  assert.equal((await totals(id)).allocatedClp, 50000);
+  assert.equal((await totals(id)).allocatedClp, 300000);
   assert.equal(await M.Award.countDocuments({ editionId: id, amountClp: 0 }), 0);
   assert.ok((await R.report(id, 'pending')).rows.every((r) => r.amountClp > 0));
 });
@@ -493,15 +512,25 @@ test('failed continuation rolls back awards, ledger, settlement and proposal app
       reason: 'Reviewed money after recovery'
     })
   );
-  assert.equal((await totals(id)).allocatedClp, 25000);
+  assert.equal((await totals(id)).allocatedClp, 150000);
 });
 
 test('simultaneous figures settle independently and processing figures in reverse order preserves winners and the 400000 ceiling', async () => {
   const snapshots = [];
+  // Only F and U are funded this event; give the five $0 figures a cell this fixture's single
+  // ball never draws, so they stay open instead of detecting a completion nobody budgeted for.
+  const figures = E.names.map((name) => ({
+    name,
+    poolClp: E.pools[name],
+    mask: ['F', 'U'].includes(name)
+      ? ['10000', '00000', '00100', '00000', '00000']
+      : ['00000', '00000', '00100', '00000', '00001']
+  }));
   for (const reverse of [false, true]) {
-    const id = await h.fixture(2, { roundMode: 'simultaneous' });
+    const id = await h.fixture(2, { roundMode: 'simultaneous', figures });
     await h.ball(id, 1);
-    let results = await M.FigureResult.find({ editionId: id }).sort({ figure: 1 });
+    let results = await M.FigureResult.find({ editionId: id, state: { $ne: 'open' } }).sort({ figure: 1 });
+    assert.equal(results.length, 2);
     if (reverse) results = results.reverse();
     for (const result of results) await h.settle(id, await h.resolve(id, [], result.id));
     assert.equal((await totals(id)).allocatedClp, 400000);
@@ -562,6 +591,6 @@ test('HTTP approval binds to the reviewed snapshot and records a full Polla cred
   });
   assert.equal(recorded.status, 200);
   const summary = await http(id, '', 'viewer');
-  assert.equal(summary.body.totals.deliveredClp, 50000);
+  assert.equal(summary.body.totals.deliveredClp, 300000);
   assert.ok(!JSON.stringify(summary.body).includes(award.accountReference));
 });

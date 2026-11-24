@@ -8,14 +8,17 @@ export const masks = {
   S: ['11111', '10000', '11111', '00001', '11111'],
   O: ['11111', '10001', '10001', '10001', '11111']
 };
+// Friday's live event plays only Binguito (U) and the full letter F (F); the rest sit
+// idle at $0 this edition and will carry their own pools on a future event's edition.
+const poolsByFigure = { F: 300000, A: 0, B: 0, U: 100000, L: 0, S: 0, O: 0 };
 export function proposedFigures() {
   return Object.entries(masks).map(([name, mask]) => ({
     name,
     mask: [...mask],
-    poolClp: name === 'O' ? 100000 : 50000
+    poolClp: poolsByFigure[name]
   }));
 }
 // Alternate, faster-to-complete mask for a figure, selectable instead of its classic letter shape.
 export const alternateMasks = {
-  F: ['10001', '00000', '00010', '00000', '00001']
+  U: ['10001', '00000', '00010', '00000', '10000']
 };

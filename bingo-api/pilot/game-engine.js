@@ -1,6 +1,8 @@
 const failure = require('./errors');
 const names = ['F', 'A', 'B', 'U', 'L', 'S', 'O'];
-const pools = Object.fromEntries(names.map((name) => [name, name === 'O' ? 100000 : 50000]));
+// Friday's live event plays only Binguito (U) and the full letter F (F); the rest sit
+// idle at $0 this edition and will carry their own pools on a future event's edition.
+const pools = { F: 300000, A: 0, B: 0, U: 100000, L: 0, S: 0, O: 0 };
 function invalid(code, message) {
   return Object.assign(failure(400, message), { publicCode: code });
 }
