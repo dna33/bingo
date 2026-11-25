@@ -124,7 +124,21 @@ router.get(
       .skip(offset)
       .limit(limit)
       .lean();
-    res.json(rows.map((row) => contacts.publicStatus(row)));
+    let names = new Map();
+    if (req.staff.permissions.has('contacts:read') && rows.length)
+      names = new Map(
+        (
+          await M.Participant.find({ _id: { $in: rows.map((row) => row.participantId) } })
+            .select('_id +name')
+            .lean()
+        ).map((person) => [String(person._id), person.name])
+      );
+    res.json(
+      rows.map((row) => ({
+        ...contacts.publicStatus(row),
+        ...(names.has(String(row.participantId)) ? { participantName: names.get(String(row.participantId)) } : {})
+      }))
+    );
   })
 );
 router.get(

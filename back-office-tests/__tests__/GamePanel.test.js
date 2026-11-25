@@ -126,12 +126,13 @@ test('all ties are counted and contacts are fetched only by an authorized explic
       reserveCandidateCount: 1
     }
   ];
-  rows = ['a', 'b'].map((id) => ({
+  rows = ['a', 'b'].map((id, i) => ({
     _id: id,
     figure: 'F',
     cardId: `card-${id}`,
     cohort: 'primary',
     state: 'detected',
+    participantName: `Synthetic Candidate ${i}`,
     evidence: {
       number: 1,
       sequence: 1,
@@ -149,6 +150,8 @@ test('all ties are counted and contacts are fetched only by an authorized explic
   );
   await waitForElement(() => ui.getByText('Consultar contacto a'));
   expect(ui.getByText('Primera bolilla: 1 · 2 candidatos empatados.')).toBeTruthy();
+  expect(ui.getByText('Synthetic Candidate 0')).toBeTruthy();
+  expect(ui.getByText('Synthetic Candidate 1')).toBeTruthy();
   expect(ui.queryByText('private@example.invalid')).toBeNull();
   fireEvent.click(ui.getByText('Consultar contacto a'));
   await waitForElement(() => ui.getByLabelText('Contacto privado del candidato'));

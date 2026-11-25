@@ -677,6 +677,7 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
               <thead>
                 <tr>
                   <th>Figura y cartón</th>
+                  {permissions.includes('contacts:read') && <th>Participante</th>}
                   <th>Evidencia oficial</th>
                   <th>Estado</th>
                   <th>Contacto</th>
@@ -688,6 +689,9 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                     <td>
                       {candidate.figure} · {candidate.cardId}
                     </td>
+                    {permissions.includes('contacts:read') && (
+                      <td>{candidate.participantName || 'Sin nombre registrado'}</td>
+                    )}
                     <td>
                       Bolilla {candidate.evidence.number}, extracción {candidate.evidence.sequence}
                       <Mask mask={candidate.evidence.mask} cells={candidate.evidence.cells} />
