@@ -1,8 +1,8 @@
 const failure = require('./errors');
 const names = ['F', 'A', 'B', 'U', 'L', 'S', 'O'];
-// Friday's live event plays only Binguito (U) and the full letter F (F); the rest sit
-// idle at $0 this edition and will carry their own pools on a future event's edition.
-const pools = { F: 300000, A: 0, B: 0, U: 100000, L: 0, S: 0, O: 0 };
+// How many of the 7 catalog letters play, and each one's pool and mask, is chosen per
+// edition at configuration time. Only the total prize budget is fixed.
+const TOTAL_POOL_CLP = 400000;
 function invalid(code, message) {
   return Object.assign(failure(400, message), { publicCode: code });
 }
@@ -49,17 +49,18 @@ function validateConfiguration(input) {
     throw invalid('game_confirmation_reference', 'Provide a rules confirmation reference');
   if (
     !Array.isArray(input.order) ||
-    input.order.length !== 7 ||
-    new Set(input.order).size !== 7 ||
+    input.order.length < 1 ||
+    input.order.length > 7 ||
+    new Set(input.order).size !== input.order.length ||
     input.order.some((n) => !names.includes(n))
   )
-    throw invalid('game_order', 'The figure order must list F,A,B,U,L,S,O exactly once each');
+    throw invalid('game_order', 'The figure order must list 1 to 7 of F,A,B,U,L,S,O, each at most once');
   if (
     !Array.isArray(input.figures) ||
-    input.figures.length !== 7 ||
-    new Set(input.figures.map((f) => f && f.name)).size !== 7
+    input.figures.length !== input.order.length ||
+    new Set(input.figures.map((f) => f && f.name)).size !== input.order.length
   )
-    throw invalid('game_figures_set', 'Provide exactly the seven figures with distinct names');
+    throw invalid('game_figures_set', 'Provide exactly one figure per name in the order, with distinct names');
   if (
     !Array.isArray(input.nearMissThresholds) ||
     input.nearMissThresholds.length > 10 ||
@@ -74,7 +75,9 @@ function validateConfiguration(input) {
       !figure ||
       Object.keys(figure).some((k) => !['name', 'mask', 'poolClp'].includes(k)) ||
       !names.includes(figure.name) ||
-      figure.poolClp !== pools[figure.name] ||
+      !input.order.includes(figure.name) ||
+      !Number.isInteger(figure.poolClp) ||
+      figure.poolClp < 0 ||
       !Array.isArray(figure.mask) ||
       figure.mask.length !== 5 ||
       figure.mask.some((row) => typeof row !== 'string' || !/^[01]{5}$/.test(row)) ||
@@ -86,6 +89,8 @@ function validateConfiguration(input) {
       throw Object.assign(failure(400, 'Invalid figure or pool'), { publicCode: 'game_mask' });
     }
   }
+  if (input.figures.reduce((sum, f) => sum + f.poolClp, 0) !== TOTAL_POOL_CLP)
+    throw invalid('game_pool_total', `Figure pools must add up to exactly ${TOTAL_POOL_CLP}`);
   return {
     roundMode: input.roundMode,
     extractionMode: input.extractionMode,
@@ -159,4 +164,4 @@ function evaluate(roster, figures, drawnNumbers, seen = new Set(), excluded = ne
   }
   return { completions, summaries };
 }
-module.exports = { names, pools, validateConfiguration, progress, evaluate };
+module.exports = { names, TOTAL_POOL_CLP, validateConfiguration, progress, evaluate };

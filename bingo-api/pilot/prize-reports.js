@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const M = require('./models');
-const { names, pools } = require('./game-engine');
+const { names, TOTAL_POOL_CLP } = require('./game-engine');
 const P = require('./prizes');
 const failure = require('./errors');
 const sid = (v) => String(v);
@@ -25,19 +25,27 @@ async function budget(edition, session) {
   const initialized = Boolean(await M.PrizePool.exists({ editionId: edition._id }).session(session));
   if (!initialized && (await M.Award.exists({ editionId: edition._id }).session(session)))
     throw Object.assign(failure(409, 'Legacy awards require reconciliation'), { publicCode: 'prize_legacy' });
-  const ledger = initialized
-    ? await P.checkBudget(edition._id, session)
-    : names.map((figure) => ({
-        figure,
-        totalClp: pools[figure],
-        allocatedClp: 0,
-        deliveredClp: 0,
-        unassignedClp: 0,
-        availableClp: pools[figure],
-        pendingCreditClp: 0
-      }));
+  let ledger;
+  if (initialized) {
+    ledger = await P.checkBudget(edition._id, session);
+  } else {
+    const config =
+      edition.gameConfigurationId &&
+      (await M.GameConfiguration.findById(edition.gameConfigurationId).session(session));
+    ledger = config
+      ? config.rules.figures.map((f) => ({
+          figure: f.name,
+          totalClp: f.poolClp,
+          allocatedClp: 0,
+          deliveredClp: 0,
+          unassignedClp: 0,
+          availableClp: f.poolClp,
+          pendingCreditClp: 0
+        }))
+      : [];
+  }
   const totals = {
-    totalClp: 400000,
+    totalClp: TOTAL_POOL_CLP,
     allocatedClp: 0,
     deliveredClp: 0,
     unassignedClp: 0,

@@ -36,7 +36,7 @@ const gameRules = (extra = {}) => ({
   nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
-    poolClp: E.pools[name],
+    poolClp: { F: 300000, A: 0, B: 0, U: 100000, L: 0, S: 0, O: 0 }[name],
     mask: ['10000', '00000', '00100', '00000', '00000']
   })),
   ...extra
@@ -420,7 +420,7 @@ test(
   }
 );
 
-test('the live event (binguito then letra F) opens one simultaneous round where binguito completes first since its cells are a subset of letra F, and the edition finishes without ever detecting the five idle, unfunded figures', async () => {
+test('the live event (binguito then letra F) configures only the two figures actually played, opened in one simultaneous round where binguito completes first since its cells are a subset of letra F', async () => {
   const editionId = oid();
   await createEdition({ editionId, actorId, name: 'Stage 5 synthetic edition' });
   const file = await I.stageImport(
@@ -455,22 +455,21 @@ test('the live event (binguito then letra F) opens one simultaneous round where 
   while (remaining)
     remaining = (await C.issueBatch(await command(editionId, { limit: 100 }), { generate })).remaining;
   await I.closeList(await command(editionId));
-  const figures = E.names.map((name) => ({
-    name,
-    poolClp: E.pools[name],
-    mask:
-      name === 'U'
-        ? ['10000', '00000', '00000', '00000', '00000']
-        : name === 'F'
-          ? ['10001', '00000', '00000', '00000', '00000']
-          : ['00000', '00000', '00000', '00000', '00001']
-  }));
-  await G.configure(await command(editionId, { settings: gameRules({ roundMode: 'simultaneous', figures }) }));
+  const figures = [
+    { name: 'U', poolClp: 100000, mask: ['10000', '00000', '00000', '00000', '00000'] },
+    { name: 'F', poolClp: 300000, mask: ['10001', '00000', '00000', '00000', '00000'] }
+  ];
+  await G.configure(
+    await command(editionId, {
+      settings: gameRules({ roundMode: 'simultaneous', order: ['U', 'F'], figures })
+    })
+  );
   await start(editionId);
 
   const round = await M.Round.findById((await M.Edition.findById(editionId)).currentRoundId);
-  assert.deepEqual([...round.figures].sort(), [...E.names].sort());
+  assert.deepEqual([...round.figures].sort(), ['F', 'U']);
   assert.equal(await M.Round.countDocuments({ editionId }), 1);
+  assert.equal(await M.FigureResult.countDocuments({ editionId }), 2);
 
   const money = require('./helpers/prize-fixture.cjs').helpers(actorId);
   await ball(editionId, cornerNumber);
@@ -478,7 +477,6 @@ test('the live event (binguito then letra F) opens one simultaneous round where 
   const uResult = results.find((r) => r.figure === 'U');
   assert.equal(uResult.state, 'detected');
   assert.equal(results.find((r) => r.figure === 'F').state, 'open');
-  for (const idle of results.filter((r) => !['U', 'F'].includes(r.figure))) assert.equal(idle.state, 'open');
   await money.settle(editionId, await money.resolve(editionId, [], uResult._id));
 
   await ball(editionId, fullNumber);

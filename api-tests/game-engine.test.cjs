@@ -16,7 +16,7 @@ const base = () => ({
   nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
-    poolClp: E.pools[name],
+    poolClp: name === 'O' ? 100000 : 50000,
     mask: ['10000', '00000', '00100', '00000', '00000']
   }))
 });
@@ -67,6 +67,36 @@ test('all adjudication-relevant rules and reviewed masks are required before con
     (e) => e.publicCode === 'game_mask'
   );
 });
+test('an edition can play anywhere from 1 to 7 figures, as long as their pools add up to exactly 400000', () => {
+  const rules = base();
+  const only = {
+    ...rules,
+    order: ['F'],
+    figures: [{ name: 'F', mask: rules.figures[0].mask, poolClp: 400000 }]
+  };
+  assert.deepEqual(E.validateConfiguration(only).order, ['F']);
+  assert.equal(E.validateConfiguration(only).figures.length, 1);
+  assert.throws(
+    () => E.validateConfiguration({ ...rules, order: [], figures: [] }),
+    (e) => e.publicCode === 'game_order'
+  );
+  assert.throws(
+    () => E.validateConfiguration({ ...rules, order: [...rules.order, 'F'] }),
+    (e) => e.publicCode === 'game_order'
+  );
+  assert.throws(
+    () =>
+      E.validateConfiguration({
+        ...only,
+        figures: [{ ...only.figures[0], poolClp: 399999 }]
+      }),
+    (e) => e.publicCode === 'game_pool_total'
+  );
+  assert.throws(
+    () => E.validateConfiguration({ ...only, figures: [{ ...only.figures[0], poolClp: -1 }] }),
+    (e) => e.publicCode === 'game_mask'
+  );
+});
 test('free center is always satisfied and marks outside the mask do not invalidate a completion', () => {
   const cells = Array.from({ length: 25 }, (_, i) => (i === 12 ? null : i + 1)),
     mask = ['10000', '00000', '00100', '00000', '00000'];
@@ -96,7 +126,7 @@ test('proximity counts for configured near-miss distances are exact, not capped 
     cells[0] = i; // every card still misses exactly one required number: distance 1
     return { cardId: `card-${i}`, participantId: `person-${i}`, cells };
   });
-  const figures = [{ name: 'F', mask, poolClp: E.pools.F }];
+  const figures = [{ name: 'F', mask, poolClp: 400000 }];
   const evaluated = E.evaluate(roster, figures, [], new Set(), new Set(), [1, 2, 3]);
   const summary = evaluated.summaries[0];
   assert.equal(summary.nearCards.length, 10); // display list stays capped

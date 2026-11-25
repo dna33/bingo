@@ -314,7 +314,8 @@ async function nextRound(command) {
     if (!['playing', 'paused'].includes(edition.state)) throw fail('game_state');
     const config = await configuration(edition, session),
       round = await activeRound(edition, session);
-    if (config.rules.roundMode !== 'independent' || round.ordinal >= 6) throw fail('game_rounds_complete');
+    if (config.rules.roundMode !== 'independent' || round.ordinal >= config.rules.order.length - 1)
+      throw fail('game_rounds_complete');
     if (!(await M.FigureResult.exists({ roundId: round._id, state: { $ne: 'open' } }).session(session)))
       throw fail('game_round_incomplete');
     if (

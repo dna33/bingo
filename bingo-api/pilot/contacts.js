@@ -112,7 +112,9 @@ function createService(clock = () => new Date()) {
         typeof input.receivedAt !== 'string' ||
         !/^\d{4}-\d\d-\d\dT.*(?:Z|[+-]\d\d:\d\d)$/.test(input.receivedAt)
       )
-        throw failure(400, 'Response time must include timezone');
+        throw Object.assign(failure(400, 'Response time must include timezone'), {
+          publicCode: 'contact_response_format'
+        });
       const receivedAt = new Date(input.receivedAt);
       if (
         !Number.isFinite(receivedAt.getTime()) ||

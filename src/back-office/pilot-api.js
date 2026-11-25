@@ -36,6 +36,8 @@ const messages = {
   contact_evidence: 'Registra evidencia del aviso, respuesta o revisión (hasta 2.000 caracteres).',
   contact_recipient: 'El participante no tiene destinatario registrado para ese canal.',
   contact_response_time: 'La recepción debe ser posterior al aviso y no puede estar en el futuro.',
+  contact_response_format:
+    'La hora de recepción debe ser ISO 8601 con zona horaria, por ejemplo 2026-11-24T20:30:00-03:00.',
   contact_not_expired: 'Todavía no venció el minuto individual de respuesta.',
   contact_review_required: 'Revisa el canal y confirma que no hay una respuesta oportuna pendiente.',
   game_configuration:
@@ -50,13 +52,13 @@ const messages = {
   game_contact_clock: 'Elige cuándo inicia el minuto de contacto.',
   game_mask_review: 'Marca la casilla de revisión de máscaras y reglas.',
   game_confirmation_reference: 'Ingresa una referencia de confirmación de reglas (hasta 1.000 caracteres).',
-  game_order: 'El orden de figuras debe listar F,A,B,U,L,S,O exactamente una vez cada una.',
-  game_figures_set: 'Debe haber exactamente siete figuras, con nombres F,A,B,U,L,S,O sin repetir.',
+  game_order: 'El orden de figuras debe listar entre 1 y 7 de F,A,B,U,L,S,O, cada una a lo sumo una vez.',
+  game_figures_set: 'Debe haber una figura por cada letra incluida en el orden, sin nombres repetidos.',
   game_near_miss: 'Los umbrales de alerta deben ser enteros entre 1 y 20, sin repetir (máximo 10).',
   game_cross_figure_policy:
     'Las figuras simultáneas requieren permitir varias figuras por persona; falta definir la otra prioridad.',
-  game_mask:
-    'Revisa las siete máscaras de 5 × 5 y los pozos: U (Binguito) $100.000, F (letra completa) $300.000, el resto en $0.',
+  game_mask: 'Revisa las máscaras de 5 × 5 de las figuras incluidas; cada pozo debe ser un entero mayor o igual a 0.',
+  game_pool_total: 'La suma de los pozos de las figuras incluidas debe ser exactamente $400.000.',
   game_configuration_required: 'Confirma primero las reglas y máscaras del juego.',
   game_frozen: 'Las reglas quedaron congeladas al preparar la partida.',
   game_state: 'Esta acción no corresponde al estado actual. Actualiza la partida.',

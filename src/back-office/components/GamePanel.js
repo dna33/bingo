@@ -146,7 +146,6 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
     discardPolicy: '',
     noResponsePolicy: '',
     contactClockStart: '',
-    order: 'F,A,B,U,L,S,O',
     maskReviewConfirmed: false,
     confirmationReference: '',
     nearMissThresholds: '1,2,3',
@@ -278,20 +277,22 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
+                  const included = draft.figures.filter((f) => f.included);
                   run(() =>
                     mutate('configure', {
                       settings: {
                         ...draft,
                         repeatWinners: draft.repeatWinners === 'true',
                         pauseDuringContact: draft.pauseDuringContact === 'true',
-                        order: draft.order.split(',').map((s) => s.trim().toUpperCase()),
+                        order: included.map((f) => f.name),
                         nearMissThresholds: draft.nearMissThresholds
                           .split(',')
                           .map((s) => s.trim())
                           .filter(Boolean)
                           .map(Number),
-                        figures: draft.figures.map((f) => ({
-                          ...f,
+                        figures: included.map((f) => ({
+                          name: f.name,
+                          poolClp: Number(f.poolClp),
                           mask: f.mask.map((row) => row.trim()).filter(Boolean)
                         }))
                       }
@@ -318,14 +319,6 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                   </label>
                 ))}
                 <label>
-                  Orden de figuras
-                  <input
-                    required
-                    value={draft.order}
-                    onChange={(e) => setDraft({ ...draft, order: e.target.value })}
-                  />
-                </label>
-                <label>
                   Alertar cartones a N extracciones de completar (separadas por coma; vacío desactiva)
                   <input
                     value={draft.nearMissThresholds}
@@ -334,14 +327,47 @@ export default function GamePanel({ edition, token, permissions, onChanged }) {
                 </label>
                 <p>
                   Los dibujos siguientes son referencias del brief: revísalos antes de confirmar. El centro L
-                  es libre. Se conservan siete pozos por un total de $400.000.
+                  es libre. Marca qué figuras participan de esta edición y su pozo; las que dejes sin marcar
+                  no se juegan en absoluto (no abren ronda, no tienen pozo, no pueden detectarse ni pagar).
+                  Asignado: ${draft.figures
+                    .filter((f) => f.included)
+                    .reduce((sum, f) => sum + (Number(f.poolClp) || 0), 0)
+                    .toLocaleString('es-CL')}{' '}
+                  de $400.000.
                 </p>
                 <div className="game-figures">
                   {draft.figures.map((figure, i) => (
                     <fieldset key={figure.name}>
-                      <legend>
-                        Figura {figure.name} · ${figure.poolClp.toLocaleString('es-CL')}
-                      </legend>
+                      <legend>Figura {figure.name}</legend>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={figure.included}
+                          onChange={(e) => {
+                            const figures = draft.figures.map((f, j) =>
+                              j === i ? { ...f, included: e.target.checked } : f
+                            );
+                            setDraft({ ...draft, figures });
+                          }}
+                        />
+                        Incluir esta figura en la edición
+                      </label>
+                      <label>
+                        Pozo de la figura {figure.name} (CLP)
+                        <input
+                          type="number"
+                          min="0"
+                          step="1"
+                          disabled={!figure.included}
+                          value={figure.poolClp}
+                          onChange={(e) => {
+                            const figures = draft.figures.map((f, j) =>
+                              j === i ? { ...f, poolClp: e.target.value } : f
+                            );
+                            setDraft({ ...draft, figures });
+                          }}
+                        />
+                      </label>
                       <Mask mask={figure.mask} />
                       {alternateMasks[figure.name] && (
                         <label>

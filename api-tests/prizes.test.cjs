@@ -344,21 +344,21 @@ test('credit requires full amount, original verified account, actual date and pr
   assert.equal((await R.report(id, 'delivered')).total, 1);
   await assert.rejects(M.PrizeCredit.updateOne({ _id: record._id }, { amountClp: 1 }), /append-only/);
 });
-test('the live event (binguito then letra F) opens one simultaneous round where binguito completes first since its cells are a subset of letra F, settles both funded pools and finishes without ever detecting the idle figures', async () => {
-  const figures = E.names.map((name) => ({
-    name,
-    poolClp: E.pools[name],
-    mask:
-      name === 'U'
-        ? ['10000', '00000', '00000', '00000', '00000']
-        : name === 'F'
-          ? ['10001', '00000', '00000', '00000', '00000']
-          : ['00000', '00000', '00000', '00000', '00001']
-  }));
-  const id = await h.fixture(1, { roundMode: 'simultaneous', figures }, undefined, [
-    [1, 0],
-    [2, 4]
-  ]);
+test('the live event (binguito then letra F) configures only the two figures actually played, opened in one simultaneous round where binguito completes first since its cells are a subset of letra F', async () => {
+  const figures = [
+    { name: 'U', poolClp: 100000, mask: ['10000', '00000', '00000', '00000', '00000'] },
+    { name: 'F', poolClp: 300000, mask: ['10001', '00000', '00000', '00000', '00000'] }
+  ];
+  const id = await h.fixture(
+    1,
+    { roundMode: 'simultaneous', order: ['U', 'F'], figures },
+    undefined,
+    [
+      [1, 0],
+      [2, 4]
+    ]
+  );
+  assert.equal(await M.FigureResult.countDocuments({ editionId: id }), 2);
   assert.equal(await M.Round.countDocuments({ editionId: id }), 1);
   await h.ball(id, 1);
   const binguito = await h.resolve(id);
@@ -380,24 +380,17 @@ test('the live event (binguito then letra F) opens one simultaneous round where 
   assert.equal((await totals(id)).deliveredClp, 400000);
 });
 test('a figure with no pool this event blocks preparation instead of paying out money that was never budgeted', async () => {
-  const figures = E.names.map((name) => ({
-    name,
-    poolClp: E.pools[name],
-    mask:
-      name === 'U'
-        ? ['10000', '00000', '00000', '00000', '00000']
-        : name === 'F'
-          ? ['10001', '00000', '00000', '00000', '00000']
-          : name === 'A'
-            ? ['00000', '00000', '00000', '00000', '00001']
-            : ['00000', '00000', '00000', '10000', '00000']
-  }));
-  const id = await h.fixture(1, { roundMode: 'simultaneous', figures }, undefined, [
+  const figures = [
+    { name: 'U', poolClp: 100000, mask: ['10000', '00000', '00000', '00000', '00000'] },
+    { name: 'F', poolClp: 300000, mask: ['10001', '00000', '00000', '00000', '00000'] },
+    { name: 'A', poolClp: 0, mask: ['00000', '00000', '00000', '00000', '00001'] }
+  ];
+  const id = await h.fixture(1, { roundMode: 'simultaneous', order: ['U', 'F', 'A'], figures }, undefined, [
     [1, 0],
     [2, 4],
-    [3, 24],
-    [75, 15]
+    [3, 24]
   ]);
+  assert.equal(await M.FigureResult.countDocuments({ editionId: id }), 3);
   await h.ball(id, 1);
   await h.settle(id, await h.resolve(id));
   await h.ball(id, 2);
@@ -549,7 +542,7 @@ test('simultaneous figures settle independently and processing figures in revers
   // ball never draws, so they stay open instead of detecting a completion nobody budgeted for.
   const figures = E.names.map((name) => ({
     name,
-    poolClp: E.pools[name],
+    poolClp: name === 'F' ? 300000 : name === 'U' ? 100000 : 0,
     mask: ['F', 'U'].includes(name)
       ? ['10000', '00000', '00100', '00000', '00000']
       : ['00000', '00000', '00100', '00000', '00001']

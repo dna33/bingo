@@ -217,7 +217,9 @@ test('draft rules require explicit modalities, policies and mask review before c
   fireEvent.submit(ui.getByText('Confirmar reglas del juego').closest('form'));
   await waitForElement(() => ui.getByText('Operación registrada en el historial oficial.'));
   const body = JSON.parse(request.mock.calls.find((call) => call[0].endsWith('/configure'))[2].body);
-  expect(body.settings.figures).toHaveLength(7);
+  expect(body.settings.figures).toHaveLength(2);
+  expect(body.settings.order).toEqual(['F', 'U']);
+  expect(body.settings.figures.map((f) => f.name).sort()).toEqual(['F', 'U']);
   expect(body.settings.maskReviewConfirmed).toBe(true);
   expect(body.settings.repeatWinners).toBe(true);
 });

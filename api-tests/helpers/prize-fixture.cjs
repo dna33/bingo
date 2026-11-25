@@ -24,7 +24,7 @@ const rules = (extra = {}) => ({
   nearMissThresholds: [1, 2, 3],
   figures: E.names.map((name) => ({
     name,
-    poolClp: E.pools[name],
+    poolClp: { F: 300000, A: 0, B: 0, U: 100000, L: 0, S: 0, O: 0 }[name],
     mask: ['10000', '00000', '00100', '00000', '00000']
   })),
   ...extra

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { randomBytes } = require('node:crypto');
 const M = require('./models');
 const { execute, audit, fingerprint } = require('./commands');
-const { names, pools } = require('./game-engine');
+const { names, TOTAL_POOL_CLP } = require('./game-engine');
 const { split } = require('./prize-split');
 const failure = require('./errors');
 const fail = (code) => Object.assign(failure(409, 'Prize operation blocked'), { publicCode: code });
@@ -16,17 +16,25 @@ function identifier(value) {
   if (!mongoose.isValidObjectId(value)) throw failure(400, 'Invalid prize identifier');
   return value;
 }
+async function configuration(editionId, session) {
+  const edition = await M.Edition.findById(editionId).session(session);
+  return edition && edition.gameConfigurationId
+    ? M.GameConfiguration.findById(edition.gameConfigurationId).session(session)
+    : null;
+}
 async function ensurePools(editionId, session) {
   const existing = await M.PrizePool.find({ editionId }).session(session);
   if (!existing.length && (await M.Award.exists({ editionId }).session(session))) throw fail('prize_legacy');
-  for (const figure of names)
+  const config = await configuration(editionId, session);
+  if (!config) throw fail('prize_legacy');
+  for (const figure of config.rules.figures)
     await M.PrizePool.updateOne(
-      { editionId, figure },
+      { editionId, figure: figure.name },
       {
         $setOnInsert: {
           editionId,
-          figure,
-          totalClp: pools[figure],
+          figure: figure.name,
+          totalClp: figure.poolClp,
           allocatedClp: 0,
           deliveredClp: 0,
           unassignedClp: 0
@@ -36,17 +44,24 @@ async function ensurePools(editionId, session) {
     );
 }
 async function checkBudget(editionId, session) {
+  const config = await configuration(editionId, session);
   const ledger = await M.PrizePool.find({ editionId }).session(session).lean();
   const awards = await M.Award.find({ editionId }).session(session).lean();
   const credits = await M.PrizeCredit.find({ editionId }).session(session).lean();
   const settlements = await M.PrizeSettlement.find({ editionId }).session(session).lean();
-  if (ledger.length !== 7 || ledger.reduce((sum, p) => sum + p.totalClp, 0) !== 400000)
+  if (
+    !config ||
+    ledger.length !== config.rules.figures.length ||
+    ledger.reduce((sum, p) => sum + p.totalClp, 0) !== TOTAL_POOL_CLP
+  )
     throw fail('prize_budget');
   for (const pool of ledger) {
     const allocated = awards.filter((a) => sid(a.poolId) === sid(pool._id));
     const delivered = credits.filter((c) => sid(c.poolId) === sid(pool._id));
+    const configured = config.rules.figures.find((f) => f.name === pool.figure);
     if (
-      pool.totalClp !== pools[pool.figure] ||
+      !configured ||
+      pool.totalClp !== configured.poolClp ||
       settlements
         .filter((s) => sid(s.poolId) === sid(pool._id))
         .reduce((sum, s) => sum + s.allocatedClp, 0) !== pool.allocatedClp ||
@@ -148,7 +163,8 @@ async function context(edition, resultId, session) {
     _id: result.gameConfigurationId,
     editionId: edition._id
   }).session(session);
-  if (!config || !names.includes(result.figure) || result.poolClp !== pools[result.figure])
+  const configured = config && config.rules.figures.find((f) => f.name === result.figure);
+  if (!config || !names.includes(result.figure) || !configured || result.poolClp !== configured.poolClp)
     throw fail('prize_budget');
   const pool = await M.PrizePool.findOne({ editionId: edition._id, figure: result.figure }).session(session);
   if (!pool || available(pool) <= 0) throw fail('prize_budget');
